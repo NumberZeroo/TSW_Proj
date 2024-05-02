@@ -21,6 +21,7 @@ CREATE TABLE Ordine (
 );
 
 CREATE TABLE Pet (
+	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     Nome VARCHAR(255) NOT NULL,
     IdUtente BIGINT UNSIGNED NOT NULL,
     imgPath VARCHAR(255) NOT NULL,
@@ -28,7 +29,7 @@ CREATE TABLE Pet (
     Taglia ENUM('PICCOLA', 'MEDIA', 'GRANDE') NULL,
     Sterilizzato CHAR(255) NULL,
     DataNascita DATE NOT NULL,
-    PRIMARY KEY(Nome),
+    PRIMARY KEY(id),
     FOREIGN KEY(IdUtente) REFERENCES Utente(id)
 );
 

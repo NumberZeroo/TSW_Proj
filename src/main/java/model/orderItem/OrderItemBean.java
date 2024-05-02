@@ -1,14 +1,14 @@
-package model.beans;
+package model.orderItem;
 
 import java.io.Serializable;
 
-public class OrderItem implements Serializable {
+public class OrderItemBean implements Serializable {
     private long idItem;
     private long idOrdine;
     private long prezzo;
     private long quantita;
 
-    public OrderItem() {}
+    public OrderItemBean() {}
 
     public long getIdItem() {
         return idItem;

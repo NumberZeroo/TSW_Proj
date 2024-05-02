@@ -1,8 +1,8 @@
-package model.beans;
+package model.prodotto;
 
 import java.io.Serializable;
 
-public class Prodotto implements Serializable {
+public class ProdottoBean implements Serializable {
     private long id;
     private String nome;
     private int disponibilita;
@@ -12,10 +12,10 @@ public class Prodotto implements Serializable {
     private int maxEta;
     private int iva;
     private long prezzo;
-    private int sterilizzati;
+    private boolean sterilizzati;
     private String imgPath;
 
-    public Prodotto() {}
+    public ProdottoBean() {}
 
     public long getId() {
         return id;
@@ -89,11 +89,11 @@ public class Prodotto implements Serializable {
         this.prezzo = prezzo;
     }
 
-    public int getSterilizzati() {
+    public boolean getSterilizzati() {
         return sterilizzati;
     }
 
-    public void setSterilizzati(int sterilizzati) {
+    public void setSterilizzati(boolean sterilizzati) {
         this.sterilizzati = sterilizzati;
     }
 

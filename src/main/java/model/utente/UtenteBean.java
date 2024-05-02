@@ -1,8 +1,7 @@
-package model.beans;
-
+package model.utente;
 import java.io.Serializable;
 
-public class Utente implements Serializable {
+public class UtenteBean implements Serializable {
     private long id;
     private String username;
     private String email;
@@ -10,7 +9,7 @@ public class Utente implements Serializable {
     private long isAdmin;
     private String password;
 
-    public Utente() {}
+    public UtenteBean() {}
 
     public long getId() {
         return id;

@@ -1,13 +1,13 @@
-package model.beans;
+package model.carrello;
 
 import java.io.Serializable;
 
-public class Carrello implements Serializable {
+public class CarrelloBean implements Serializable {
     private long idUtente;
     private long idProdotto;
     private long quantita;
 
-    public Carrello() {}
+    public CarrelloBean() {}
 
     public long getIdUtente() {
         return idUtente;

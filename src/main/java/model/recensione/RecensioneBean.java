@@ -1,9 +1,9 @@
-package model.beans;
+package model.recensione;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.io.*;
+import java.sql.*;
 
-public class Recensione implements Serializable {
+public class RecensioneBean implements Serializable {
     private long id;
     private long idUtente;
     private String titolo;
@@ -12,7 +12,7 @@ public class Recensione implements Serializable {
     private Date data;
     private long idProdotto;
 
-    public Recensione() {}
+    public RecensioneBean() {}
 
     public long getId() {
         return id;

@@ -1,13 +1,13 @@
-package model.beans;
+package model.ordine;
 
 import java.io.Serializable;
 
-public class Ordine implements Serializable {
+public class OrdineBean implements Serializable {
     private long id;
     private long idUtente;
     private String pathFattura;
 
-    public Ordine() {}
+    public OrdineBean() {}
 
     public long getId() {
         return id;

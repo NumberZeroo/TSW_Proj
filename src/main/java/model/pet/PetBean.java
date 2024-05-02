@@ -1,9 +1,10 @@
-package model.beans;
+package model.pet;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.*;
 
-public class Pet implements Serializable {
+public class PetBean implements Serializable {
+    private int id;
     private String nome;
     private long idUtente;
     private String imgPath;
@@ -12,7 +13,15 @@ public class Pet implements Serializable {
     private String sterilizzato;
     private Date dataNascita;
 
-    public Pet() {
+    public PetBean() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -63,7 +72,7 @@ public class Pet implements Serializable {
         this.sterilizzato = sterilizzato;
     }
 
-    public Date getDataNascita() {
+    public java.sql.Date getDataNascita() {
         return dataNascita;
     }
 
@@ -73,8 +82,9 @@ public class Pet implements Serializable {
 
     @Override
     public String toString() {
-        return "Pet{" +
-                "nome='" + nome + '\'' +
+        return "PetBean{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
                 ", idUtente=" + idUtente +
                 ", imgPath='" + imgPath + '\'' +
                 ", tipo='" + tipo + '\'' +
