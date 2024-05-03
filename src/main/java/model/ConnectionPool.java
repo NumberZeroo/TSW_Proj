@@ -7,7 +7,9 @@ import java.util.List;
 
 public class ConnectionPool {
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/tswproj";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/tswproj"
+            + "?useUnicode=true&useJDBCCompliantTimezoneShift=true"
+            + "&useLegacyDatetimecode=false&serverTimezone=UTC";
 
     private static final String USERNAME = "root";
 
@@ -29,11 +31,13 @@ public class ConnectionPool {
 
     public static synchronized Connection getConnection() {
             try {
-                Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-                return conn;
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 return null;
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
     }
 

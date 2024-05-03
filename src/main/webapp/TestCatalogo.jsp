@@ -8,37 +8,35 @@
     <title>Catalogo Prodotti</title>
 </head>
 <body>
-<h1>Catalogo Prodotti</h1>
+    <h1>Catalogo Prodotti</h1>
 
-<% List<ProdottoBean> prodotti = (List<ProdottoBean>) request.getAttribute("prodotti"); %>
+    <% List<ProdottoBean> prodotti = (List<ProdottoBean>) request.getAttribute("prodotti"); %>
 
-<% if(prodotti == null){ %>
-    <p>Nessun prodotto disponibile.</p>
-<% } %>
+    <% if(prodotti == null){ %>
+        <p>Nessun prodotto disponibile.</p>
+    <% } %>
 
-<% if(prodotti != null && !prodotti.isEmpty()){ %>
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Nome Prodotto</th>
-            <th>Prezzo</th>
-            <th>Disponibilità</th>
-            <!-- Aggiungi altre colonne se necessario -->
-        </tr>
-        </thead>
-        <tbody>
-        <% for(ProdottoBean prodotto : prodotti){ %>
+    <% if(prodotti != null && !prodotti.isEmpty()){ %>
+        <table>
+            <thead>
             <tr>
-                <td><%=prodotto.getId()%></td>
-                <!-- Aggiungi altre colonne se necessario -->
+                <th>Nome Prodotto</th>
+                <th>Tipo</th>
+                <th>Taglia</th>
+                <th>Prezzo</th>
             </tr>
-        <% } %>
-        </tbody>
-    </table>
-<% } %>
-
-<c:if test="${not empty errorMessage}">
-    <p style="color: red;">${errorMessage}</p>
-</c:if>
+            </thead>
+            <tbody>
+            <% for(ProdottoBean prodotto : prodotti){ %>
+                <tr>
+                    <td><%=prodotto.getNome()%></td>
+                    <td><%=prodotto.getTipo()%></td>
+                    <td><%=prodotto.getTaglia()%></td>
+                    <td><%=prodotto.getPrezzo()%></td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+    <% } %>
 </body>
 </html>
