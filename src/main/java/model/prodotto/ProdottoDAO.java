@@ -2,6 +2,8 @@ package model.prodotto;
 
 import model.ConnectionPool;
 import model.DAOInterface;
+
+import javax.swing.*;
 import java.sql.*;
 import java.util.*;
 
@@ -36,6 +38,9 @@ public class ProdottoDAO implements DAOInterface<ProdottoBean, Long> {
                 ProdottoBean prodotto = getProdotto(resultSet);
                 prodotti.add(prodotto);
             }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "mammt:");
+            e.printStackTrace();
         }
         return prodotti;
     }
