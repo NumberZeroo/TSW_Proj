@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConnectionPool {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/campionato" +
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/tswProj" +
             "?useUnicode=true&useJDBCCompliantTimezoneShift=true" +
             "&useLegacyDatetimecode=false&serverTimezone=UTC";
 
