@@ -3,9 +3,9 @@ package model.pet;
 import com.tswproject.tswproj.EmptyPoolException;
 import model.AbstractDAO;
 import model.DAOInterface;
-import com.tswproject.tswproj.ConnectionPool;
 import java.sql.*;
 import java.util.*;
+
 public class PetDAO extends AbstractDAO implements DAOInterface<PetBean, String> {
     public PetDAO() throws EmptyPoolException {
         super();

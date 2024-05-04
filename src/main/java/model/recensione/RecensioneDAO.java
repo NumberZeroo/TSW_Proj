@@ -2,7 +2,6 @@ package model.recensione;
 
 import com.tswproject.tswproj.EmptyPoolException;
 import model.AbstractDAO;
-import com.tswproject.tswproj.ConnectionPool;
 import model.DAOInterface;
 
 import java.sql.*;

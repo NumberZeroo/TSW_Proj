@@ -15,9 +15,7 @@ public abstract class AbstractDAO {
 
     public void close() {
         if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException ignored) {}
+            ConnectionPool.releaseConnection(connection);
         }
     }
 }

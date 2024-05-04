@@ -3,7 +3,6 @@ package model.orderItem;
 import com.tswproject.tswproj.EmptyPoolException;
 import model.AbstractDAO;
 import model.DAOInterface;
-import com.tswproject.tswproj.ConnectionPool;
 import java.sql.*;
 import java.util.*;
 
