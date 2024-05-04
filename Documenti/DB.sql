@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS tswProj;
-CREATE DATABASE tswProj;
+DROP DATABASE IF EXISTS tswproj;
+CREATE DATABASE tswproj;
 USE tswProj;
 
 CREATE TABLE Utente (
@@ -25,12 +25,18 @@ CREATE TABLE Pet (
     Nome VARCHAR(255) NOT NULL,
     IdUtente BIGINT UNSIGNED NOT NULL,
     imgPath VARCHAR(255) NOT NULL,
-    Tipo ENUM('CANE', 'GATTO', 'VOLATILE') NOT NULL,
+    Tipo BIGINT UNSIGNED NOT NULL,
     Taglia ENUM('PICCOLA', 'MEDIA', 'GRANDE') NULL,
     Sterilizzato CHAR(255) NULL,
     DataNascita DATE NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(IdUtente) REFERENCES Utente(id)
+    FOREIGN KEY(IdUtente) REFERENCES Utente(id),
+    FOREIGN KEY(Tipo) REFERENCES Animale(id)
+);
+
+CREATE TABLE Animale (
+	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	Nome VARCHAR(255) NOT NULL,
 );
 
 CREATE TABLE Prodotto (
@@ -38,13 +44,15 @@ CREATE TABLE Prodotto (
     Nome VARCHAR(255) NOT NULL,
     Disponibilità TINYINT(1) NOT NULL,
     Taglia ENUM('PICCOLA', 'MEDIA', 'GRANDE') NULL,
-    Tipo VARCHAR(255) NOT NULL,
+    Categoria VARCHAR(255) NOT NULL,
+    TipoAnimale BIGINT UNSIGNED NOT NULL,
     MinEta INT NULL,
     MaxEta INT NULL,
     IVA ENUM('4', '10', '22') NOT NULL,
     Prezzo BIGINT NOT NULL,
     Sterilizzati TINYINT(1) NULL,
-    imgPath VARCHAR(255) NOT NULL
+    imgPath VARCHAR(255) NOT NULL,
+    FOREIGN KEY(TipoAnimale) REFERENCES Animale(id)
 );
 
 CREATE TABLE Carrello (
