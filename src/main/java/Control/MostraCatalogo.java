@@ -1,16 +1,12 @@
 package Control;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 import com.tswproject.tswproj.EmptyPoolException;
-import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.*;
 import model.prodotto.*;
-
-import javax.swing.*;
 
 public class MostraCatalogo extends HttpServlet {
 
@@ -27,7 +23,7 @@ public class MostraCatalogo extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         try {
             List<ProdottoBean> prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
             request.setAttribute("prodotti", prodotti);
