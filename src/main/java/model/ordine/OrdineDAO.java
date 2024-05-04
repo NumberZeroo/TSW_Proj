@@ -1,16 +1,16 @@
 package model.ordine;
 
-import model.ConnectionPool;
+import com.tswproject.tswproj.EmptyPoolException;
+import model.AbstractDAO;
+import com.tswproject.tswproj.ConnectionPool;
 import model.DAOInterface;
 
 import java.sql.*;
 import java.util.*;
 
-public class OrdineDAO implements DAOInterface<OrdineBean, Long> {
-    private Connection connection;
-
-    public OrdineDAO() {
-        this.connection = ConnectionPool.getConnection();
+public class OrdineDAO extends AbstractDAO implements DAOInterface<OrdineBean, Long> {
+    public OrdineDAO() throws EmptyPoolException {
+        super();
     }
 
     @Override
@@ -78,11 +78,5 @@ public class OrdineDAO implements DAOInterface<OrdineBean, Long> {
         ordine.setIdUtente(resultSet.getLong("idUtente"));
         ordine.setPathFattura(resultSet.getString("pathFattura"));
         return ordine;
-    }
-
-    public void close() {
-        if (connection != null) {
-            ConnectionPool.releaseConnection(connection);
-        }
     }
 }

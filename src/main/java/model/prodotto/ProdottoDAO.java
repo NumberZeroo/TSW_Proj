@@ -1,17 +1,17 @@
 package model.prodotto;
 
-import model.ConnectionPool;
+import com.tswproject.tswproj.EmptyPoolException;
+import model.AbstractDAO;
+import com.tswproject.tswproj.ConnectionPool;
 import model.DAOInterface;
 
 import javax.swing.*;
 import java.sql.*;
 import java.util.*;
 
-public class ProdottoDAO implements DAOInterface<ProdottoBean, Long> {
-    private Connection connection;
-
-    public ProdottoDAO() {
-        this.connection = ConnectionPool.getConnection();
+public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBean, Long> {
+    public ProdottoDAO() throws EmptyPoolException {
+        super();
     }
 
     @Override
@@ -106,11 +106,5 @@ public class ProdottoDAO implements DAOInterface<ProdottoBean, Long> {
         prodotto.setSterilizzati(resultSet.getBoolean("Sterilizzati"));
         prodotto.setImgPath(resultSet.getString("imgPath"));
         return prodotto;
-    }
-
-    public void close() {
-        if (connection != null) {
-            ConnectionPool.releaseConnection(connection);
-        }
     }
 }

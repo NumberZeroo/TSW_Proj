@@ -1,15 +1,15 @@
 package model.orderItem;
 
+import com.tswproject.tswproj.EmptyPoolException;
+import model.AbstractDAO;
 import model.DAOInterface;
-import model.ConnectionPool;
+import com.tswproject.tswproj.ConnectionPool;
 import java.sql.*;
 import java.util.*;
 
-public class OrderItemDAO implements DAOInterface<OrderItemBean, Long> {
-    private Connection connection;
-
-    public OrderItemDAO() {
-        this.connection = ConnectionPool.getConnection();
+public class OrderItemDAO extends AbstractDAO implements DAOInterface<OrderItemBean, Long> {
+    public OrderItemDAO() throws EmptyPoolException {
+        super();
     }
 
     @Override
@@ -80,12 +80,5 @@ public class OrderItemDAO implements DAOInterface<OrderItemBean, Long> {
         orderItem.setPrezzo(resultSet.getLong("Prezzo"));
         orderItem.setQuantita(resultSet.getLong("Quantita"));
         return orderItem;
-    }
-
-    public void close() {
-        if (connection != null) {
-            ConnectionPool.releaseConnection(connection);
-            connection = null;
-        }
     }
 }

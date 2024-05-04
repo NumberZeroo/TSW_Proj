@@ -1,5 +1,7 @@
 package model.utente;
-import model.ConnectionPool;
+import com.tswproject.tswproj.EmptyPoolException;
+import model.AbstractDAO;
+import com.tswproject.tswproj.ConnectionPool;
 import model.DAOInterface;
 
 import java.sql.*;
@@ -7,11 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UtenteDAO implements DAOInterface<UtenteBean, Long> {
-    private Connection connection;
-
-    public UtenteDAO(Connection connection) {
-        this.connection = ConnectionPool.getConnection();
+public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, Long> {
+    public UtenteDAO(Connection connection) throws EmptyPoolException {
+        super();
     }
 
     @Override
@@ -89,11 +89,5 @@ public class UtenteDAO implements DAOInterface<UtenteBean, Long> {
         utente.setIsAdmin(resultSet.getLong("isAdmin"));
         utente.setPassword(resultSet.getString("password"));
         return utente;
-    }
-
-    public void close() {
-        if (connection != null) {
-            ConnectionPool.releaseConnection(connection);
-        }
     }
 }

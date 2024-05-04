@@ -1,14 +1,14 @@
 package model.pet;
 
+import com.tswproject.tswproj.EmptyPoolException;
+import model.AbstractDAO;
 import model.DAOInterface;
-import model.ConnectionPool;
+import com.tswproject.tswproj.ConnectionPool;
 import java.sql.*;
 import java.util.*;
-public class PetDAO implements DAOInterface<PetBean, String> {
-    private Connection connection;
-
-    public PetDAO() {
-        this.connection = ConnectionPool.getConnection();
+public class PetDAO extends AbstractDAO implements DAOInterface<PetBean, String> {
+    public PetDAO() throws EmptyPoolException {
+        super();
     }
 
     @Override
@@ -89,11 +89,5 @@ public class PetDAO implements DAOInterface<PetBean, String> {
         pet.setSterilizzato(resultSet.getString("Sterilizzato"));
         pet.setDataNascita(resultSet.getDate("DataNascita"));
         return pet;
-    }
-
-    public void close() {
-        if (connection != null) {
-            ConnectionPool.releaseConnection(connection);
-        }
     }
 }

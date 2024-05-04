@@ -1,16 +1,16 @@
 package model.recensione;
 
-import model.ConnectionPool;
+import com.tswproject.tswproj.EmptyPoolException;
+import model.AbstractDAO;
+import com.tswproject.tswproj.ConnectionPool;
 import model.DAOInterface;
 
 import java.sql.*;
 import java.util.*;
 
-public class RecensioneDAO implements DAOInterface<RecensioneBean, Long> {
-    private Connection connection;
-
-    public RecensioneDAO() {
-        this.connection = ConnectionPool.getConnection();
+public class RecensioneDAO extends AbstractDAO implements DAOInterface<RecensioneBean, Long> {
+    public RecensioneDAO() throws EmptyPoolException {
+        super();
     }
 
     @Override
@@ -90,11 +90,5 @@ public class RecensioneDAO implements DAOInterface<RecensioneBean, Long> {
         recensione.setData(resultSet.getDate("Data"));
         recensione.setIdProdotto(resultSet.getLong("idProdotto"));
         return recensione;
-    }
-
-    public void close() {
-        if (connection != null) {
-            ConnectionPool.releaseConnection(connection);
-        }
     }
 }

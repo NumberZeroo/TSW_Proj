@@ -1,15 +1,15 @@
 package model.carrello;
 
-import model.ConnectionPool;
+import com.tswproject.tswproj.EmptyPoolException;
+import model.AbstractDAO;
+import com.tswproject.tswproj.ConnectionPool;
 import model.DAOInterface;
 import java.sql.*;
 import java.util.*;
 
-public class CarrelloDAO implements DAOInterface<CarrelloBean, Long> {
-    private Connection connection;
-
-    public CarrelloDAO() {
-        this.connection = ConnectionPool.getConnection();
+public class CarrelloDAO extends AbstractDAO implements DAOInterface<CarrelloBean, Long> {
+    public CarrelloDAO() throws EmptyPoolException {
+        super();
     }
 
     @Override
@@ -78,12 +78,5 @@ public class CarrelloDAO implements DAOInterface<CarrelloBean, Long> {
         carrello.setIdProdotto(resultSet.getLong("idProdotto"));
         carrello.setQuantita(resultSet.getLong("Quantita"));
         return carrello;
-    }
-
-    public void close() {
-        if (connection != null) {
-            ConnectionPool.releaseConnection(connection);
-            connection = null;
-        }
     }
 }
