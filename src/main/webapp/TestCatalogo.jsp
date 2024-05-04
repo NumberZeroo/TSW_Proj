@@ -30,7 +30,7 @@
             <% for(ProdottoBean prodotto : prodotti){ %>
                 <tr>
                     <td><%=prodotto.getNome()%></td>
-                    <td><%=prodotto.getTipo()%></td>
+                    <td><%=prodotto.getCategoria()%></td>
                     <td><%=prodotto.getTaglia()%></td>
                     <td><%=prodotto.getPrezzo()%></td>
                 </tr>

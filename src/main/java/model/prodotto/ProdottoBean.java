@@ -7,13 +7,14 @@ public class ProdottoBean implements Serializable {
     private String nome;
     private int disponibilita;
     private String taglia;
-    private String tipo;
+    private String categoria;
     private int minEta;
     private int maxEta;
     private int iva;
     private long prezzo;
     private boolean sterilizzati;
     private String imgPath;
+    private long tipoAnimale;
 
     public ProdottoBean() {}
 
@@ -49,12 +50,12 @@ public class ProdottoBean implements Serializable {
         this.taglia = taglia;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     public int getMinEta() {
@@ -105,6 +106,14 @@ public class ProdottoBean implements Serializable {
         this.imgPath = imgPath;
     }
 
+    public long getTipoAnimale() {
+        return tipoAnimale;
+    }
+
+    public void setTipoAnimale(long tipoAnimale) {
+        this.tipoAnimale = tipoAnimale;
+    }
+
     @Override
     public String toString() {
         return "Prodotto{" +
@@ -112,7 +121,7 @@ public class ProdottoBean implements Serializable {
                 ", nome='" + nome + '\'' +
                 ", disponibilita=" + disponibilita +
                 ", taglia='" + taglia + '\'' +
-                ", tipo='" + tipo + '\'' +
+                ", tipo='" + categoria + '\'' +
                 ", minEta=" + minEta +
                 ", maxEta=" + maxEta +
                 ", iva=" + iva +

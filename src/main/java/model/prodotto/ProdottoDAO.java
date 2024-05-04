@@ -37,9 +37,6 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
                 ProdottoBean prodotto = getProdotto(resultSet);
                 prodotti.add(prodotto);
             }
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "mammt:");
-            e.printStackTrace();
         }
         return prodotti;
     }
@@ -51,7 +48,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setString(1, prodotto.getNome());
             statement.setInt(2, prodotto.getDisponibilita());
             statement.setString(3, prodotto.getTaglia());
-            statement.setString(4, prodotto.getTipo());
+            statement.setString(4, prodotto.getCategoria());
             statement.setInt(5, prodotto.getMinEta());
             statement.setInt(6, prodotto.getMaxEta());
             statement.setInt(7, prodotto.getIva());
@@ -69,7 +66,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setString(1, prodotto.getNome());
             statement.setInt(2, prodotto.getDisponibilita());
             statement.setString(3, prodotto.getTaglia());
-            statement.setString(4, prodotto.getTipo());
+            statement.setString(4, prodotto.getCategoria());
             statement.setInt(5, prodotto.getMinEta());
             statement.setInt(6, prodotto.getMaxEta());
             statement.setInt(7, prodotto.getIva());
@@ -97,13 +94,14 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         prodotto.setNome(resultSet.getString("Nome"));
         prodotto.setDisponibilita(resultSet.getInt("Disponibilità"));
         prodotto.setTaglia(resultSet.getString("Taglia"));
-        prodotto.setTipo(resultSet.getString("Tipo"));
+        prodotto.setCategoria(resultSet.getString("Categoria"));
         prodotto.setMinEta(resultSet.getInt("MinEta"));
         prodotto.setMaxEta(resultSet.getInt("MaxEta"));
         prodotto.setIva(Integer.parseInt(resultSet.getString("IVA")));
         prodotto.setPrezzo(resultSet.getLong("Prezzo"));
         prodotto.setSterilizzati(resultSet.getBoolean("Sterilizzati"));
         prodotto.setImgPath(resultSet.getString("imgPath"));
+        prodotto.setTipoAnimale(resultSet.getLong("TipoAnimale"));
         return prodotto;
     }
 }
