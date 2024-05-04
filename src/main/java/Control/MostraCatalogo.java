@@ -10,6 +10,8 @@ import model.prodotto.*;
 
 public class MostraCatalogo extends HttpServlet {
 
+    // Commento stupido
+
     private static final long serialVersionUID = 1L;
     private ProdottoDAO prodottoDAO;
 
