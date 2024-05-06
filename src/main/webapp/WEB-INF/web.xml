@@ -13,5 +13,4 @@
         <servlet-name>MostraCatalogo</servlet-name>
         <url-pattern>/Catalogo</url-pattern>
     </servlet-mapping>
-
 </web-app>
