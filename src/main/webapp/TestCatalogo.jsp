@@ -27,6 +27,7 @@
             <tbody>
             <% for(ProdottoBean prodotto : prodotti){ %>
                 <tr>
+                    <td><img src="${pageContext.request.contextPath}/Website%20assets/Kart_256.png" alt=""> </td>
                     <td><%=prodotto.getNome()%></td>
                     <td><%=prodotto.getCategoria()%></td>
                     <td><%=prodotto.getTaglia()%></td>
