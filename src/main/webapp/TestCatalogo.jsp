@@ -12,11 +12,9 @@
 
     <% List<ProdottoBean> prodotti = (List<ProdottoBean>) request.getAttribute("prodotti"); %>
 
-    <% if(prodotti == null){ %>
+    <% if(prodotti == null || prodotti.isEmpty()){ %>
         <p>Nessun prodotto disponibile.</p>
-    <% } %>
-
-    <% if(prodotti != null && !prodotti.isEmpty()){ %>
+    <% } else { %>
         <table>
             <thead>
             <tr>
