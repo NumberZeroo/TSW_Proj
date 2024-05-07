@@ -1,6 +1,7 @@
 package control;
 
 import com.tswproject.tswproj.EmptyPoolException;
+import com.tswproject.tswproj.Security;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -8,7 +9,6 @@ import model.utente.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.regex.*;
 import java.util.logging.Logger;
 
 @WebServlet(value = "/registerServlet")
@@ -42,12 +42,13 @@ public class RegisterServlet extends HttpServlet {
     private boolean registerUser(String username, String email, String password){
         UtenteBean utente = new UtenteBean();
 
-        // Controllo sulla validità della mail
-        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        if (!matcher.matches()) {
+        if (!Security.checkEmailFormat(email)) {
             System.out.println("Email non valida"); //todo client side error message
+            return false;
+        }
+
+        if (Security.containsUnsecureChars(username)) {
+            System.out.println("Username non valido"); //todo client side error message
             return false;
         }
 
@@ -56,7 +57,7 @@ public class RegisterServlet extends HttpServlet {
         utente.setEmail(email);
         utente.setImgPath("/test");  //todo default image path
         utente.setIsAdmin(0); //todo default isAdmin
-        utente.setPassword(password); //todo hash password
+        utente.setPassword(Security.getPasswordHash(password));
 
         try{
             UtenteDAO ut = new UtenteDAO();
