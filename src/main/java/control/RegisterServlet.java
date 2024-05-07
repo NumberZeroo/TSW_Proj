@@ -47,8 +47,13 @@ public class RegisterServlet extends HttpServlet {
             return false;
         }
 
+        if (Security.containsUnsecureChars(username)) {
+            System.out.println("Username non valido"); //todo client side error message
+            return false;
+        }
+
         //username, email, imgPath, isAdmin, password
-        utente.setUsername(username); //todo exclude unsecure chars
+        utente.setUsername(username);
         utente.setEmail(email);
         utente.setImgPath("/test");  //todo default image path
         utente.setIsAdmin(0); //todo default isAdmin
