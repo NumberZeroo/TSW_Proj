@@ -14,29 +14,16 @@
 
     <% if(prodotti == null || prodotti.isEmpty()){ %>
         <p>Nessun prodotto disponibile.</p>
-    <% } else { %>
-        <table>
-            <thead>
-            <tr>
-                <th>Img</th>
-                <th>Nome Prodotto</th>
-                <th>Tipo</th>
-                <th>Taglia</th>
-                <th>Prezzo</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% for(ProdottoBean prodotto : prodotti){ %>
-                <tr>
-                    <td><img src="${pageContext.request.contextPath}/Website%20assets/Kart_256.png" alt=""> </td>
-                    <td><%=prodotto.getNome()%></td>
-                    <td><%=prodotto.getCategoria()%></td>
-                    <td><%=prodotto.getTaglia()%></td>
-                    <td><%=prodotto.getPrezzo()%></td>
-                </tr>
-            <% } %>
-            </tbody>
-        </table>
-    <% } %>
+    <% } else {
+        for(ProdottoBean prodotto : prodotti) { %>
+    <div>
+        <a href="product.jsp?id=<%=prodotto.getId()%>">
+            <img src="<%=prodotto.getImgPath()%>" alt="Immagine">
+            <h2><%=prodotto.getNome()%></h2>
+            <p>Prezzo: <%=prodotto.getPrezzo()%> €</p>
+        </a>
+    </div>
+    <% }
+        } %>
 </body>
 </html>
