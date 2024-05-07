@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, Long> {
-    public UtenteDAO(Connection connection) throws EmptyPoolException {
+    public UtenteDAO() throws EmptyPoolException {
         super();
     }
 
