@@ -1,4 +1,4 @@
-package Control;
+package control;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,13 +8,11 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.*;
 import model.prodotto.*;
 
-public class MostraCatalogo extends HttpServlet {
-
-    // Commento stupido
-
+public class MostraCatalogoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ProdottoDAO prodottoDAO;
 
+    @Override
     public void init() throws ServletException {
         super.init();
         try {
@@ -24,6 +22,7 @@ public class MostraCatalogo extends HttpServlet {
         }
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         try {
