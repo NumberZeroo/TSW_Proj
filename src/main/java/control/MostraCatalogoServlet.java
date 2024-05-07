@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.List;
 
 import com.tswproject.tswproj.EmptyPoolException;
+import jakarta.servlet.annotation.WebInitParam;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import jakarta.servlet.*;
 import model.prodotto.*;
 
-public class MostraCatalogoServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+@WebServlet(name = "catalogo", value = "/mostraCatalogoServlet")
+public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
     private ProdottoDAO prodottoDAO;
 
     @Override

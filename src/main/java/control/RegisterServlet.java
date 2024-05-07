@@ -9,25 +9,23 @@ import model.utente.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-// @WebServlet(value = "/registerServlet")
+@WebServlet(value = "/registerServlet")
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        // Recupera i parametri della richiesta
-//        String username = request.getParameter("username");
-//        String email = request.getParameter("email");
-//        String password = request.getParameter("password");
-//
-//        if(registerUser(username, email, password)) {
-//            //Utente registrato con successo
-//            response.sendRedirect("login.jsp");
-//        } else {
-//            //Errore nella registrazione
-//            response.sendRedirect("register.jsp");
-//        }
+        // Recupera i parametri della richiesta
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
 
-        response.sendRedirect("index.jsp");
+        if(registerUser(username, email, password)) {
+            //Utente registrato con successo
+            response.sendRedirect("login.jsp");
+        } else {
+            //Errore nella registrazione
+            response.sendRedirect("register.jsp");
+        }
     }
 
     private boolean registerUser(String username, String email, String password){
