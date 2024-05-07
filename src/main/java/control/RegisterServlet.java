@@ -8,9 +8,18 @@ import model.utente.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 @WebServlet(value = "/registerServlet")
 public class RegisterServlet extends HttpServlet {
+
+    private Logger logger;
+
+    @Override
+    public void init() throws ServletException {
+        logger = Logger.getLogger(getClass().getName());
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -43,7 +52,7 @@ public class RegisterServlet extends HttpServlet {
             ut.doSave(utente);
             return true;
         }catch (SQLException | EmptyPoolException e) {
-            e.printStackTrace();
+            logger.severe(e.getMessage());
             return false;
         }
     }

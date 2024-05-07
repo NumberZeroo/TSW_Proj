@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.tswproject.tswproj.EmptyPoolException;
 import jakarta.servlet.annotation.WebInitParam;
@@ -13,14 +14,16 @@ import model.prodotto.*;
 @WebServlet(name = "catalogo", value = "/mostraCatalogoServlet")
 public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
     private ProdottoDAO prodottoDAO;
+    private Logger logger;
 
     @Override
     public void init() throws ServletException {
         super.init();
+        logger = Logger.getLogger(getClass().getName());
         try {
             prodottoDAO = new ProdottoDAO();
         } catch (EmptyPoolException e) {
-            System.out.println("Conneection pool vuota...trova un modo migliore di gestire questo errore...");
+            logger.warning("Conneection pool vuota...trova un modo migliore di gestire questo errore...");
         }
     }
 
