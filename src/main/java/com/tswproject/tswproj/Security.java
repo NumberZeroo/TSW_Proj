@@ -22,6 +22,11 @@ public class Security {
         return hashedPassword;
     }
 
+    public static boolean containsUnsecureChars(String string) {
+        Pattern usecureChars = Pattern.compile ("[!@#$%&*()+=|<>?{}\\[\\]]");
+        return usecureChars.matcher(string).find();
+    }
+
     public static boolean checkEmailFormat(String email) {
         return Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$").matcher(email).matches();
     }
