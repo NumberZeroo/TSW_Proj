@@ -44,7 +44,7 @@ public class RegisterServlet extends HttpServlet {
         //username, email, imgPath, isAdmin, password
         utente.setUsername(username);
         utente.setEmail(email);
-        utente.setImgPath("/test");  //todo default image path
+        utente.setImgPath("/test");  //todo default imgPath
         utente.setIsAdmin(0); //todo default isAdmin
         utente.setPassword(password); //todo hash password
 
