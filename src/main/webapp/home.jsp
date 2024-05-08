@@ -9,9 +9,8 @@
 <html>
 <head>
     <title>Title</title>
-    <%@ include file="navbar.jsp" %>  <!-- Include navbar.jsp -->
 </head>
 <body>
-
+    <%@ include file="navbar.jsp" %>  <!-- Include navbar.jsp -->
 </body>
 </html>

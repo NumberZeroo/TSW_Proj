@@ -1,0 +1,73 @@
+/* File: website.css */
+
+/* Stile per body */
+body {
+    /* Sostituisci 'background.jpg' con il percorso della tua immagine di sfondo */
+    background-color: antiquewhite;
+    /* Imposta l'immagine di sfondo per ripetersi orizzontalmente */
+    background-repeat: repeat;
+    /* Imposta la posizione dello sfondo al centro */
+    background-position: center;
+    /* Imposta lo sfondo per rimanere fisso durante lo scorrimento */
+    background-attachment: fixed;
+}
+
+/* Stile per la barra di navigazione */
+.search-bar {
+    max-width: 200px; /* Imposta la larghezza massima della barra di ricerca */
+}
+
+/* Per il sticky footer */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrap {
+    padding-bottom: 2.5rem; /* Altezza del footer */
+}
+
+.footer-div {
+    background-color: white;
+    color: black;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;            /* Footer height */
+}
+
+/*Stile per il div dei prodotti */
+.test-div-class {
+    z-index: 1;
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    background-color: olive; /* Sfondo grigio */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombra */
+}
+
+.test-div-class h2 {
+    font-family: 'Arial', sans-serif; /* Font più carino */
+    display: block; /* Posizionato in un blocco */
+}
+
+.test-div-class p {
+    display: block; /* Posizionato in un blocco */
+}
+
+/*Stile per filter bar */
+
+@media (min-width: 992px) {
+    .filter-bar {
+        width: 20%; /* Imposta la larghezza della barra dei filtri */
+        float: left; /* Posiziona la barra dei filtri a sinistra */
+    }
+}
+
+.filter-option {
+    margin-bottom: 10px; /* Aggiungi un po' di spazio tra le opzioni di filtro */
+}
