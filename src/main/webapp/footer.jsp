@@ -4,22 +4,19 @@
 <link rel="stylesheet" type="text/css" href="website.css">
 
 <div class="footer-div">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <!-- Contatti a sinistra -->
-        <h2>Contact us</h2>
-        <p>Email: miamamma@gmail.com</p>
-        <p>Telefono: +39 123 456 7890</p>
-      </div>
-      <div class="col text-center">
-        <!-- Logo al centro -->
-        <img src="#" alt="Logo" width="100"> <!-- Inserire il percorso dell'immagine -->
-      </div>
-      <div class="col text-end">
-        <!-- Nome del sito a destra -->
-        <h2>WA SITO</h2>
-      </div>
-    </div>
-  </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>AnimaliWow</h4>
+                    <p>Si si si</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Contatti</h4>
+                    <p>Telefono: 0123456789</p>
+                    <p>Email: aaaaaa@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>

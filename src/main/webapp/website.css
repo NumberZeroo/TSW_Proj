@@ -1,45 +1,68 @@
-/* File: website.css */
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap"); /* File: website.css */
 
 /* Stile per body */
 body {
-    /* Sostituisci 'background.jpg' con il percorso della tua immagine di sfondo */
-    background-color: antiquewhite;
-    /* Imposta l'immagine di sfondo per ripetersi orizzontalmente */
+    background-color: whitesmoke;
     background-repeat: repeat;
-    /* Imposta la posizione dello sfondo al centro */
     background-position: center;
-    /* Imposta lo sfondo per rimanere fisso durante lo scorrimento */
     background-attachment: fixed;
-}
 
-/* Stile per la barra di navigazione */
-.search-bar {
-    max-width: 200px; /* Imposta la larghezza massima della barra di ricerca */
-}
-
-/* Per il sticky footer */
-.page-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-.content-wrap {
-    padding-bottom: 2.5rem; /* Altezza del footer */
+.content {
+    flex: 1 0 auto;
+}  /* Stile per la barra di navigazione */
+
+.navbar {
+    height: 60px; /* Altezza della navbar */
+    z-index: 1;
+}
+
+@media (max-width: 900px) {
+    .container-fluid {
+        background-color: lightgoldenrodyellow; /* Sostituisci #yourColor con il colore desiderato */
+    }
+}
+
+.navbar-toggler {
+    background-color: white;
+}
+
+.search-bar {
+    max-width: 200px; /* Imposta la larghezza massima della barra di ricerca */
+    max-height: 30px;
 }
 
 .footer-div {
-    background-color: white;
+    z-index: 2;
+    background-color: darkcyan;
     color: black;
-    position: absolute;
+    position: sticky;
     bottom: 0;
     width: 100%;
-    height: 2.5rem;            /* Footer height */
+    min-height: 3rem;            /* Footer height */
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.griglia-prodotti {
+    min-height: auto;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    column-gap: 10px;
+    margin-top: 0;
+    margin-bottom: 3rem;
 }
 
 /*Stile per il div dei prodotti */
 .test-div-class {
-    z-index: 1;
+    transition: margin-left 0.3s ease-in-out;
+    width: 300px;
+    height: auto;
     display: inline-block;
     margin: 10px;
     padding: 10px;
@@ -50,6 +73,11 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombra */
 }
 
+.test-div-class img {
+    width: 100%;
+    height: auto; /* Imposta l'altezza dell'immagine in base all'aspetto */
+    object-fit: contain;
+}
 .test-div-class h2 {
     font-family: 'Arial', sans-serif; /* Font più carino */
     display: block; /* Posizionato in un blocco */
@@ -59,15 +87,99 @@ body {
     display: block; /* Posizionato in un blocco */
 }
 
-/*Stile per filter bar */
 
-@media (min-width: 992px) {
-    .filter-bar {
-        width: 20%; /* Imposta la larghezza della barra dei filtri */
-        float: left; /* Posiziona la barra dei filtri a sinistra */
+/* Stile per il logo */
+svg {
+    font-family: "Rubik Dirt", sans-serif;
+    width: 100%; height: 100%;
+}
+svg text {
+    animation: stroke 7s infinite alternate;
+    stroke-width: 2;
+    stroke: #365FA0;
+    font-size: 100px;
+}
+
+@keyframes stroke {
+    0%   {
+        fill: rgba(72,138,204,0); stroke: rgba(54,95,160,1);
+        stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
+    }
+    70%  {fill: rgba(72,138,204,0); stroke: rgba(54,95,160,1); }
+    80%  {fill: rgba(72,138,204,0); stroke: rgba(54,95,160,1); stroke-width: 3; }
+    100% {
+        fill: rgba(72,138,204,1); stroke: rgba(54,95,160,0);
+        stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 0;
     }
 }
 
+.wrapper {background-color: white}
+
+/*Stile per filter bar */
 .filter-option {
     margin-bottom: 10px; /* Aggiungi un po' di spazio tra le opzioni di filtro */
+}
+
+.filter-bar form {
+    margin-bottom: 1em;
+}
+
+@media (max-width: 900px) {
+    .filter-bar {
+        position: relative;
+        width: 100%;
+        background-color: red;
+    }
+}
+
+/* Stile responsive per la barra dei filtri */
+@media (min-width: 900px) {
+    .filter-bar {
+        width: 20%;
+        animation: width 1s ease;
+        z-index: 1;
+        position: fixed;
+        top: 60px; /* Altezza della navbar */
+        right: 0;
+        height: calc(100% - 60px - 2.5rem); /* Altezza totale della finestra meno l'altezza della navbar e del footer */
+        padding: 1em;
+        background-color: transparent;
+        overflow: auto;
+        transition: transform 0.3s ease-in-out;
+        transform: translateX(100%);
+        margin: 0;
+    }
+
+    /* Stile per la barra dei filtri quando è visibile */
+    #filter-bar.show {
+        transform: translateX(0);
+    }
+
+    /* Stile per il div dei prodotti quando la barra dei filtri è visibile */
+    .griglia-prodotti.shift-left {
+        margin-right: 20%; /* Sposta il div del prodotto a destra del 20% */
+    }
+}
+
+#filter-button {
+    position: fixed;
+    /*right: 0;*/
+    /*top: 50%;*/
+    right: 20px;
+    bottom: 8rem;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* Stile per il pulsante di chiusura della barra dei filtri */
+#close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.display-none {
+    display: none;
 }
