@@ -16,27 +16,46 @@
     <i id="filter-button" class="fas fa-filter"></i>
 
     <div id="filter-bar" class="filter-bar">
-
         <i id="close-button" class="fas fa-times"></i>
-        <form>
-            <label for="price">Prezzo:</label>
+        <form action="TestCatalogo.jsp" method="get">
+            <label for="price">Prezzo: </label> <span id="price-value"></span>
             <input type="range" id="price" name="price" min="0" max="100">
-        </form>
-        <form>
+
+
             <label for="size">Taglia:</label>
             <select id="size" name="size">
                 <option value="small">Piccola</option>
                 <option value="medium">Media</option>
                 <option value="large">Grande</option>
             </select>
-        </form>
-        <form>
+
             <label for="category">Categoria:</label>
             <select id="category" name="category">
-                <option value="category1">Categoria 1</option>
-                <option value="category2">Categoria 2</option>
+                <option value="category1">Alimentari</option>
+                <option value="category2">Giocattoli</option>
                 <option value="category3">Categoria 3</option>
             </select>
+
+            <!-- Filtro per razza di animali -->
+            <label for="animal-race">Razza:</label>
+            <select id="animal-race" name="animal-race">
+                <option value="dog">Cane</option>
+                <option value="cat">Gatto</option>
+                <option value="bird">Volatile</option>
+            </select>
+
+            <!-- Filtro per sterilizzazione -->
+            <label for="sterilized">Sterilizzato:</label>
+            <select id="sterilized" name="sterilized">
+                <option value="yes">Sì</option>
+                <option value="no">No</option>
+            </select>
+
+            <!-- Filtro per età -->
+            <label for="age">Età: </label><span id="age-value"></span>
+            <input type="range" id="age" name="age" min="0" max="20">
+
+            <input type="submit" value="Applica filtri">
         </form>
     </div>
 
@@ -86,6 +105,27 @@
             filterButton.classList.remove('display-none');
             productGrid.classList.remove('shift-left');
             filterButton.className = 'fas fa-filter';
+        });
+    </script>
+
+    <script>
+        // Seleziona i filtri e gli elementi <span>
+        let priceFilter = document.getElementById('price');
+        let priceValue = document.getElementById('price-value');
+        let ageFilter = document.getElementById('age');
+        let ageValue = document.getElementById('age-value');
+
+        // Aggiorna il contenuto degli elementi <span> con il valore corrente del filtro
+        priceValue.textContent = priceFilter.value;
+        ageValue.textContent = ageFilter.value;
+
+        // Aggiungi un gestore di eventi a ciascun filtro per aggiornare il valore ogni volta che cambia
+        priceFilter.addEventListener('input', function() {
+            priceValue.textContent = this.value;
+        });
+
+        ageFilter.addEventListener('input', function() {
+            ageValue.textContent = this.value;
         });
     </script>
 </body>

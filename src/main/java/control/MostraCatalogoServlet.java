@@ -19,7 +19,7 @@ public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
         try {
             prodottoDAO = new ProdottoDAO();
         } catch (EmptyPoolException e) {
-            System.out.println("Conneection pool vuota...trova un modo migliore di gestire questo errore...");
+            System.out.println("Connection pool vuota...trova un modo migliore di gestire questo errore...");
         }
     }
 

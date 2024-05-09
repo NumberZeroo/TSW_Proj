@@ -17,14 +17,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="home.jsp">Home</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categorie
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Cibo</a></li>
-                        <li><a class="dropdown-item" href="#">Giocattoli</a></li>
-                    </ul>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Chi siamo</a> <!-- TODO: link to "about us" page -->
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Collaboratori</a> <!-- TODO: link to "collaborators" page -->
                 </li>
             </ul>
 

@@ -49,6 +49,7 @@ body {
 }
 
 .griglia-prodotti {
+    transition: margin-right 0.3s ease-in-out;
     min-height: auto;
     max-width: 100%;
     display: grid;
@@ -60,7 +61,7 @@ body {
 
 /*Stile per il div dei prodotti */
 .test-div-class {
-    transition: margin-left 0.3s ease-in-out;
+    transition: margin-left 0.7s ease-in-out;
     width: 300px;
     height: auto;
     display: inline-block;
@@ -115,15 +116,6 @@ svg text {
 
 .wrapper {background-color: white}
 
-/*Stile per filter bar */
-.filter-option {
-    margin-bottom: 10px; /* Aggiungi un po' di spazio tra le opzioni di filtro */
-}
-
-.filter-bar form {
-    margin-bottom: 1em;
-}
-
 @media (max-width: 900px) {
     .filter-bar {
         position: relative;
@@ -161,10 +153,17 @@ svg text {
     }
 }
 
+#filter-bar form input,
+#filter-bar form select {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 #filter-button {
     position: fixed;
-    /*right: 0;*/
-    /*top: 50%;*/
     right: 20px;
     bottom: 8rem;
     transform: translateY(-50%);
