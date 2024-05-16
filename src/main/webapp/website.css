@@ -31,6 +31,13 @@ body {
     background-color: white;
 }
 
+.navbar-nav li.nav-item { /* Stile per le icone della navbar */
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    margin-right: 0;
+}
+
 .search-bar {
     max-width: 200px; /* Imposta la larghezza massima della barra di ricerca */
     max-height: 30px;
@@ -40,8 +47,7 @@ body {
     z-index: 2;
     background-color: darkcyan;
     color: black;
-    position: sticky;
-    bottom: 0;
+    /*position: sticky;*/
     width: 100%;
     min-height: 3rem;            /* Footer height */
     margin: 0;
@@ -118,14 +124,26 @@ svg text {
 
 @media (max-width: 900px) {
     .filter-bar {
-        position: relative;
-        width: 100%;
-        background-color: red;
+        display: none;
+    }
+
+    #filter-button{
+        display: none;
+    }
+
+    #open-filter-button {
+        display: block;
+        position: fixed;
+        left: 20px;
+        bottom: 20px;
     }
 }
 
 /* Stile responsive per la barra dei filtri */
 @media (min-width: 900px) {
+    #open-filter-button{
+        display: none;
+    }
     .filter-bar {
         width: 20%;
         animation: width 1s ease;
@@ -181,4 +199,31 @@ svg text {
 
 .display-none {
     display: none;
+}
+
+.hide {
+    display: none;
+}
+
+/* Barra di ricerca */
+.search-container {
+    position: relative;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.search-input {
+    width: 200px;
+    height: 30px;
+    padding-right: 30px; /* Spazio per l'icona della lente di ingrandimento */
+}
+
+.search-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 30px;
+    width: 30px;
+    border: none;
+    background: none;
 }

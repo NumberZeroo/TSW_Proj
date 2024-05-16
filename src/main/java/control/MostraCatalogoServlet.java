@@ -26,8 +26,24 @@ public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+
+        // Recupera i parametri dei filtri dalla richiesta
+        String price = request.getParameter("price");
+        String size = request.getParameter("size");
+        String category = request.getParameter("category");
+        String animalRace = request.getParameter("animalRace");
+        String sterilized = request.getParameter("sterilized");
+        String minAge = request.getParameter("min-age");
+        String maxAge = request.getParameter("max-age");
+
+        List<ProdottoBean> prodotti;
+
         try {
-            List<ProdottoBean> prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
+            if (price != null || size != null || category != null || animalRace != null || sterilized != null || minAge != null || maxAge != null){
+                prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveFiltered(price, size, category, animalRace, sterilized, minAge, maxAge);
+            } else {
+                prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
+            }
             request.setAttribute("prodotti", prodotti);
             request.getRequestDispatcher("/TestCatalogo.jsp").forward(request, response);
         } catch (Exception e) {

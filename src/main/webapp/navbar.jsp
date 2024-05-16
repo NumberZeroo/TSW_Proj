@@ -9,7 +9,7 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: lightgoldenrodyellow">
     <div class="container-fluid">
         <a class="navbar-brand" href="home.jsp">AnimaliWow</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" id="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -28,10 +28,19 @@
             </ul>
 
             <div class="d-flex">
-                <form class="d-flex ms-auto search-bar">
-                    <input class="form-control me-2" type="search" placeholder="Cerca..." aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Invio</button>
-                </form>
+<%--                <form class="d-flex ms-auto search-bar">--%>
+<%--                    <input class="form-control me-2" type="search" placeholder="Cerca..." aria-label="Search">--%>
+<%--                    <button class="btn btn-outline-success" type="submit">Invio</button>--%>
+<%--                </form>--%>
+
+                <div class="search-container">
+                    <form class="search-form">
+                        <input class="search-input" type="search" placeholder="Cerca..." aria-label="Search">
+                        <button class="search-button" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
 
                 <% if(loggedIn != null && loggedIn) { %>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
