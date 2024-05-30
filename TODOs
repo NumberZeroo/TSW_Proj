@@ -5,7 +5,6 @@ LOGIC:
 - Centralizzare la gestione delle immagini (cartella preposta? servlet a parte?)
 - Centralizzare db (cloud o cartella con foglio di generazione del db?)
 - Aggiungere feedback dopo la registrazione e login
-- Implementare login
 - Implementa logger
 PAGE STRUCTURE:
 - Rendere "catalogo" raggiungibile tramite l'header della pagina

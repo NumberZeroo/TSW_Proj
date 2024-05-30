@@ -27,6 +27,19 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
         return null;
     }
 
+    public UtenteBean doRetrieveByUsername(String username) throws SQLException {
+        String query = "SELECT * FROM Utente WHERE username = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return getUtente(resultSet);
+                }
+            }
+        }
+        return null;
+    }
+
     @Override
     public Collection<UtenteBean> doRetrieveAll(String order) throws SQLException {
         List<UtenteBean> utenti = new ArrayList<>();
