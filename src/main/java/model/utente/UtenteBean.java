@@ -1,4 +1,6 @@
 package model.utente;
+import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
 
 public class UtenteBean implements Serializable {
