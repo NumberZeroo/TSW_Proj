@@ -33,7 +33,7 @@ public class RegisterServlet extends HttpServlet {
 
     private boolean registerUser(String username, String email, String password){
         UtenteBean utente = new UtenteBean();
-        
+
         if (!Security.validateEmail(email)){
             System.out.println("Email non valida");
             return false;
@@ -60,7 +60,7 @@ public class RegisterServlet extends HttpServlet {
         try(UtenteDAO ut = new UtenteDAO()){
             ut.doSave(utente);
             return true;
-        } catch (SQLException | EmptyPoolException e) {
+        } catch (SQLException e) {
             e.printStackTrace(); // TODO: log
             return false;
         }
