@@ -1,4 +1,14 @@
 DB:
 - Aggiungi informazioni di contatto dell'utente (numero di telefono, indirizzo di spedizione, ...)
 - Aggiungi informazioni di pagamento
-WEB:
+LOGIC:
+- Centralizzare la gestione delle immagini (cartella preposta? servlet a parte?)
+- Centralizzare db (cloud o cartella con foglio di generazione del db?)
+- Aggiungere feedback dopo la registrazione
+- Implementare login
+PAGE STRUCTURE:
+- Rendere "catalogo" raggiungibile tramite l'header della pagina
+- Scrivere carrello.jsp
+- Scrivere profile.jsp
+
+
