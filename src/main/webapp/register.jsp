@@ -12,6 +12,6 @@
 
   <input type="submit" value="Registrati">
 </form>
-<p>Sei già un coglione? Loggati qui: <a href="login.jsp">Login page</a></p>
+<a href="login.jsp">Login page</a>
 </body>
 </html>
