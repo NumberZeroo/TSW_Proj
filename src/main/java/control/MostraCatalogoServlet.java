@@ -38,8 +38,13 @@ public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
 
         List<ProdottoBean> prodotti;
 
+        // Recupera il termine di ricerca dalla richiesta
+        String search = request.getParameter("search");
+
         try {
-            if (price != null || size != null || category != null || animalRace != null || sterilized != null || minAge != null || maxAge != null){
+            if (search != null){
+                prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveBySearch(search);
+            } else if (price != null || size != null || category != null || animalRace != null || sterilized != null || minAge != null || maxAge != null){
                 prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveFiltered(price, size, category, animalRace, sterilized, minAge, maxAge);
             } else {
                 prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");

@@ -64,6 +64,24 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         return prodotti;
     }
 
+    //Metodo per la ricerca di prodotti
+    public Collection<ProdottoBean> doRetrieveBySearch(String search) throws SQLException {
+    List<ProdottoBean> prodotti = new ArrayList<>();
+    String query = "SELECT * FROM Prodotto WHERE Nome LIKE ?";
+
+    try (PreparedStatement statement = connection.prepareStatement(query)) {
+        statement.setString(1, "%" + search + "%");
+
+        try (ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                ProdottoBean prodotto = getProdotto(resultSet);
+                prodotti.add(prodotto);
+            }
+        }
+    }
+    return prodotti;
+}
+
     @Override
     public void doSave(ProdottoBean prodotto) throws SQLException {
         String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Tipo, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
