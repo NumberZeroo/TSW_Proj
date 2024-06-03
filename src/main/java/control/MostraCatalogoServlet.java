@@ -12,49 +12,34 @@ import model.prodotto.*;
 
 @WebServlet(name = "catalogo", value = "/mostraCatalogoServlet")
 public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
-    private ProdottoDAO prodottoDAO;
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        try {
-            prodottoDAO = new ProdottoDAO();
-        } catch (EmptyPoolException e) {
-            System.out.println("Conneection pool vuota...trova un modo migliore di gestire questo errore...");
-        }
-    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try (ProdottoDAO prodottoDAO = new ProdottoDAO()) {
+            // Recupera i parametri dei filtri dalla richiesta
+            String price = request.getParameter("price");
+            String size = request.getParameter("size");
+            String category = request.getParameter("category");
+            String animalRace = request.getParameter("animalRace");
+            String sterilized = request.getParameter("sterilized");
+            String minAge = request.getParameter("min-age");
+            String maxAge = request.getParameter("max-age");
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            List<ProdottoBean> prodotti;
 
-        // Recupera i parametri dei filtri dalla richiesta
-        String price = request.getParameter("price");
-        String size = request.getParameter("size");
-        String category = request.getParameter("category");
-        String animalRace = request.getParameter("animalRace");
-        String sterilized = request.getParameter("sterilized");
-        String minAge = request.getParameter("min-age");
-        String maxAge = request.getParameter("max-age");
-
-        List<ProdottoBean> prodotti;
-
-        try {
-            if (price != null || size != null || category != null || animalRace != null || sterilized != null || minAge != null || maxAge != null){
-                prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveFiltered(price, size, category, animalRace, sterilized, minAge, maxAge);
-            } else {
-                prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
+            try {
+                if (price != null || size != null || category != null || animalRace != null || sterilized != null || minAge != null || maxAge != null){
+                    prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveFiltered(price, size, category, animalRace, sterilized, minAge, maxAge);
+                } else {
+                    prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
+                }
+                request.setAttribute("prodotti", prodotti);
+                request.getRequestDispatcher("/TestCatalogo.jsp").forward(request, response);
+            } catch (Exception e) {
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
             }
-            request.setAttribute("prodotti", prodotti);
-            request.getRequestDispatcher("/TestCatalogo.jsp").forward(request, response);
-        } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
-    }
 
-    public void destroy() {
-        super.destroy();
-        prodottoDAO.close();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
