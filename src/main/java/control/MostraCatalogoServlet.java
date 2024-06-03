@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.tswproject.tswproj.EmptyPoolException;
+import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import jakarta.servlet.*;
@@ -19,7 +20,7 @@ public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
         try {
             prodottoDAO = new ProdottoDAO();
         } catch (EmptyPoolException e) {
-            System.out.println("Connection pool vuota...trova un modo migliore di gestire questo errore...");
+            System.out.println("Conneection pool vuota...trova un modo migliore di gestire questo errore...");
         }
     }
 

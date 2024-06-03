@@ -8,7 +8,7 @@ CREATE TABLE Utente (
     email VARCHAR(255) NOT NULL,
     imgPath VARCHAR(255) NOT NULL,
     isAdmin BIGINT NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    password CHAR(128) NOT NULL, # SHA-512
     CONSTRAINT fk_utente_admin CHECK (isAdmin IN (0, 1))
 );
 
