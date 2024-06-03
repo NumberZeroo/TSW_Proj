@@ -81,6 +81,10 @@
                         <h2><%=prodotto.getNome()%></h2>
                     </a>
                     <p>Prezzo: <%=prodotto.getPrezzo()%> €</p>
+                    <form action="aggiungiAlCarrello" method="post">
+                        <input type="hidden" name="id" value="<%=prodotto.getId()%>">
+                        <button type="submit">Aggiungi al Carrello</button>
+                    </form>
                 </div>
                 <% }
             } %>

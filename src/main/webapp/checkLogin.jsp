@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.tswproject.tswproj.SessionFacade" %>
+<%@ page import="java.util.Optional" %><%--
   Created by IntelliJ IDEA.
   User: developer
   Date: 5/7/24
@@ -14,14 +15,25 @@
 <p>Questa pagina serve solo per controllare che l'utente sia loggato ed eventualmente stampa le informazioni</p>
 
 <%
-    String username;
-    if (request.getSession() != null && request.getSession().getAttribute("username") != null){
-        username = request.getSession().getAttribute("username").toString();
+    SessionFacade userSession = new SessionFacade(request);
+    if (userSession.getUsername().isPresent()){
 %>
-    <p>Ciao <%=username%></p>
+    <p>Ciao <%=userSession.getUsername().get()%></p>
 <% } else { %>
     <p>Utente non loggato</p>
 <% } %>
+
+// TODO: togliere questa parte, è solo per debug (implementare vista carrello)
+<%
+    StringBuilder ids = new StringBuilder().append("[");
+    for (Integer n : userSession.getKartProducts()) {
+        ids.append(n);
+        ids.append(", ");
+    }
+    ids.append("]");
+%>
+
+<p><%=ids.toString()%></p>
 
 
 </body>
