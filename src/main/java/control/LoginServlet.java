@@ -44,8 +44,8 @@ public class LoginServlet extends HttpServlet {
         }
 
         HttpSession session = req.getSession();
+        session.setAttribute("user_id", user.getId());
         session.setAttribute("user", user.getUsername());
-        session.setAttribute("loggedIn", true);
         resp.sendRedirect(req.getContextPath() + "/profile.jsp");
 
     }

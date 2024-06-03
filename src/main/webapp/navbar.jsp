@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="website.css">
 
 
-<% Boolean loggedIn = (Boolean) session.getAttribute("loggedIn"); %>
+<% boolean loggedIn = (session.getAttribute("user_id") != null); %>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: lightgoldenrodyellow">
     <div class="container-fluid">
@@ -42,7 +42,7 @@
                     </form>
                 </div>
 
-                <% if(loggedIn != null && loggedIn) { %>
+                <% if(loggedIn) { %>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="profile.jsp">Profile
