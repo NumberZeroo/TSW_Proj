@@ -1,6 +1,5 @@
 package control;
 
-import com.tswproject.tswproj.EmptyPoolException;
 import com.tswproject.tswproj.Security;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,7 +8,6 @@ import model.utente.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.regex.*;
 
 @WebServlet(value = "/registerServlet")
 public class RegisterServlet extends HttpServlet {
