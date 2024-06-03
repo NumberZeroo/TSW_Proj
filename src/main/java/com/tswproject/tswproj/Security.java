@@ -12,7 +12,7 @@ public class Security {
             return Optional.empty();
         }
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
             byte[] hashBytes = messageDigest.digest(password.getBytes());
 
             StringBuilder sb = new StringBuilder();
