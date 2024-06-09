@@ -1,11 +1,9 @@
 package com.tswproject.tswproj;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import model.utente.UtenteBean;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * La SessionFacade prende come parametro del costruttore una request e gestisce la sessione ritornata
@@ -17,38 +15,62 @@ import java.util.Optional;
 
 
 public class SessionFacade {
+    private final String CART_SESSION_ATTRIBUTE_NAME = "cartProducts";
+    private final String USERID_SESSION_ATTRIBUTE_NAME = "userId";
+    private final String USERNAME_SESSION_ATTRIBUTE_NAME = "username";
+
     private HttpSession session;
 
-    public SessionFacade(HttpServletRequest req) {
-        this.session = req.getSession();
+    public SessionFacade(HttpSession session) {
+        this.session = session;
+    }
+
+    private Map<Long, Long> loadCartProducts() {
+        // TODO: prendi la sessione da DB se c'è e aggiungili alla sessione
+        return (Map<Long, Long>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME); // Roba a caso
     }
 
     public boolean isLoggedIn() {
-        return this.session != null && this.session.getAttribute("user_id") != null;
+        return this.session != null && this.session.getAttribute(USERID_SESSION_ATTRIBUTE_NAME) != null;
+    }
+
+    public void login(UtenteBean user) {
+        this.session.setAttribute(USERID_SESSION_ATTRIBUTE_NAME, user.getId());
+        this.session.setAttribute(USERNAME_SESSION_ATTRIBUTE_NAME, user.getUsername());
     }
 
     // Ogni elemento della lista è un id di prodotto
-    public List<Integer> getKartProducts() {
-        List<Integer> kartProducts = (List<Integer>) this.session.getAttribute("kart_products");
-        if (kartProducts == null || kartProducts.isEmpty())
-            return new ArrayList<>();
-        return  kartProducts;
+    public Map<Long, Long> getCartProducts() {
+        Map<Long, Long> products = (Map<Long, Long>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
+        if (products == null) {
+            return new HashMap<>();
+        }
+        return products;
     }
 
-    public void addKartProduct(int productId) {
-        if (session.getAttribute("kart_products") == null) {
-            session.setAttribute("kart_products", new ArrayList<Integer>());
+    public void addCartProduct(long productId) {
+        Map<Long, Long> products = (Map<Long, Long>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
+        if (products == null) {
+            products = new HashMap<>();
         }
+        products.merge(productId, 1L, Long::sum); // Se non c'è aggiungi, altrimenti incrementa quantità
+        this.session.setAttribute(CART_SESSION_ATTRIBUTE_NAME, products);
+    }
 
-        ((List<Integer>)session.getAttribute("kart_products")).add(productId);
+    public void removeCartProduct(long productId) {
+        Map<Long, Long> products = (Map<Long, Long>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
+        if (products != null) {
+            products.remove(productId);
+        }
+        this.session.setAttribute(CART_SESSION_ATTRIBUTE_NAME, products);
     }
 
     public Optional<String> getUsername() {
-        return Optional.ofNullable((String)this.session.getAttribute("username"));
+        return Optional.ofNullable((String)this.session.getAttribute(USERNAME_SESSION_ATTRIBUTE_NAME));
     }
 
     public void invalidate(){
+        // TODO: commit verso il DB
         this.session.invalidate();
     }
-
 }

@@ -2,6 +2,7 @@ package control;
 
 import com.tswproject.tswproj.EmptyPoolException;
 import com.tswproject.tswproj.Security;
+import com.tswproject.tswproj.SessionFacade;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -43,9 +44,8 @@ public class LoginServlet extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
 
-        HttpSession session = req.getSession();
-        session.setAttribute("user_id", user.getId());
-        session.setAttribute("user", user.getUsername());
+        SessionFacade session = new SessionFacade(req.getSession());
+        session.login(user);
         resp.sendRedirect(req.getContextPath() + "/profile.jsp");
 
     }

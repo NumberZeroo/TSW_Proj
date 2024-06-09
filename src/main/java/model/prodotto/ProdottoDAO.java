@@ -4,7 +4,6 @@ import com.tswproject.tswproj.EmptyPoolException;
 import model.AbstractDAO;
 import model.DAOInterface;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.*;
 
@@ -14,7 +13,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
     }
 
     @Override
-    public ProdottoBean doRetrieveByKey(int id) throws SQLException {
+    public ProdottoBean doRetrieveByKey(long id) throws SQLException {
         String query = "SELECT * FROM Prodotto WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
@@ -25,6 +24,20 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             }
         }
         return null;
+    }
+
+    // Prende come parametri una mappa <id_prodotto, quantità> e ritorna una mappa <ProdottoBean, quantità>
+    // Non posso fare un prepared statement contenente tutti gli id perché le query non vengono fatte in modo ordinato
+    // TODO: Questo metodo fa tante query...c'è un modo migliore?
+    public Map<ProdottoBean, Long> doRetrieveByKeys(Map<Long, Long> productsWithQuantity) throws SQLException {
+        Map<ProdottoBean, Long> prodottoBeans = new HashMap<>();
+        for (Map.Entry<Long, Long> entry : productsWithQuantity.entrySet()) {
+            ProdottoBean p = doRetrieveByKey(entry.getKey());
+            if (p != null) {
+                prodottoBeans.put(p, entry.getValue());
+            }
+        }
+        return prodottoBeans;
     }
 
     public Collection<ProdottoBean> doRetrieveFiltered(String price, String size, String category, String animalRace, String sterilized, String minAge, String maxAge) throws SQLException {
@@ -75,7 +88,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setInt(5, prodotto.getMinEta());
             statement.setInt(6, prodotto.getMaxEta());
             statement.setInt(7, prodotto.getIva());
-            statement.setLong(8, prodotto.getPrezzo());
+            statement.setDouble(8, prodotto.getPrezzo());
             statement.setBoolean(9, prodotto.getSterilizzati());
             statement.setString(10, prodotto.getImgPath());
             statement.executeUpdate();
@@ -93,7 +106,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setInt(5, prodotto.getMinEta());
             statement.setInt(6, prodotto.getMaxEta());
             statement.setInt(7, prodotto.getIva());
-            statement.setLong(8, prodotto.getPrezzo());
+            statement.setDouble(8, prodotto.getPrezzo());
             statement.setBoolean(9, prodotto.getSterilizzati());
             statement.setString(10, prodotto.getImgPath());
             statement.setLong(11, prodotto.getId());

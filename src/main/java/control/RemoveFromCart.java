@@ -6,16 +6,20 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(value = "/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet(value = "/removeFromCart")
+public class RemoveFromCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        (new SessionFacade(req.getSession())).invalidate();
-        resp.sendRedirect(req.getContextPath() + "/home.jsp");
+        if(req.getParameter("id") == null){
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST); // TODO: client side error
+            return;
+        }
+        long id = Long.parseLong(req.getParameter("id"));
+        (new SessionFacade(req.getSession())).removeCartProduct(id);
+        resp.sendRedirect(req.getContextPath() + "/cart.jsp");
     }
 
     @Override

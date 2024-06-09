@@ -76,15 +76,11 @@
         <div class="griglia-prodotti">
             <%for(ProdottoBean prodotto : prodotti) { %>
                 <div class = "test-div-class">
-                    <a href="product.jsp?id=<%=prodotto.getId()%>">
+                    <a href="product?id=<%=prodotto.getId()%>">
                         <img src="<%= prodotto.getImgPath() %>" alt="Immagine">
                         <h2><%=prodotto.getNome()%></h2>
                     </a>
                     <p>Prezzo: <%=prodotto.getPrezzo()%> €</p>
-                    <form action="aggiungiAlCarrello" method="post">
-                        <input type="hidden" name="id" value="<%=prodotto.getId()%>">
-                        <button type="submit">Aggiungi al Carrello</button>
-                    </form>
                 </div>
                 <% }
             } %>
