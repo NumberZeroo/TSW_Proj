@@ -13,7 +13,7 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
     }
 
     @Override
-    public RecensioneBean doRetrieveByKey(int id) throws SQLException {
+    public RecensioneBean doRetrieveByKey(long id) throws SQLException {
         String query = "SELECT * FROM Recensione WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);

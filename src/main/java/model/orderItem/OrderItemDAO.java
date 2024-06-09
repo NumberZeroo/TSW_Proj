@@ -12,7 +12,7 @@ public class OrderItemDAO extends AbstractDAO implements DAOInterface<OrderItemB
     }
 
     @Override
-    public OrderItemBean doRetrieveByKey(int id) throws SQLException {
+    public OrderItemBean doRetrieveByKey(long id) throws SQLException {
         String query = "SELECT * FROM OrderItem WHERE idItem = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
