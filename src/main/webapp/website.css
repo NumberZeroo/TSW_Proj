@@ -1,0 +1,229 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap"); /* File: website.css */
+
+/* Stile per body */
+body {
+    background-color: whitesmoke;
+    background-repeat: repeat;
+    background-position: center;
+    background-attachment: fixed;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1 0 auto;
+}  /* Stile per la barra di navigazione */
+
+.navbar {
+    height: 60px; /* Altezza della navbar */
+    z-index: 1;
+}
+
+@media (max-width: 900px) {
+    .container-fluid {
+        background-color: lightgoldenrodyellow; /* Sostituisci #yourColor con il colore desiderato */
+    }
+}
+
+.navbar-toggler {
+    background-color: white;
+}
+
+.navbar-nav li.nav-item { /* Stile per le icone della navbar */
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    margin-right: 0;
+}
+
+.search-bar {
+    max-width: 200px; /* Imposta la larghezza massima della barra di ricerca */
+    max-height: 30px;
+}
+
+.footer-div {
+    z-index: 2;
+    background-color: darkcyan;
+    color: black;
+    /*position: sticky;*/
+    width: 100%;
+    min-height: 3rem;            /* Footer height */
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.griglia-prodotti {
+    transition: margin-right 0.3s ease-in-out;
+    min-height: auto;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    column-gap: 10px;
+    margin-top: 0;
+    margin-bottom: 3rem;
+}
+
+/*Stile per il div dei prodotti */
+.test-div-class {
+    transition: margin-left 0.7s ease-in-out;
+    width: 300px;
+    height: auto;
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    background-color: olive; /* Sfondo grigio */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombra */
+}
+
+.test-div-class img {
+    width: 100%;
+    height: auto; /* Imposta l'altezza dell'immagine in base all'aspetto */
+    object-fit: contain;
+}
+.test-div-class h2 {
+    font-family: 'Arial', sans-serif; /* Font più carino */
+    display: block; /* Posizionato in un blocco */
+}
+
+.test-div-class p {
+    display: block; /* Posizionato in un blocco */
+}
+
+
+/* Stile per il logo */
+svg {
+    font-family: "Rubik Dirt", sans-serif;
+    width: 100%; height: 100%;
+}
+svg text {
+    animation: stroke 7s infinite alternate;
+    stroke-width: 2;
+    stroke: #365FA0;
+    font-size: 100px;
+}
+
+@keyframes stroke {
+    0%   {
+        fill: rgba(72,138,204,0); stroke: rgba(54,95,160,1);
+        stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
+    }
+    70%  {fill: rgba(72,138,204,0); stroke: rgba(54,95,160,1); }
+    80%  {fill: rgba(72,138,204,0); stroke: rgba(54,95,160,1); stroke-width: 3; }
+    100% {
+        fill: rgba(72,138,204,1); stroke: rgba(54,95,160,0);
+        stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 0;
+    }
+}
+
+.wrapper {background-color: white}
+
+@media (max-width: 900px) {
+    .filter-bar {
+        display: none;
+    }
+
+    #filter-button{
+        display: none;
+    }
+
+    #open-filter-button {
+        display: block;
+        position: fixed;
+        left: 20px;
+        bottom: 20px;
+    }
+}
+
+/* Stile responsive per la barra dei filtri */
+@media (min-width: 900px) {
+    #open-filter-button{
+        display: none;
+    }
+    .filter-bar {
+        width: 20%;
+        animation: width 1s ease;
+        z-index: 1;
+        position: fixed;
+        top: 60px; /* Altezza della navbar */
+        right: 0;
+        height: calc(100% - 60px - 2.5rem); /* Altezza totale della finestra meno l'altezza della navbar e del footer */
+        padding: 1em;
+        background-color: transparent;
+        overflow: auto;
+        transition: transform 0.3s ease-in-out;
+        transform: translateX(100%);
+        margin: 0;
+    }
+
+    /* Stile per la barra dei filtri quando è visibile */
+    #filter-bar.show {
+        transform: translateX(0);
+    }
+
+    /* Stile per il div dei prodotti quando la barra dei filtri è visibile */
+    .griglia-prodotti.shift-left {
+        margin-right: 20%; /* Sposta il div del prodotto a destra del 20% */
+    }
+}
+
+#filter-bar form input,
+#filter-bar form select {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#filter-button {
+    position: fixed;
+    right: 20px;
+    bottom: 8rem;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* Stile per il pulsante di chiusura della barra dei filtri */
+#close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.display-none {
+    display: none;
+}
+
+.hide {
+    display: none;
+}
+
+/* Barra di ricerca */
+.search-container {
+    position: relative;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.search-input {
+    width: 200px;
+    height: 30px;
+    padding-right: 30px; /* Spazio per l'icona della lente di ingrandimento */
+}
+
+.search-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 30px;
+    width: 30px;
+    border: none;
+    background: none;
+}

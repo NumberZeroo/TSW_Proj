@@ -13,7 +13,7 @@ public class OrdineDAO extends AbstractDAO implements DAOInterface<OrdineBean, L
     }
 
     @Override
-    public OrdineBean doRetrieveByKey(int id) throws SQLException {
+    public OrdineBean doRetrieveByKey(long id) throws SQLException {
         String query = "SELECT * FROM Ordine WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);

@@ -3,4 +3,36 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+
+    <!-- Definisci una pagina di errore generica per gli errori 404
+    <error-page>
+        <error-code>404</error-code>
+        <location>/errorHandler</location>
+    </error-page> -->
+
+    <!-- Definisci una pagina di errore generica per tutte le eccezioni
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/errorHandler</location>
+    </error-page>-->
+
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+
+    <!-- TODO: decommenta (tenuto per debug)
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    -->
+
+    <error-page>
+        <exception-type>com.tswproject.tswproj.EmptyPoolException</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
+
+
 </web-app>

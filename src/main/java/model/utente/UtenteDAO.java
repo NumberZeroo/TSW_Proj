@@ -15,10 +15,23 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
     }
 
     @Override
-    public UtenteBean doRetrieveByKey(int id) throws SQLException {
+    public UtenteBean doRetrieveByKey(long id) throws SQLException {
         String query = "SELECT * FROM Utente WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, id);
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return getUtente(resultSet);
+                }
+            }
+        }
+        return null;
+    }
+
+    public UtenteBean doRetrieveByUsername(String username) throws SQLException {
+        String query = "SELECT * FROM Utente WHERE username = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return getUtente(resultSet);

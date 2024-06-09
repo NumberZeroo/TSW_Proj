@@ -12,10 +12,10 @@ public class PetDAO extends AbstractDAO implements DAOInterface<PetBean, String>
     }
 
     @Override
-    public PetBean doRetrieveByKey(int id) throws SQLException {
+    public PetBean doRetrieveByKey(long id) throws SQLException {
         String query = "SELECT * FROM Pet WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return extractPetFromResultSet(resultSet);
