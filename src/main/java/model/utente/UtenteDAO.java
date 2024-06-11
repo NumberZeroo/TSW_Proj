@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, Long> {
     public UtenteDAO() throws EmptyPoolException {
@@ -14,10 +15,23 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
     }
 
     @Override
-    public UtenteBean doRetrieveByKey(int id) throws SQLException {
+    public UtenteBean doRetrieveByKey(long id) throws SQLException {
         String query = "SELECT * FROM Utente WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, id);
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return getUtente(resultSet);
+                }
+            }
+        }
+        return null;
+    }
+
+    public UtenteBean doRetrieveByUsername(String username) throws SQLException {
+        String query = "SELECT * FROM Utente WHERE username = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return getUtente(resultSet);
@@ -39,6 +53,21 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
             }
         }
         return utenti;
+    }
+
+    public Optional<UtenteBean> doRetrieveByLogin(String username, String passwordHash) throws SQLException {
+        String query = "SELECT * FROM Utente WHERE username = ? AND password = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
+            statement.setString(2, passwordHash);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(getUtente(resultSet));
+                } else {
+                    return Optional.empty();
+                }
+            }
+        }
     }
 
     @Override

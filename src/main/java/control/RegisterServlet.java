@@ -1,20 +1,21 @@
 package control;
 
 import com.tswproject.tswproj.EmptyPoolException;
+import com.tswproject.tswproj.Security;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import model.utente.*;
+
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.regex.*;
+import java.util.Optional;
 
 @WebServlet(value = "/registerServlet")
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         // Recupera i parametri della richiesta
         String username = request.getParameter("username");
         String email = request.getParameter("email");
@@ -32,12 +33,19 @@ public class RegisterServlet extends HttpServlet {
     private boolean registerUser(String username, String email, String password){
         UtenteBean utente = new UtenteBean();
 
-        // Controllo sulla validità della mail
-        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        if (!matcher.matches()) {
-            System.out.println("Email non valida"); //todo client side error message
+        if (!Security.validateEmail(email)){
+            System.out.println("Email non valida");
+            return false;
+        }
+
+        if (!Security.validateUsername(username)){
+            System.out.println("Username non valida");
+            return false;
+        }
+
+        Optional<String> hashedPassword = Security.hashPassword(password);
+        if (hashedPassword.isEmpty()) {
+            System.out.println("Password non valida"); // TODO: client side error message
             return false;
         }
 
@@ -46,14 +54,13 @@ public class RegisterServlet extends HttpServlet {
         utente.setEmail(email);
         utente.setImgPath("/test");  //todo default imgPath
         utente.setIsAdmin(0); //todo default isAdmin
-        utente.setPassword(password); //todo hash password
+        utente.setPassword(hashedPassword.get());
 
-        try{
-            UtenteDAO ut = new UtenteDAO();
+        try(UtenteDAO ut = new UtenteDAO()){
             ut.doSave(utente);
             return true;
-        }catch (SQLException | EmptyPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace(); // TODO: log
             return false;
         }
     }

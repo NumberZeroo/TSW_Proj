@@ -11,7 +11,7 @@ public class ProdottoBean implements Serializable {
     private int minEta;
     private int maxEta;
     private int iva;
-    private long prezzo;
+    private double prezzo;
     private boolean sterilizzati;
     private String imgPath;
     private long tipoAnimale;
@@ -82,11 +82,11 @@ public class ProdottoBean implements Serializable {
         this.iva = iva;
     }
 
-    public long getPrezzo() {
+    public double getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(long prezzo) {
+    public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
 

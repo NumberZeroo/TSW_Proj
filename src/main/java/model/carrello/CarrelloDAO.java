@@ -12,7 +12,7 @@ public class CarrelloDAO extends AbstractDAO implements DAOInterface<CarrelloBea
     }
 
     @Override
-    public CarrelloBean doRetrieveByKey(int id) throws SQLException {
+    public CarrelloBean doRetrieveByKey(long id) throws SQLException {
         String query = "SELECT * FROM Carrello WHERE IdUtente = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);

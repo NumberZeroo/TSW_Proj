@@ -1,6 +1,5 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.prodotto.ProdottoBean" %>
-<%@ page import="javax.swing.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -77,7 +76,7 @@
         <div class="griglia-prodotti">
             <%for(ProdottoBean prodotto : prodotti) { %>
                 <div class = "test-div-class">
-                    <a href="product.jsp?id=<%=prodotto.getId()%>">
+                    <a href="product?id=<%=prodotto.getId()%>">
                         <img src="<%= prodotto.getImgPath() %>" alt="Immagine">
                         <h2><%=prodotto.getNome()%></h2>
                     </a>

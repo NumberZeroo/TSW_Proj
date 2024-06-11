@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS tswproj;
 CREATE DATABASE tswproj;
-USE tswProj;
+USE tswproj;
 
 CREATE TABLE Utente (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -8,7 +8,7 @@ CREATE TABLE Utente (
     email VARCHAR(255) NOT NULL,
     imgPath VARCHAR(255) NOT NULL,
     isAdmin BIGINT NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    password CHAR(128) NOT NULL, # SHA-512
     CONSTRAINT fk_utente_admin CHECK (isAdmin IN (0, 1))
 );
 
@@ -70,6 +70,13 @@ CREATE TABLE OrderItem (
     Prezzo BIGINT NOT NULL,
     Quantita BIGINT NOT NULL,
     FOREIGN KEY(IdOrdine) REFERENCES Ordine(id)
+);
+
+CREATE TABLE KartItem (
+   idItem BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   IdCarrello BIGINT UNSIGNED NOT NULL,
+   Quantita BIGINT NOT NULL,
+   FOREIGN KEY(IdCarrello) REFERENCES Ordine(id)
 );
 
 CREATE TABLE Recensione (
