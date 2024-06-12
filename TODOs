@@ -1,7 +1,9 @@
 DB:
 - Aggiungi informazioni di contatto dell'utente (numero di telefono, indirizzo di spedizione, ...)
 - Aggiungi informazioni di pagamento
+- Quando viene cancellato un prodotto dall'amministratore, il prodotto non deve scomparire dagli storici degli ordini.
 LOGIC:
+- Implementa logica admin
 - Centralizzare la gestione delle immagini (cartella preposta? servlet a parte?)
 - Centralizzare db (cloud o cartella con foglio di generazione del db?)
 - Aggiungere feedback dopo la registrazione e login
@@ -9,8 +11,11 @@ LOGIC:
 - IDEA: e se la connessione al db fosse parte della sessione? ragionaci :D
 - A seguito delle richieste ajax trova un modo non bloccante per notificare success/failure
 PAGE STRUCTURE:
+- Modifiche pagine quando utente è admin
 - Rendere "catalogo" raggiungibile tramite l'header della pagina
 - TestCatalogo ora è il vero catalogo...rinomina
 - Aggiungi path navigabile alla navbar
 
+PER EMA l'altro:
+- attenzione agli errori
 

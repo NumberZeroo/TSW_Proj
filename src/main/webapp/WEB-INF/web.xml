@@ -29,7 +29,7 @@
     </error-page>
     -->
 
-    <error-page>
+   <error-page>
         <exception-type>com.tswproject.tswproj.EmptyPoolException</exception-type>
         <location>/error.jsp</location>
     </error-page>
