@@ -1,8 +1,6 @@
 DB:
 - Aggiungi informazioni di contatto dell'utente (numero di telefono, indirizzo di spedizione, ...)
 - Aggiungi informazioni di pagamento
-- Aggiungi descrizione al prodotto
-- Per l'amor del cielo...rinomina quel "Kart" in "Cart"...
 LOGIC:
 - Centralizzare la gestione delle immagini (cartella preposta? servlet a parte?)
 - Centralizzare db (cloud o cartella con foglio di generazione del db?)

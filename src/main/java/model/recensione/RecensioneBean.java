@@ -8,7 +8,7 @@ public class RecensioneBean implements Serializable {
     private long idUtente;
     private String titolo;
     private String commento;
-    private long valutazione;
+    private double valutazione;
     private Date data;
     private long idProdotto;
 
@@ -46,11 +46,11 @@ public class RecensioneBean implements Serializable {
         this.commento = commento;
     }
 
-    public long getValutazione() {
+    public double getValutazione() {
         return valutazione;
     }
 
-    public void setValutazione(long valutazione) {
+    public void setValutazione(double valutazione) {
         this.valutazione = valutazione;
     }
 

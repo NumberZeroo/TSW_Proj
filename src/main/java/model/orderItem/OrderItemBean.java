@@ -3,19 +3,28 @@ package model.orderItem;
 import java.io.Serializable;
 
 public class OrderItemBean implements Serializable {
-    private long idItem;
+    private long id;
+    private long idProdotto;
     private long idOrdine;
-    private long prezzo;
-    private long quantita;
+    private double prezzo;
+    private int quantita;
 
     public OrderItemBean() {}
 
-    public long getIdItem() {
-        return idItem;
+    public long getId() {
+        return id;
     }
 
-    public void setIdItem(long idItem) {
-        this.idItem = idItem;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getIdProdotto() {
+        return idProdotto;
+    }
+
+    public void setIdProdotto(long idProdotto) {
+        this.idProdotto = idProdotto;
     }
 
     public long getIdOrdine() {
@@ -26,26 +35,26 @@ public class OrderItemBean implements Serializable {
         this.idOrdine = idOrdine;
     }
 
-    public long getPrezzo() {
+    public double getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(long prezzo) {
+    public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
 
-    public long getQuantita() {
+    public int getQuantita() {
         return quantita;
     }
 
-    public void setQuantita(long quantita) {
+    public void setQuantita(int quantita) {
         this.quantita = quantita;
     }
 
     @Override
     public String toString() {
         return "OrderItem{" +
-                "idItem=" + idItem +
+                "idItem=" + idProdotto +
                 ", idOrdine=" + idOrdine +
                 ", prezzo=" + prezzo +
                 ", quantita=" + quantita +
