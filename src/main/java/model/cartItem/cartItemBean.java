@@ -3,18 +3,26 @@ package model.cartItem;
 import java.io.Serializable;
 
 public class cartItemBean implements Serializable {
-    private long idItem;
+    private long id;
+    private long idProdotto;
     private long idCarrello;
-    private long prezzo;
 
     public cartItemBean() {}
 
-    public long getIdItem() {
-        return idItem;
+    public long getId() {
+        return id;
     }
 
-    public void setIdItem(long idItem) {
-        this.idItem = idItem;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getIdProdotto() {
+        return idProdotto;
+    }
+
+    public void setIdProdotto(long idProdotto) {
+        this.idProdotto = idProdotto;
     }
 
     public long getIdCarrello() {
@@ -25,20 +33,12 @@ public class cartItemBean implements Serializable {
         this.idCarrello = idCarrello;
     }
 
-    public long getPrezzo() {
-        return prezzo;
-    }
-
-    public void setPrezzo(long prezzo) {
-        this.prezzo = prezzo;
-    }
 
     @Override
     public String toString() {
         return "OrderItem{" +
-                "idItem=" + idItem +
+                "idItem=" + idProdotto +
                 ", idCarrello=" + idCarrello +
-                ", prezzo=" + prezzo +
                 '}';
     }
 }

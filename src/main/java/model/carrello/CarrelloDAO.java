@@ -13,7 +13,7 @@ public class CarrelloDAO extends AbstractDAO implements DAOInterface<CarrelloBea
 
     @Override
     public CarrelloBean doRetrieveByKey(long id) throws SQLException {
-        String query = "SELECT * FROM Carrello WHERE IdUtente = ?";
+        String query = "SELECT * FROM Carrello WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -41,29 +41,26 @@ public class CarrelloDAO extends AbstractDAO implements DAOInterface<CarrelloBea
 
     @Override
     public void doSave(CarrelloBean carrello) throws SQLException {
-        String query = "INSERT INTO Carrello (IdUtente, idProdotto, Quantita) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Carrello (IdUtente) VALUES (?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, carrello.getIdUtente());
-            statement.setLong(2, carrello.getIdProdotto());
-            statement.setLong(3, carrello.getQuantita());
             statement.executeUpdate();
         }
     }
 
     @Override
     public void doUpdate(CarrelloBean carrello) throws SQLException {
-        String query = "UPDATE Carrello SET Quantita = ? WHERE IdUtente = ? AND idProdotto = ?";
+        String query = "UPDATE Carrello SET idUtente = ? WHERE Id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, carrello.getQuantita());
-            statement.setLong(2, carrello.getIdUtente());
-            statement.setLong(3, carrello.getIdProdotto());
+            statement.setLong(1, carrello.getIdUtente());
+            statement.setLong(2, carrello.getId());
             statement.executeUpdate();
         }
     }
 
     @Override
     public boolean doDelete(Long id) throws SQLException {
-        String query = "DELETE FROM Carrello WHERE IdUtente = ?";
+        String query = "DELETE FROM Carrello WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             int rowsDeleted = statement.executeUpdate();
@@ -73,9 +70,8 @@ public class CarrelloDAO extends AbstractDAO implements DAOInterface<CarrelloBea
 
     private CarrelloBean extractCarrelloFromResultSet(ResultSet resultSet) throws SQLException {
         CarrelloBean carrello = new CarrelloBean();
+        carrello.setId(resultSet.getLong("id"));
         carrello.setIdUtente(resultSet.getLong("IdUtente"));
-        carrello.setIdProdotto(resultSet.getLong("idProdotto"));
-        carrello.setQuantita(resultSet.getLong("Quantita"));
         return carrello;
     }
 }

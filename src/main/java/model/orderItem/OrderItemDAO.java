@@ -44,7 +44,7 @@ public class OrderItemDAO extends AbstractDAO implements DAOInterface<OrderItemB
         String query = "INSERT INTO OrderItem (IdOrdine, Prezzo, Quantita) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, orderItem.getIdOrdine());
-            statement.setLong(2, orderItem.getPrezzo());
+            statement.setDouble(2, orderItem.getPrezzo());
             statement.setLong(3, orderItem.getQuantita());
             statement.executeUpdate();
         }
@@ -52,19 +52,20 @@ public class OrderItemDAO extends AbstractDAO implements DAOInterface<OrderItemB
 
     @Override
     public void doUpdate(OrderItemBean orderItem) throws SQLException {
-        String query = "UPDATE OrderItem SET IdOrdine = ?, Prezzo = ?, Quantita = ? WHERE idItem = ?";
+        String query = "UPDATE OrderItem SET idProdotto = ?, IdOrdine = ?, Prezzo = ?, Quantita = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, orderItem.getIdOrdine());
-            statement.setLong(2, orderItem.getPrezzo());
-            statement.setLong(3, orderItem.getQuantita());
-            statement.setLong(4, orderItem.getIdItem());
+            statement.setLong(1, orderItem.getIdProdotto());
+            statement.setLong(2, orderItem.getIdOrdine());
+            statement.setDouble(3, orderItem.getPrezzo());
+            statement.setLong(4, orderItem.getQuantita());
+            statement.setLong(5, orderItem.getId());
             statement.executeUpdate();
         }
     }
 
     @Override
     public boolean doDelete(Long id) throws SQLException {
-        String query = "DELETE FROM OrderItem WHERE idItem = ?";
+        String query = "DELETE FROM OrderItem WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             int rowsDeleted = statement.executeUpdate();
@@ -74,10 +75,11 @@ public class OrderItemDAO extends AbstractDAO implements DAOInterface<OrderItemB
 
     private OrderItemBean extractOrderItemFromResultSet(ResultSet resultSet) throws SQLException {
         OrderItemBean orderItem = new OrderItemBean();
-        orderItem.setIdItem(resultSet.getLong("idItem"));
+        orderItem.setId(resultSet.getLong("id"));
+        orderItem.setIdProdotto(resultSet.getLong("idProdotto"));
         orderItem.setIdOrdine(resultSet.getLong("IdOrdine"));
-        orderItem.setPrezzo(resultSet.getLong("Prezzo"));
-        orderItem.setQuantita(resultSet.getLong("Quantita"));
+        orderItem.setPrezzo(resultSet.getDouble("Prezzo"));
+        orderItem.setQuantita(resultSet.getInt("Quantita"));
         return orderItem;
     }
 }

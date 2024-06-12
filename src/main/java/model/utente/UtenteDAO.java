@@ -77,7 +77,7 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
             statement.setString(1, utente.getUsername());
             statement.setString(2, utente.getEmail());
             statement.setString(3, utente.getImgPath());
-            statement.setLong(4, utente.getIsAdmin());
+            statement.setBoolean(4, utente.getIsAdmin());
             statement.setString(5, utente.getPassword());
             statement.executeUpdate();
         }
@@ -90,7 +90,7 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
             statement.setString(1, utente.getUsername());
             statement.setString(2, utente.getEmail());
             statement.setString(3, utente.getImgPath());
-            statement.setLong(4, utente.getIsAdmin());
+            statement.setBoolean(4, utente.getIsAdmin());
             statement.setString(5, utente.getPassword());
             statement.setLong(6, utente.getId());
             statement.executeUpdate();
@@ -114,7 +114,7 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
         utente.setUsername(resultSet.getString("username"));
         utente.setEmail(resultSet.getString("email"));
         utente.setImgPath(resultSet.getString("imgPath"));
-        utente.setIsAdmin(resultSet.getLong("isAdmin"));
+        utente.setIsAdmin(resultSet.getBoolean("isAdmin"));
         utente.setPassword(resultSet.getString("password"));
         return utente;
     }

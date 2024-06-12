@@ -26,6 +26,7 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
         return null;
     }
 
+    // TODO: implement sorting output (order)
     @Override
     public Collection<RecensioneBean> doRetrieveAll(String order) throws SQLException {
         List<RecensioneBean> recensioni = new ArrayList<>();
@@ -47,7 +48,7 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
             statement.setLong(1, recensione.getIdUtente());
             statement.setString(2, recensione.getTitolo());
             statement.setString(3, recensione.getCommento());
-            statement.setLong(4, recensione.getValutazione());
+            statement.setDouble(4, recensione.getValutazione());
             statement.setDate(5, recensione.getData());
             statement.setLong(6, recensione.getIdProdotto());
             statement.executeUpdate();
@@ -61,7 +62,7 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
             statement.setLong(1, recensione.getIdUtente());
             statement.setString(2, recensione.getTitolo());
             statement.setString(3, recensione.getCommento());
-            statement.setLong(4, recensione.getValutazione());
+            statement.setDouble(4, recensione.getValutazione());
             statement.setDate(5, recensione.getData());
             statement.setLong(6, recensione.getIdProdotto());
             statement.setLong(7, recensione.getId());
