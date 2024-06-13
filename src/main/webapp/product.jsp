@@ -1,30 +1,66 @@
-<%@ page import="model.prodotto.ProdottoBean" %><%--
-  Created by IntelliJ IDEA.
-  User: developer
-  Date: 6/7/24
-  Time: 8:13 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="navbar.jsp" %>
+<%@ page import="model.prodotto.ProdottoBean" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.recensione.RecensioneBean" %>
+<%@ page import="model.prodotto.ProdottoBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.recensione.RecensioneDAO" %>
+
 <html>
 <head>
-    <%
-        ProdottoBean prodotto = (ProdottoBean) request.getAttribute("product");
-    %>
+    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+    <%@ include file="navbar.jsp" %>
+
+    <% ProdottoBean prodotto = (ProdottoBean) request.getAttribute("product"); %>
     <title><%=prodotto.getNome()%></title>
 </head>
-<body>
-    <h2>Da decidere lo stile</h2>
-    <h3><%=prodotto.getNome()%></h3>
-    <p><%=prodotto.getPrezzo()%></p>
-    <!--
-    <form action="aggiungiAlCarrello" method="post">
-        <input type="hidden" name="id" value="<%=prodotto.getId()%>">
-        <button type="submit">Aggiungi al Carrello</button>
-    </form> -->
 
-    <button class="addToCartButton" data-product-id="<%=prodotto.getId()%>">Aggiungi al Carrello</button>
+<body>
+    <div class="product-details">
+        <div class="product-image">
+            <img src="<%=prodotto.getImgPath()%>" alt="<%=prodotto.getNome()%>">
+        </div>
+        <div class="product-info">
+            <h1><%=prodotto.getNome()%></h1>
+            <p><%=prodotto.getDescrizione()%></p>
+            <p>Prezzo: <%=prodotto.getPrezzo()%> €</p>
+            <label for="quantity">Quantità:</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="99" value="1">
+            <button class="addToCartButton" data-product-id="<%=prodotto.getId()%>">Aggiungi al Carrello</button>
+        </div>
+    </div>
+
+    <%-- Recupera le recensioni e i prodotti consigliati dal tuo database --%>
+    <%
+        RecensioneDAO recensioneDAO = new RecensioneDAO();
+        List<RecensioneBean> recensioni = (List<RecensioneBean>) recensioneDAO.doRetrieveByProduct(prodotto.getId());
+        List<ProdottoBean> prodottiConsigliati = new ArrayList<>();
+    %>
+
+    <%-- Visualizza le recensioni --%>
+    <div class="reviews">
+        <h2>Recensioni</h2>
+        <% for (RecensioneBean recensione : recensioni) { %>
+            <div class="review">
+                <h2><%=recensione.getTitolo()%></h2>
+                <p><%=recensione.getCommento()%></p>
+                <p>Valutazione: <%=recensione.getValutazione()%></p>
+                <p>Data: <%=recensione.getData()%></p>
+            </div>
+        <% } %>
+    </div>
+
+    <%-- Visualizza i prodotti consigliati --%>
+    <div class="recommended-products">
+        <h2>Prodotti Consigliati</h2>
+        <% for (ProdottoBean prod : prodottiConsigliati) { %>
+            <div class="product">
+                <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
+                <h2><%=prod.getNome()%></h2>
+                <p><%=prod.getDescrizione()%></p>
+                <p>Prezzo: <%=prod.getPrezzo()%> €</p>
+            </div>
+        <% } %>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

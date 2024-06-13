@@ -226,3 +226,81 @@ svg text {
     border: none;
     background: none;
 }
+
+/* Stile per il div dei prodotti */
+.product-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2em;
+}
+
+.product-image img {
+    width: 25%;  /* Imposta la larghezza dell'immagine */
+    height: 25%; /* Imposta l'altezza dell'immagine */
+    object-fit: fill; /* Mantiene le proporzioni dell'immagine */
+}
+
+.product-info {
+    flex: 1;
+    margin-left: 5em;
+}
+
+.addToCartButton {
+    display: inline-block;
+    margin-top: 1em;
+    padding: 0.5em 1em;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.product-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2em;
+}
+
+.product-image {
+    flex: 1;
+    margin-right: 2em;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: fill;
+}
+
+.product-info {
+    margin-top: 5em;
+    flex: 2;
+}
+
+.review {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.recommended-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.recommended-products .product {
+    flex: 0 0 calc(33.33% - 1em);
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.recommended-products .product img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}

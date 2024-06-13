@@ -18,12 +18,12 @@ public class cartItemDAO extends AbstractDAO implements DAOInterface<cartItemBea
 
     @Override
     public cartItemBean doRetrieveByKey(long id) throws SQLException {
-        String query = "SELECT * FROM KartItem WHERE idItem = ?";
+        String query = "SELECT * FROM CartItem WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return extractOrderItemFromResultSet(resultSet);
+                    return extractcartItemFromResultSet(resultSet);
                 }
             }
         }
@@ -33,41 +33,39 @@ public class cartItemDAO extends AbstractDAO implements DAOInterface<cartItemBea
     @Override
     public Collection<cartItemBean> doRetrieveAll(String order) throws SQLException {
         List<cartItemBean> cartItem = new ArrayList<>();
-        String query = "SELECT * FROM KartItem";
+        String query = "SELECT * FROM CartItem";
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                cartItemBean orderItem = extractOrderItemFromResultSet(resultSet);
-                cartItem.add(orderItem);
+                cartItem.add(extractcartItemFromResultSet(resultSet));
             }
         }
         return cartItem;
     }
 
     @Override
-    public void doSave(cartItemBean orderItem) throws SQLException {
-        String query = "INSERT INTO KartItem (IdOrdine, Prezzo) VALUES (?, ?)";
+    public void doSave(cartItemBean cartItem) throws SQLException {
+        String query = "INSERT INTO CartItem (id) VALUES (?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, orderItem.getIdCarrello());
-            statement.setLong(2, orderItem.getPrezzo());
+            statement.setLong(1, cartItem.getId());
             statement.executeUpdate();
         }
     }
 
     @Override
-    public void doUpdate(cartItemBean orderItem) throws SQLException {
-        String query = "UPDATE KartItem SET IdOrdine = ?, Prezzo = ? WHERE idItem = ?";
+    public void doUpdate(cartItemBean cartItem) throws SQLException {
+        String query = "UPDATE CartItem SET idProdotto = ?, idCarrello = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, orderItem.getIdCarrello());
-            statement.setLong(2, orderItem.getPrezzo());
-            statement.setLong(4, orderItem.getIdItem());
+            statement.setLong(1, cartItem.getIdProdotto());
+            statement.setLong(2, cartItem.getIdCarrello());
+            statement.setLong(3, cartItem.getId());
             statement.executeUpdate();
         }
     }
 
     @Override
     public boolean doDelete(Long id) throws SQLException {
-        String query = "DELETE FROM KartItem WHERE idItem = ?";
+        String query = "DELETE FROM CartItem WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             int rowsDeleted = statement.executeUpdate();
@@ -75,11 +73,11 @@ public class cartItemDAO extends AbstractDAO implements DAOInterface<cartItemBea
         }
     }
 
-    private cartItemBean extractOrderItemFromResultSet(ResultSet resultSet) throws SQLException {
+    private cartItemBean extractcartItemFromResultSet(ResultSet resultSet) throws SQLException {
         cartItemBean cartItem = new cartItemBean();
-        cartItem.setIdItem(resultSet.getLong("idItem"));
+        cartItem.setId(resultSet.getLong("id"));
+        cartItem.setIdProdotto(resultSet.getLong("idItem"));
         cartItem.setIdCarrello(resultSet.getLong("IdOrdine"));
-        cartItem.setPrezzo(resultSet.getLong("Prezzo"));
         return cartItem;
     }
 }

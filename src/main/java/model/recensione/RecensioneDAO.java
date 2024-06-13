@@ -26,6 +26,7 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
         return null;
     }
 
+    // TODO: implement sorting output (order)
     @Override
     public Collection<RecensioneBean> doRetrieveAll(String order) throws SQLException {
         List<RecensioneBean> recensioni = new ArrayList<>();
@@ -40,6 +41,21 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
         return recensioni;
     }
 
+    public Collection<RecensioneBean> doRetrieveByProduct(long idProdotto) throws SQLException {
+        List<RecensioneBean> recensioni = new ArrayList<>();
+        String query = "SELECT * FROM Recensione WHERE idProdotto = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, idProdotto);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    RecensioneBean recensione = getRecensione(resultSet);
+                    recensioni.add(recensione);
+                }
+            }
+        }
+        return recensioni;
+    }
+
     @Override
     public void doSave(RecensioneBean recensione) throws SQLException {
         String query = "INSERT INTO Recensione (idUtente, Titolo, Commento, Valutazione, Data, idProdotto) VALUES (?, ?, ?, ?, ?, ?)";
@@ -47,7 +63,7 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
             statement.setLong(1, recensione.getIdUtente());
             statement.setString(2, recensione.getTitolo());
             statement.setString(3, recensione.getCommento());
-            statement.setLong(4, recensione.getValutazione());
+            statement.setDouble(4, recensione.getValutazione());
             statement.setDate(5, recensione.getData());
             statement.setLong(6, recensione.getIdProdotto());
             statement.executeUpdate();
@@ -61,7 +77,7 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
             statement.setLong(1, recensione.getIdUtente());
             statement.setString(2, recensione.getTitolo());
             statement.setString(3, recensione.getCommento());
-            statement.setLong(4, recensione.getValutazione());
+            statement.setDouble(4, recensione.getValutazione());
             statement.setDate(5, recensione.getData());
             statement.setLong(6, recensione.getIdProdotto());
             statement.setLong(7, recensione.getId());

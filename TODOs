@@ -1,8 +1,6 @@
 DB:
 - Aggiungi informazioni di contatto dell'utente (numero di telefono, indirizzo di spedizione, ...)
 - Aggiungi informazioni di pagamento
-- Aggiungi descrizione al prodotto
-- Per l'amor del cielo...rinomina quel "Kart" in "Cart"...
 - Quando viene cancellato un prodotto dall'amministratore, il prodotto non deve scomparire dagli storici degli ordini.
 LOGIC:
 - Implementa logica admin

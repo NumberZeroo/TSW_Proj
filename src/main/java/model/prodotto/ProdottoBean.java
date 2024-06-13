@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class ProdottoBean implements Serializable {
     private long id;
     private String nome;
+    private String descrizione;
     private int disponibilita;
     private String taglia;
     private String categoria;
@@ -104,6 +105,18 @@ public class ProdottoBean implements Serializable {
 
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public boolean isSterilizzati() {
+        return sterilizzati;
     }
 
     public long getTipoAnimale() {

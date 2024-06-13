@@ -77,27 +77,9 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         return prodotti;
     }
 
-    //Metodo per la ricerca di prodotti
-    public Collection<ProdottoBean> doRetrieveBySearch(String search) throws SQLException {
-    List<ProdottoBean> prodotti = new ArrayList<>();
-    String query = "SELECT * FROM Prodotto WHERE Nome LIKE ?";
-
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
-        statement.setString(1, "%" + search + "%");
-
-        try (ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                ProdottoBean prodotto = getProdotto(resultSet);
-                prodotti.add(prodotto);
-            }
-        }
-    }
-    return prodotti;
-}
-
     @Override
     public void doSave(ProdottoBean prodotto) throws SQLException {
-        String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Tipo, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Tipo, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath, descrizione) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, prodotto.getNome());
             statement.setInt(2, prodotto.getDisponibilita());
@@ -109,13 +91,14 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setDouble(8, prodotto.getPrezzo());
             statement.setBoolean(9, prodotto.getSterilizzati());
             statement.setString(10, prodotto.getImgPath());
+            statement.setString(11, prodotto.getDescrizione());
             statement.executeUpdate();
         }
     }
 
     @Override
     public void doUpdate(ProdottoBean prodotto) throws SQLException {
-        String query = "UPDATE Prodotto SET Nome = ?, Disponibilità = ?, Taglia = ?, Tipo = ?, MinEta = ?, MaxEta = ?, IVA = ?, Prezzo = ?, Sterilizzati = ?, imgPath = ? WHERE id = ?";
+        String query = "UPDATE Prodotto SET Nome = ?, Disponibilità = ?, Taglia = ?, Tipo = ?, MinEta = ?, MaxEta = ?, IVA = ?, Prezzo = ?, Sterilizzati = ?, imgPath = ?, descrizione = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, prodotto.getNome());
             statement.setInt(2, prodotto.getDisponibilita());
@@ -128,6 +111,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setBoolean(9, prodotto.getSterilizzati());
             statement.setString(10, prodotto.getImgPath());
             statement.setLong(11, prodotto.getId());
+            statement.setString(12, prodotto.getDescrizione());
             statement.executeUpdate();
         }
     }
@@ -156,6 +140,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         prodotto.setSterilizzati(resultSet.getBoolean("Sterilizzati"));
         prodotto.setImgPath(resultSet.getString("imgPath"));
         prodotto.setTipoAnimale(resultSet.getLong("TipoAnimale"));
+        prodotto.setDescrizione(resultSet.getString("descrizione"));
         return prodotto;
     }
 }

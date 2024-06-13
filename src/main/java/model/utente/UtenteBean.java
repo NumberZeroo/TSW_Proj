@@ -1,5 +1,4 @@
 package model.utente;
-import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
@@ -8,7 +7,7 @@ public class UtenteBean implements Serializable {
     private String username;
     private String email;
     private String imgPath;
-    private long isAdmin;
+    private boolean isAdmin;
     private String password;
 
     public UtenteBean() {}
@@ -45,11 +44,11 @@ public class UtenteBean implements Serializable {
         this.imgPath = imgPath;
     }
 
-    public long getIsAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(long isAdmin) {
+    public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 
