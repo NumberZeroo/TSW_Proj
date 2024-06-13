@@ -10,6 +10,8 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.*;
 import model.prodotto.*;
 
+import javax.swing.*;
+
 @WebServlet(name = "catalogo", value = "/mostraCatalogoServlet")
 public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
 
@@ -26,7 +28,6 @@ public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
             String maxAge = request.getParameter("max-age");
 
             List<ProdottoBean> prodotti;
-
             try {
                 if (price != null || size != null || category != null || animalRace != null || sterilized != null || minAge != null || maxAge != null){
                     prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveFiltered(price, size, category, animalRace, sterilized, minAge, maxAge);
