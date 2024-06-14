@@ -4,6 +4,7 @@
 <%@ page import="model.prodotto.ProdottoBean" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.recensione.RecensioneDAO" %>
+<%@ page import="model.prodotto.ProdottoDAO" %>
 
 <html>
 <head>
@@ -19,47 +20,67 @@
         <div class="product-image">
             <img src="<%=prodotto.getImgPath()%>" alt="<%=prodotto.getNome()%>">
         </div>
-        <div class="product-info">
-            <h1><%=prodotto.getNome()%></h1>
-            <p><%=prodotto.getDescrizione()%></p>
-            <p>Prezzo: <%=prodotto.getPrezzo()%> €</p>
+        <div class="product-info-specs"> <!-- Nuovo div che raggruppa le informazioni del prodotto e le specifiche del prodotto -->
+            <div class="product-info">
+                <h1><%=prodotto.getNome()%></h1>
+                <p><%=prodotto.getDescrizione()%></p>
+                <h4>Prezzo: <%=prodotto.getPrezzo()%> €</h4>
+            </div>
+
+            <div class="product-specs">
+                <h2>Dettagli prodotto</h2>
+                <p>Categoria: <%=prodotto.getCategoria()%></p>
+                <p>Taglia: <%=prodotto.getTaglia()%></p>
+                <p>Range età consigliata: <%=prodotto.getMinEta()%>/<%=prodotto.getMaxEta()%></p>
+            </div>
+        </div>
+
+        <div class="addToCart">
+            <h3>Disponibilità: <%=prodotto.getDisponibilita()%></h3>
             <label for="quantity">Quantità:</label>
             <input type="number" id="quantity" name="quantity" min="1" max="99" value="1">
             <button class="addToCartButton" data-product-id="<%=prodotto.getId()%>">Aggiungi al Carrello</button>
         </div>
     </div>
 
-    <%-- Recupera le recensioni e i prodotti consigliati dal tuo database --%>
-    <%
-        RecensioneDAO recensioneDAO = new RecensioneDAO();
-        List<RecensioneBean> recensioni = (List<RecensioneBean>) recensioneDAO.doRetrieveByProduct(prodotto.getId());
-        List<ProdottoBean> prodottiConsigliati = new ArrayList<>();
-    %>
-
     <%-- Visualizza le recensioni --%>
     <div class="reviews">
-        <h2>Recensioni</h2>
-        <% for (RecensioneBean recensione : recensioni) { %>
-            <div class="review">
-                <h2><%=recensione.getTitolo()%></h2>
-                <p><%=recensione.getCommento()%></p>
-                <p>Valutazione: <%=recensione.getValutazione()%></p>
-                <p>Data: <%=recensione.getData()%></p>
-            </div>
-        <% } %>
+        <h2 style="font-style: italic">Recensioni degli utenti</h2>
+
+        <%-- Recupera le recensioni e i prodotti consigliati dal tuo database --%>
+        <% try(RecensioneDAO recensioneDAO = new RecensioneDAO()){
+                List<RecensioneBean> recensioni = (List<RecensioneBean>) recensioneDAO.doRetrieveByProduct(prodotto.getId());
+
+                for (RecensioneBean recensione : recensioni) { %>
+                    <div class="review">
+                        <h3>Utente n.<%=recensione.getIdUtente()%> - <%=recensione.getTitolo()%></h3>
+                        <p><%=recensione.getCommento()%></p>
+                        <p>Valutazione: <%=recensione.getValutazione()%></p>
+                        <p>Data: <%=recensione.getData()%></p>
+                    </div>
+                <% }
+            }catch(Exception e){
+                e.printStackTrace();
+        }%>
     </div>
 
+    <!-- todo Cambia retrieve all in retrieve by category -->
     <%-- Visualizza i prodotti consigliati --%>
+    <h2 style="font-style: italic">Potrebbe piacerti...</h2>
     <div class="recommended-products">
-        <h2>Prodotti Consigliati</h2>
-        <% for (ProdottoBean prod : prodottiConsigliati) { %>
-            <div class="product">
-                <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
-                <h2><%=prod.getNome()%></h2>
-                <p><%=prod.getDescrizione()%></p>
-                <p>Prezzo: <%=prod.getPrezzo()%> €</p>
-            </div>
-        <% } %>
+        <%  try(ProdottoDAO prodottoDAO = new ProdottoDAO()){
+                List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
+
+                for (ProdottoBean prod : prodottiConsigliati) { %>
+                    <div class="product">
+                        <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
+                        <h4><%=prod.getNome()%></h4>
+                        <p>Prezzo: <%=prod.getPrezzo()%> €</p>
+                    </div>
+                <% }
+            }catch(Exception e){
+                e.printStackTrace();
+        }%>
     </div>
 
     <script>

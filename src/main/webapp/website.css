@@ -13,8 +13,9 @@ body {
 
 .content {
     flex: 1 0 auto;
-}  /* Stile per la barra di navigazione */
+}
 
+/* Stile per la barra di navigazione */
 .navbar {
     height: 60px; /* Altezza della navbar */
     z-index: 1;
@@ -24,104 +25,7 @@ body {
     .container-fluid {
         background-color: lightgoldenrodyellow; /* Sostituisci #yourColor con il colore desiderato */
     }
-}
 
-.navbar-toggler {
-    background-color: white;
-}
-
-.navbar-nav li.nav-item { /* Stile per le icone della navbar */
-    display: flex;
-    align-items: center;
-    margin-left: 15px;
-    margin-right: 0;
-}
-
-.search-bar {
-    max-width: 200px; /* Imposta la larghezza massima della barra di ricerca */
-    max-height: 30px;
-}
-
-.footer-div {
-    z-index: 2;
-    background-color: darkcyan;
-    color: black;
-    /*position: sticky;*/
-    width: 100%;
-    min-height: 3rem;            /* Footer height */
-    margin: 0;
-    flex-shrink: 0;
-}
-
-.griglia-prodotti {
-    transition: margin-right 0.3s ease-in-out;
-    min-height: auto;
-    max-width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    column-gap: 10px;
-    margin-top: 0;
-    margin-bottom: 3rem;
-}
-
-/*Stile per il div dei prodotti */
-.test-div-class {
-    transition: margin-left 0.7s ease-in-out;
-    width: 300px;
-    height: auto;
-    display: inline-block;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid black;
-    border-radius: 10px;
-    text-align: center;
-    background-color: olive; /* Sfondo grigio */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombra */
-}
-
-.test-div-class img {
-    width: 100%;
-    height: auto; /* Imposta l'altezza dell'immagine in base all'aspetto */
-    object-fit: contain;
-}
-.test-div-class h2 {
-    font-family: 'Arial', sans-serif; /* Font più carino */
-    display: block; /* Posizionato in un blocco */
-}
-
-.test-div-class p {
-    display: block; /* Posizionato in un blocco */
-}
-
-
-/* Stile per il logo */
-svg {
-    font-family: "Rubik Dirt", sans-serif;
-    width: 100%; height: 100%;
-}
-svg text {
-    animation: stroke 7s infinite alternate;
-    stroke-width: 2;
-    stroke: #365FA0;
-    font-size: 100px;
-}
-
-@keyframes stroke {
-    0%   {
-        fill: rgba(72,138,204,0); stroke: rgba(54,95,160,1);
-        stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
-    }
-    70%  {fill: rgba(72,138,204,0); stroke: rgba(54,95,160,1); }
-    80%  {fill: rgba(72,138,204,0); stroke: rgba(54,95,160,1); stroke-width: 3; }
-    100% {
-        fill: rgba(72,138,204,1); stroke: rgba(54,95,160,0);
-        stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 0;
-    }
-}
-
-.wrapper {background-color: white}
-
-@media (max-width: 900px) {
     .filter-bar {
         display: none;
     }
@@ -138,7 +42,6 @@ svg text {
     }
 }
 
-/* Stile responsive per la barra dei filtri */
 @media (min-width: 900px) {
     #open-filter-button{
         display: none;
@@ -168,6 +71,117 @@ svg text {
     .griglia-prodotti.shift-left {
         margin-right: 20%; /* Sposta il div del prodotto a destra del 20% */
     }
+}
+
+.navbar-toggler {
+    background-color: white;
+}
+
+.navbar-nav li.nav-item { /* Stile per le icone della navbar */
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    margin-right: 0;
+}
+
+.search-bar {
+    max-width: 200px; /* Imposta la larghezza massima della barra di ricerca */
+    max-height: 30px;
+}
+
+.footer-div {
+    z-index: 2;
+    background-color: darkcyan;
+    color: black;
+    width: 100%;
+    min-height: 3rem; /* Footer height */
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.griglia-prodotti {
+    transition: margin-right 0.3s ease-in-out;
+    min-height: auto;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    column-gap: 10px;
+    margin-top: 0;
+    margin-bottom: 3rem;
+}
+
+/* Stile per il div dei prodotti */
+.test-div-class {
+    transition: margin-left 0.7s ease-in-out;
+    width: 300px;
+    height: auto;
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    background-color: olive; /* Sfondo grigio */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombra */
+}
+
+.test-div-class img {
+    width: 100%;
+    height: auto; /* Imposta l'altezza dell'immagine in base all'aspetto */
+    object-fit: contain;
+}
+
+.test-div-class h2 {
+    font-family: 'Arial', sans-serif; /* Font più carino */
+    display: block; /* Posizionato in un blocco */
+}
+
+.test-div-class p {
+    display: block; /* Posizionato in un blocco */
+}
+
+/* Stile per il logo */
+svg {
+    font-family: "Rubik Dirt", sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
+svg text {
+    animation: stroke 7s infinite alternate;
+    stroke-width: 2;
+    stroke: #365FA0;
+    font-size: 100px;
+}
+
+@keyframes stroke {
+    0% {
+        fill: rgba(72,138,204,0);
+        stroke: rgba(54,95,160,1);
+        stroke-dashoffset: 25%;
+        stroke-dasharray: 0 50%;
+        stroke-width: 2;
+    }
+    70% {
+        fill: rgba(72,138,204,0);
+        stroke: rgba(54,95,160,1);
+    }
+    80% {
+        fill: rgba(72,138,204,0);
+        stroke: rgba(54,95,160,1);
+        stroke-width: 3;
+    }
+    100% {
+        fill: rgba(72,138,204,1);
+        stroke: rgba(54,95,160,0);
+        stroke-dashoffset: -25%;
+        stroke-dasharray: 50% 0;
+        stroke-width: 0;
+    }
+}
+
+.wrapper {
+    background-color: white;
 }
 
 #filter-bar form input,
@@ -227,26 +241,6 @@ svg text {
     background: none;
 }
 
-/* Stile per il div dei prodotti */
-.product-details {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 2em;
-}
-
-.product-image img {
-    width: 25%;  /* Imposta la larghezza dell'immagine */
-    height: 25%; /* Imposta l'altezza dell'immagine */
-    object-fit: fill; /* Mantiene le proporzioni dell'immagine */
-}
-
-.product-info {
-    flex: 1;
-    margin-left: 5em;
-}
-
 .addToCartButton {
     display: inline-block;
     margin-top: 1em;
@@ -258,26 +252,76 @@ svg text {
     text-decoration: none;
 }
 
+.addToCartButton:hover {
+    background-color: #0056b3;
+}
+
+.addToCartButton {
+    grid-column: 3;
+}
+
 .product-details {
-    display: flex;
+    margin-top: 1em;
     justify-content: space-between;
     margin-bottom: 2em;
+    border-radius: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Aggiunge un'ombra al div */
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 2em;
 }
 
 .product-image {
-    flex: 1;
-    margin-right: 2em;
+    grid-column: 1;
 }
 
 .product-image img {
-    width: 100%;
-    height: auto;
-    object-fit: fill;
+    flex: 1;
+    margin-top: 10px;
+    margin-left: 15px;
+    width: 30vw;  /* Imposta la larghezza dell'immagine al 50% della larghezza del viewport */
+    height: auto; /* Mantiene le proporzioni dell'immagine */
+    object-fit: cover; /* Mantiene le proporzioni dell'immagine ridimensionandola in modo da riempire l'intero contenitore */
+    grid-column: 1;
 }
 
 .product-info {
-    margin-top: 5em;
-    flex: 2;
+    grid-column: 2;
+    margin-top: 10%;
+    margin-right: 20%;
+    border: 1px solid; /* Sostituisci #COLOR con il colore del bordo desiderato */
+    padding: 2em; /* Aggiunge spazio intorno al contenuto */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Aggiunge un'ombra al div */
+}
+
+.product-info h1 {
+    text-align: center;
+    font-size: 2em; /* Imposta la dimensione del font per il nome del prodotto */
+    font-style: italic;
+    margin-bottom: 0.5em; /* Aggiunge spazio sotto il nome del prodotto */
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.product-info p {
+    text-align: left;
+    font-style: italic;
+    margin-bottom: 0.5em; /* Aggiunge spazio sotto la descrizione e il prezzo del prodotto */
+    font-family: 'Arial', sans-serif;
+    font-size: 1em;
+    color: #666;
+}
+
+.product-info .addToCartButton {
+    padding: 0.5em 1em;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 5%; /* Aggiunge spazio sopra il pulsante */
 }
 
 .review {
@@ -304,3 +348,108 @@ svg text {
     height: auto;
     object-fit: cover;
 }
+
+.product-specs {
+    grid-column: 2;
+    padding: 10px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #F3F3F3; /* Sostituisci #F3F3F3 con il colore di sfondo desiderato */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Aggiunge un'ombra al div */
+    font-style: italic;
+}
+
+.product-specs p {
+    display: inline-block; /* Imposta il display su inline-block */
+    border: 0.1px solid; /* Sostituisci #000 con il colore del bordo desiderato */
+    padding: 0.5em; /* Aggiunge spazio intorno al testo */
+    margin-bottom: 0.5em; /* Aggiunge spazio sotto ogni specifica */
+    font-style: italic; /* Imposta il font in corsivo */
+}
+
+.product-info-specs {
+    grid-column: 2;
+}
+
+.addToCart {
+    grid-column: 2;
+}
+
+.product-info-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 1em; /* Aggiunge spazio tra i div */
+}
+
+.product-info, .product-specs {
+    flex: 1; /* Imposta la dimensione dei div in modo che abbiano la stessa dimensione */
+    box-shadow: none; /* Rimuove l'ombra */
+    box-sizing: border-box; /* Include padding e bordo nella larghezza e altezza totali */
+    width: 100%; /* Imposta una larghezza fissa */
+}
+
+@media (max-width: 900px) {
+    .product-details {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "image"
+            "info"
+            "cart";
+    }
+
+    .product-info{
+        margin-top: 0;
+    }
+
+    .product-image {
+        grid-area: image;
+        display: flex;
+        justify-content: center; /* Centra l'immagine orizzontalmente */
+        align-items: center; /* Centra l'immagine verticalmente */
+    }
+
+    .product-info-specs {
+        margin-top: 2px;
+        grid-area: info;
+    }
+
+    .addToCart {
+        grid-area: cart;
+    }
+}
+
+.product-specs h2 {
+    text-align: center;
+    font-style: italic;
+}
+
+.review{
+
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 0 2px rgba(0.5, 0.5, 0, 0.5); /* Aggiunge un'ombra al div */
+    font-style: italic;
+}
+
+.review p{
+    font-style: italic;
+    font-size: large;
+}
+
+.recommended-products {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    box-shadow: 0 0 2px rgba(0.5, 0.5, 0, 0.5); /* Aggiunge un'ombra al div */
+    font-style: italic;
+}
+
+.recommended-products .product {
+    flex: 0 0 250px; /* Ad esempio, per prodotti larghi 200px */
+    box-sizing: border-box;
+    margin: 5px;
+}
+

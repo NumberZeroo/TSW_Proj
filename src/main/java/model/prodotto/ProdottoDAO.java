@@ -143,4 +143,22 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         prodotto.setDescrizione(resultSet.getString("descrizione"));
         return prodotto;
     }
+
+    // Metodo per la ricerca di prodotti tramite query, todo: da implementare ajax
+    public List<ProdottoBean> doRetrieveByQuery(String query) throws SQLException {
+        List<ProdottoBean> prodotti = new ArrayList<>();
+        String sql = "SELECT * FROM Prodotto WHERE Nome LIKE ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, "%" + query + "%");
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    ProdottoBean prodotto = getProdotto(resultSet);
+                    prodotti.add(prodotto);
+                }
+            }
+        }
+        return prodotti;
+    }
 }
