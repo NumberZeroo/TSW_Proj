@@ -60,7 +60,7 @@ CREATE TABLE Carrello (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     IdUtente BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY(id, IdUtente),
-    FOREIGN KEY(IdUtente) REFERENCES Utente(id),
+    FOREIGN KEY(IdUtente) REFERENCES Utente(id) ON DELETE CASCADE
 );
 
 CREATE TABLE OrderItem (
@@ -80,8 +80,8 @@ CREATE TABLE CartItem (
     IdCarrello BIGINT UNSIGNED NOT NULL,
     Quantita BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY(id, idProdotto, IdCarrello),
-    FOREIGN KEY(IdCarrello) REFERENCES Ordine(id),
-    FOREIGN KEY(idProdotto) REFERENCES Prodotto(id)
+    FOREIGN KEY(IdCarrello) REFERENCES Carrello(id) ON DELETE CASCADE,
+    FOREIGN KEY(idProdotto) REFERENCES Prodotto(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Recensione (
