@@ -1,7 +1,10 @@
 package model.utente;
 import com.tswproject.tswproj.EmptyPoolException;
+import com.tswproject.tswproj.RuntimeSQLException;
 import model.AbstractDAO;
 import model.DAOInterface;
+import model.carrello.CarrelloBean;
+import model.carrello.CarrelloDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -73,13 +76,23 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
     @Override
     public void doSave(UtenteBean utente) throws SQLException {
         String query = "INSERT INTO Utente (username, email, imgPath, isAdmin, password) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, utente.getUsername());
             statement.setString(2, utente.getEmail());
             statement.setString(3, utente.getImgPath());
             statement.setBoolean(4, utente.getIsAdmin());
             statement.setString(5, utente.getPassword());
-            statement.executeUpdate();
+            if (statement.executeUpdate() > 0){ // Creazione carrello associato
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()){
+                    long userId = generatedKeys.getInt(1);
+                    CarrelloBean carrello = new CarrelloBean();
+                    carrello.setIdUtente(userId);
+                    try(CarrelloDAO carrelloDAO = new CarrelloDAO()) {
+                        carrelloDAO.doSave(carrello);
+                    }
+                }
+            }
         }
     }
 
@@ -117,5 +130,18 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
         utente.setIsAdmin(resultSet.getBoolean("isAdmin"));
         utente.setPassword(resultSet.getString("password"));
         return utente;
+    }
+
+    // TODO: sposta nella CarrelloDAO (qui non ha molto senso...)
+    public long getCartId(long userId) throws SQLException {
+        String query = "SELECT * FROM Carrello WHERE idUtente = ?";
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setLong(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getLong("id");
+            }
+        }
+        throw new RuntimeSQLException("CartId not found");
     }
 }

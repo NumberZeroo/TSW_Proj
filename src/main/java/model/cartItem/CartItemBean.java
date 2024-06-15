@@ -2,12 +2,12 @@ package model.cartItem;
 
 import java.io.Serializable;
 
-public class cartItemBean implements Serializable {
+public class CartItemBean implements Serializable {
     private long id;
     private long idProdotto;
     private long idCarrello;
 
-    public cartItemBean() {}
+    public CartItemBean() {}
 
     public long getId() {
         return id;
