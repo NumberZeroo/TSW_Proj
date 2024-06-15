@@ -5,6 +5,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.recensione.RecensioneDAO" %>
 <%@ page import="model.prodotto.ProdottoDAO" %>
+<%@ page import="com.tswproject.tswproj.SessionFacade" %>
 
 <html>
 <head>
@@ -16,6 +17,34 @@
 </head>
 
 <body>
+
+    <% SessionFacade sessionFacade = new SessionFacade(request.getSession());
+        if(sessionFacade.getIsAdmin()){ %>
+    <button id="adminButton" class="adminButton">Modifica Prodotto</button>
+    <form id="editProductForm" style="display: none;" action="${pageContext.request.contextPath}/editProductServlet" method="post">
+
+        <input type="hidden" name="id" value="<%=prodotto.getId()%>">
+
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="<%=prodotto.getNome()%>">
+
+        <label for="descrizione">Descrizione:</label>
+        <input type="text" id="descrizione" name="descrizione" value="<%=prodotto.getDescrizione()%>">
+
+        <label for="prezzo">Prezzo:</label>
+        <input type="number" id="prezzo" name="prezzo" value="<%=prodotto.getPrezzo()%>">
+
+        <input type="submit" value="Conferma Modifiche">
+    </form>
+<% } %>
+
+    <script>
+        document.getElementById('adminButton').addEventListener('click', function() {
+            document.getElementById('editProductForm').style.display = 'block';
+        });
+    </script>
+
+
     <div class="product-details">
         <div class="product-image">
             <img src="<%=prodotto.getImgPath()%>" alt="<%=prodotto.getNome()%>">
@@ -64,7 +93,6 @@
         }%>
     </div>
 
-    <!-- todo Cambia retrieve all in retrieve by category -->
     <%-- Visualizza i prodotti consigliati --%>
     <h2 style="font-style: italic">Potrebbe piacerti...</h2>
     <div class="recommended-products">

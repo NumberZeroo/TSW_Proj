@@ -7,11 +7,15 @@
             <h3>DarwinShop!</h3>
             <div class="row">
                 <div class="column">
-                    <h6>Contatti</h6>
-                    <p>Email: e.amore2@studenti.unisa.it</p>
-                    <p>Telefono: 1234567890</p>
-                    <p>Email: emailFalanga@studenti.unisa.it</p>
-                    <p>Telefono: 1234567890</p>
+                <h6>Contatti</h6>
+                    <ul>
+                        <li>Email: e.amore@gmail.com</li>
+                        <li>Telefono: 1234567890</li>
+                    </ul>
+                    <ul>
+                        <li>Email: e.falanga@gmail.com</li>
+                        <li>Telefono: 1234567890</li>
+                    </ul>
                 </div>
                 <div class="column">
                     <h6>Collaboratori</h6>
