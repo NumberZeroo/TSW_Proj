@@ -4,15 +4,22 @@
 <div class="footer-div">
     <footer class="footer">
         <div class="container">
+            <h3>DarwinShop!</h3>
             <div class="row">
-                <div class="col-md-4">
-                    <h5>DarwinShop!</h5>
-                    <p></p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Contatti</h5>
+                <div class="column">
+                    <h6>Contatti</h6>
                     <p>Email: e.amore2@studenti.unisa.it</p>
-                    <p>Email: e.falanga@studenti.unisa.it</p>
+                    <p>Telefono: 1234567890</p>
+                    <p>Email: emailFalanga@studenti.unisa.it</p>
+                    <p>Telefono: 1234567890</p>
+                </div>
+                <div class="column">
+                    <h6>Collaboratori</h6>
+                    <p>Da aggiungere</p>
+                </div>
+                <div class="column">
+                    <h6>Info utili</h6>
+                    <p>Da aggiungere</p>
                 </div>
             </div>
         </div>

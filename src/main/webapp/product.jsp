@@ -69,7 +69,7 @@
     <h2 style="font-style: italic">Potrebbe piacerti...</h2>
     <div class="recommended-products">
         <%  try(ProdottoDAO prodottoDAO = new ProdottoDAO()){
-                List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
+                List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory(prodotto.getCategoria());
 
                 for (ProdottoBean prod : prodottiConsigliati) { %>
                     <div class="product">

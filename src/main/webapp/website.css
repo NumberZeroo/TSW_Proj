@@ -2,7 +2,7 @@
 
 /* Stile per body */
 body {
-    background-color: whitesmoke;
+    background-color: white;
     background-repeat: repeat;
     background-position: center;
     background-attachment: fixed;
@@ -91,7 +91,7 @@ body {
 
 .footer-div {
     z-index: 2;
-    background-color: darkcyan;
+    background-color: sandybrown;
     color: black;
     width: 100%;
     min-height: 3rem; /* Footer height */
@@ -121,7 +121,7 @@ body {
     border: 1px solid black;
     border-radius: 10px;
     text-align: center;
-    background-color: olive; /* Sfondo grigio */
+    background-color: #ea944b;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombra */
 }
 
@@ -194,6 +194,9 @@ svg text {
 }
 
 #filter-button {
+    padding-left: 5px;
+    color: saddlebrown;
+    z-index: 3;
     position: fixed;
     right: 20px;
     bottom: 8rem;
@@ -441,7 +444,8 @@ svg text {
 
 .recommended-products {
     display: flex;
-    flex-wrap: nowrap;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     overflow-x: auto;
     box-shadow: 0 0 2px rgba(0.5, 0.5, 0, 0.5); /* Aggiunge un'ombra al div */
     font-style: italic;
@@ -449,7 +453,59 @@ svg text {
 
 .recommended-products .product {
     flex: 0 0 250px; /* Ad esempio, per prodotti larghi 200px */
-    box-sizing: border-box;
+    box-sizing: content-box;
     margin: 5px;
 }
 
+.footer-div {
+    background-color: #333; /* Sfondo nero chiaro */
+    padding: 20px 0;
+    color: #fff; /* Testo bianco */
+    width: 100%;
+}
+
+.footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer h5 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.footer .column {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.footer p {
+    font-size: 14px;
+}
+
+.footer .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer h3 {
+    border: 2px solid #fff; /* Bordo bianco */
+    padding: 10px;
+    display: inline-block;
+}
+
+.footer h6 {
+    font-size: 20px; /* Aumenta la dimensione del font */
+}
+
+.footer .column:not(:last-child) {
+    border-right: 2px solid #fff; /* Bordo bianco */
+}
+
+.navbar-nav .nav-item:not(:last-child) {
+    padding-left: 10px; /* Aggiungi spazio a sinistra */
+    padding-right: 10px; /* Aggiungi spazio a destra */
+    border-right: 2px solid whitesmoke; /* Bordo bianco */
+}

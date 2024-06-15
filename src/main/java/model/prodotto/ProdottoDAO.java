@@ -77,6 +77,22 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         return prodotti;
     }
 
+    public Collection<ProdottoBean> doRetrieveAllByCategory(String category) throws SQLException {
+        List<ProdottoBean> prodotti = new ArrayList<>();
+        String query = "SELECT * FROM Prodotto WHERE Categoria = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, category);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    ProdottoBean prodotto = getProdotto(resultSet);
+                    prodotti.add(prodotto);
+                }
+            }
+        }
+
+        return prodotti;
+    }
+
     @Override
     public void doSave(ProdottoBean prodotto) throws SQLException {
         String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Tipo, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath, descrizione) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
