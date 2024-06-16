@@ -114,6 +114,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
 
     @Override
     public void doUpdate(ProdottoBean prodotto) throws SQLException {
+
         String query = "UPDATE Prodotto SET Nome = ?, Disponibilità = ?, Taglia = ?, Categoria = ?, MinEta = ?, MaxEta = ?, IVA = ?, Prezzo = ?, Sterilizzati = ?, imgPath = ?, descrizione = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, prodotto.getNome());
@@ -128,7 +129,6 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setString(10, prodotto.getImgPath());
             statement.setString(11, prodotto.getDescrizione());
             statement.setLong(12, prodotto.getId());
-
             statement.executeUpdate();
         }
     }
