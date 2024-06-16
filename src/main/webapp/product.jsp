@@ -19,7 +19,7 @@
 <body>
 
     <% SessionFacade sessionFacade = new SessionFacade(request.getSession());
-        if(sessionFacade.getIsAdmin()){ %>
+        if(sessionFacade.isLoggedIn() && sessionFacade.getIsAdmin()){ %>
     <button id="adminButton" class="adminButton">Modifica Prodotto</button>
     <form id="editProductForm" style="display: none;" action="${pageContext.request.contextPath}/editProductServlet" method="post">
 
@@ -36,14 +36,13 @@
 
         <input type="submit" value="Conferma Modifiche">
     </form>
-<% } %>
 
     <script>
         document.getElementById('adminButton').addEventListener('click', function() {
             document.getElementById('editProductForm').style.display = 'block';
         });
     </script>
-
+<% } %>
 
     <div class="product-details">
         <div class="product-image">

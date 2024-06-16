@@ -53,7 +53,7 @@ public class RegisterServlet extends HttpServlet {
         utente.setUsername(username);
         utente.setEmail(email);
         utente.setImgPath("/test");  //todo default imgPath
-        utente.setIsAdmin(false); //todo default isAdmin
+        utente.setIsAdmin(true); //todo default isAdmin
         utente.setPassword(hashedPassword.get());
 
         try(UtenteDAO ut = new UtenteDAO()){
