@@ -18,6 +18,7 @@ public class SessionFacade {
     private final String CART_SESSION_ATTRIBUTE_NAME = "cartProducts";
     private final String USERID_SESSION_ATTRIBUTE_NAME = "userId";
     private final String USERNAME_SESSION_ATTRIBUTE_NAME = "username";
+    private final String ISADMIN_SESSION_ATTRIBUTE_NAME = "isAdmin";
 
     private HttpSession session;
 
@@ -37,6 +38,7 @@ public class SessionFacade {
     public void login(UtenteBean user) {
         this.session.setAttribute(USERID_SESSION_ATTRIBUTE_NAME, user.getId());
         this.session.setAttribute(USERNAME_SESSION_ATTRIBUTE_NAME, user.getUsername());
+        this.session.setAttribute(ISADMIN_SESSION_ATTRIBUTE_NAME, user.getIsAdmin());
     }
 
     // Ogni elemento della lista è un id di prodotto
@@ -67,6 +69,10 @@ public class SessionFacade {
 
     public Optional<String> getUsername() {
         return Optional.ofNullable((String)this.session.getAttribute(USERNAME_SESSION_ATTRIBUTE_NAME));
+    }
+
+    public boolean getIsAdmin() {
+        return (boolean) this.session.getAttribute(ISADMIN_SESSION_ATTRIBUTE_NAME);
     }
 
     public void invalidate(){
