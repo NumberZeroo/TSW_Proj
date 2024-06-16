@@ -63,6 +63,7 @@ public class SessionFacade {
 
         this.session.setAttribute(USERID_SESSION_ATTRIBUTE_NAME, user.getId());
         this.session.setAttribute(USERNAME_SESSION_ATTRIBUTE_NAME, user.getUsername());
+        this.session.setAttribute(ISADMIN_SESSION_ATTRIBUTE_NAME, user.getIsAdmin());
         try(UtenteDAO utenteDAO = new UtenteDAO()) {
             long cartId = utenteDAO.getCartId(user.getId());
             this.session.setAttribute(CARTID_SESSION_ATTRIBUTE_NAME, cartId);
@@ -87,7 +88,7 @@ public class SessionFacade {
         storedItems.forEach((k, v) -> finalSessionItems.merge(k, v, Long::sum));
 
         this.session.setAttribute(CART_SESSION_ATTRIBUTE_NAME, finalSessionItems);
-        this.session.setAttribute(ISADMIN_SESSION_ATTRIBUTE_NAME, user.getIsAdmin());
+
 
     }
 
@@ -140,6 +141,7 @@ public class SessionFacade {
     }
 
     public boolean getIsAdmin() {
+        if (this.session.getAttribute(ISADMIN_SESSION_ATTRIBUTE_NAME) == null) return false;
         return (boolean) this.session.getAttribute(ISADMIN_SESSION_ATTRIBUTE_NAME);
     }
 
