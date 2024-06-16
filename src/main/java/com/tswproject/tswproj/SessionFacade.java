@@ -130,8 +130,10 @@ public class SessionFacade {
                 quantity = (int) oldQuantity;
             }
             products.put(productId, products.get(productId) - quantity);
-            try(CartItemDAO cartItemDAO = new CartItemDAO()){
-                cartItemDAO.removeProduct(productId, (Long)this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME), quantity);
+            if (this.isLoggedIn()){
+                try(CartItemDAO cartItemDAO = new CartItemDAO()){
+                    cartItemDAO.removeProduct(productId, (Long)this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME), quantity);
+                }
             }
         }
     }
