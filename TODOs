@@ -7,9 +7,14 @@ LOGIC:
 - Nel catalogo mostra solo i prodotti "visibili"
 - Centralizzare la gestione delle immagini (cartella preposta? servlet a parte?)
 - Centralizzare db (cloud o cartella con foglio di generazione del db?)
-- Aggiungere feedback dopo la registrazione e login
 - Implementa logger
-- A seguito delle richieste ajax trova un modo non bloccante per notificare success/failure
+- Aggiungi Feedback a:
+    - login
+    - registrazione
+    - rimozione prodotto dal carrello
+- Aggiungi ajax a:
+    - Barra di ricerca
+    - Controllo email in fase di registrazione
 PAGE STRUCTURE:
 - Modifiche pagine quando utente è admin
 - Rendere "catalogo" raggiungibile tramite l'header della pagina
