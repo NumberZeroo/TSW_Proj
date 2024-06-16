@@ -1,5 +1,6 @@
 package control;
 
+import com.tswproject.tswproj.RuntimeSQLException;
 import com.tswproject.tswproj.SessionFacade;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(value = "/removeFromCart")
 public class RemoveFromCart extends HttpServlet {
@@ -18,7 +20,11 @@ public class RemoveFromCart extends HttpServlet {
             return;
         }
         long id = Long.parseLong(req.getParameter("id"));
-        (new SessionFacade(req.getSession())).removeCartProduct(id);
+        try {
+            (new SessionFacade(req.getSession())).removeCartProduct(id, 1);
+        } catch (SQLException e) {
+            throw new RuntimeSQLException("Errore durante la rimozione del prodotto dal carrello", e);
+        }
         resp.sendRedirect(req.getContextPath() + "/cart.jsp");
     }
 

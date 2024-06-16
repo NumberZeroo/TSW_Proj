@@ -3,6 +3,10 @@ package model.carrello;
 import com.tswproject.tswproj.EmptyPoolException;
 import model.AbstractDAO;
 import model.DAOInterface;
+import model.cartItem.CartItemBean;
+import model.prodotto.ProdottoBean;
+import model.prodotto.ProdottoDAO;
+
 import java.sql.*;
 import java.util.*;
 

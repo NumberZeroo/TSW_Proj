@@ -26,7 +26,7 @@ public class RegisterServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
             //Errore nella registrazione
-            response.sendRedirect("register.jsp");
+            response.sendRedirect("register.jsp"); // TODO: client side error message
         }
     }
 
@@ -45,7 +45,7 @@ public class RegisterServlet extends HttpServlet {
 
         Optional<String> hashedPassword = Security.hashPassword(password);
         if (hashedPassword.isEmpty()) {
-            System.out.println("Password non valida"); // TODO: client side error message
+            System.out.println("Password non valida");
             return false;
         }
 
@@ -53,7 +53,7 @@ public class RegisterServlet extends HttpServlet {
         utente.setUsername(username);
         utente.setEmail(email);
         utente.setImgPath("/test");  //todo default imgPath
-        utente.setIsAdmin(true); //todo default isAdmin
+        utente.setIsAdmin(false); //todo default isAdmin
         utente.setPassword(hashedPassword.get());
 
         try(UtenteDAO ut = new UtenteDAO()){
