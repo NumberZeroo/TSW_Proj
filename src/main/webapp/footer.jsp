@@ -4,15 +4,26 @@
 <div class="footer-div">
     <footer class="footer">
         <div class="container">
+            <h3>DarwinShop!</h3>
             <div class="row">
-                <div class="col-md-4">
-                    <h4>AnimaliWow</h4>
-                    <p>Si si si</p>
+                <div class="column">
+                <h6>Contatti</h6>
+                    <ul>
+                        <li>Email: e.amore@gmail.com</li>
+                        <li>Telefono: 1234567890</li>
+                    </ul>
+                    <ul>
+                        <li>Email: e.falanga@gmail.com</li>
+                        <li>Telefono: 1234567890</li>
+                    </ul>
                 </div>
-                <div class="col-md-4">
-                    <h4>Contatti</h4>
-                    <p>Telefono: 0123456789</p>
-                    <p>Email: aaaaaa@gmail.com</p>
+                <div class="column">
+                    <h6>Collaboratori</h6>
+                    <p>Da aggiungere</p>
+                </div>
+                <div class="column">
+                    <h6>Info utili</h6>
+                    <p>Da aggiungere</p>
                 </div>
             </div>
         </div>
