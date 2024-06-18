@@ -15,7 +15,7 @@
         Password: <input type="password" name="password"><br>
         <input type="submit" value="Login">
     </form>
-    <p>Sei un coglione? Registrati qui: <a href="register.jsp">Register page</a></p>
+    <p>Non sei registrato? Registrati qui: <a href="register.jsp">Register page</a></p>
 
     <%@ include file="footer.jsp" %>
 
