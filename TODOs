@@ -9,8 +9,6 @@ LOGIC:
 - Centralizzare db (cloud o cartella con foglio di generazione del db?)
 - Implementa logger
 - Aggiungi Feedback a:
-    - login
-    - registrazione
     - rimozione prodotto dal carrello
 - Aggiungi ajax a:
     - Barra di ricerca
