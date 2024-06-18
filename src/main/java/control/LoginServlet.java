@@ -29,7 +29,6 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         if (username == null || password == null) {
-            System.out.println("Username o password non validi"); // TODO: client side error
             resp.sendRedirect(req.getContextPath() + "/login.jsp?error=error");
             return;
         }
@@ -42,7 +41,6 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (user == null || !checkLogin(user, password)) {
-            System.out.println("Login fallito, come te"); // TODO: client side error
             resp.sendRedirect(req.getContextPath() + "/login.jsp?error=error");
             return;
         }
