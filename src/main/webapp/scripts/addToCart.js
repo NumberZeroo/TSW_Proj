@@ -1,10 +1,29 @@
 import {showNotification} from "./notification.js";
 
+
+var quantityInput = document.getElementById('quantity');
+function validateQuantity() {
+    var addToCartButton = document.getElementsByClassName("addToCartButton")[0];
+    var inputFields = document.getElementById("quantity");
+
+    var min = parseInt(inputFields.getAttribute('min'));
+    var max = parseInt(inputFields.getAttribute('max'));
+
+    var quantity = parseInt(quantityInput.value);
+    if (quantity < min || quantity > max || isNaN(quantity)) {
+        addToCartButton.disabled = true;
+    } else {
+        addToCartButton.disabled = false;
+    }
+}
+quantityInput.addEventListener('input', validateQuantity);
+
 document.addEventListener('DOMContentLoaded', function() {
     var button = document.getElementsByClassName("addToCartButton")[0];
 
     button.addEventListener('click', function() {
         var productId = this.getAttribute('data-product-id');
+        var quantity = document.getElementById('quantity').value;
         var xhr = new XMLHttpRequest();
 
         xhr.open('POST', 'aggiungiAlCarrello', true);
@@ -36,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // alert(feedback)
             showNotification(feedback, statusType);
         };
-        xhr.send('id=' + encodeURIComponent(productId));
+        var body = 'id=' + encodeURIComponent(productId) + '&quantity=' + encodeURIComponent(quantity)
+        xhr.send(body);
     });
 });
