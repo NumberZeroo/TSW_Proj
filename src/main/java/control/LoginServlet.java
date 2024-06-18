@@ -30,7 +30,8 @@ public class LoginServlet extends HttpServlet {
 
         if (username == null || password == null) {
             System.out.println("Username o password non validi"); // TODO: client side error
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            resp.sendRedirect(req.getContextPath() + "/login.jsp?error=error");
+            return;
         }
 
         UtenteBean user;
@@ -42,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 
         if (user == null || !checkLogin(user, password)) {
             System.out.println("Login fallito, come te"); // TODO: client side error
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.sendRedirect(req.getContextPath() + "/login.jsp?error=error");
             return;
         }
 
