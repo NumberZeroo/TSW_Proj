@@ -20,7 +20,9 @@ public class AddToCartServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
 
         try {
-            session.addCartProduct(Long.parseLong(req.getParameter("id")), 1L);
+            long itemId = Long.parseLong(req.getParameter("id"));
+            int quantity = Integer.parseInt(req.getParameter("quantity"));
+            session.addCartProduct(itemId, quantity);
             // req.getRequestDispatcher("/cart.jsp").forward(req, resp); // TODO: aggiungi notifica "prodotto aggiunto al carrello"
             // resp.sendRedirect(req.getContextPath() + "/cart.jsp");
             out.println("{\"status\":\"success\"}");
