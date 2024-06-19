@@ -11,7 +11,7 @@ public class ProdottoBean implements Serializable {
     private String categoria;
     private int minEta;
     private int maxEta;
-    private int iva;
+    private String iva;
     private double prezzo;
     private boolean sterilizzati;
     private String imgPath;
@@ -75,11 +75,11 @@ public class ProdottoBean implements Serializable {
         this.maxEta = maxEta;
     }
 
-    public int getIva() {
+    public String getIva() {
         return iva;
     }
 
-    public void setIva(int iva) {
+    public void setIva(String iva) {
         this.iva = iva;
     }
 
@@ -123,7 +123,7 @@ public class ProdottoBean implements Serializable {
         return tipoAnimale;
     }
 
-    public void setTipoAnimale(long tipoAnimale) {
+    public void setTipoAnimale(int tipoAnimale) {
         this.tipoAnimale = tipoAnimale;
     }
 
