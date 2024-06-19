@@ -159,14 +159,14 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
         }
     }
 
-    public Map<Long, Long> getCartItems(long cartId) throws SQLException {
+    public Map<Long, Integer> getCartItems(long cartId) throws SQLException {
         String query = "SELECT * FROM CartItem WHERE idCarrello = ?";
-        Map<Long, Long> cartItem = new HashMap<>();
+        Map<Long, Integer> cartItem = new HashMap<>();
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, cartId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    cartItem.put(resultSet.getLong("idProdotto"), resultSet.getLong("quantita"));
+                    cartItem.put(resultSet.getLong("idProdotto"), (int) resultSet.getLong("quantita")); // TODO: cambia ad int nel db
                 }
             }
         }

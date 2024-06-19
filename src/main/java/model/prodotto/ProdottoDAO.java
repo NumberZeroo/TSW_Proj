@@ -29,9 +29,9 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
     // Prende come parametri una mappa <id_prodotto, quantità> e ritorna una mappa <ProdottoBean, quantità>
     // Non posso fare un prepared statement contenente tutti gli id perché le query non vengono fatte in modo ordinato
     // TODO: Questo metodo fa tante query...c'è un modo migliore?
-    public Map<ProdottoBean, Long> doRetrieveByKeys(Map<Long, Long> productsWithQuantity) throws SQLException {
-        Map<ProdottoBean, Long> prodottoBeans = new HashMap<>();
-        for (Map.Entry<Long, Long> entry : productsWithQuantity.entrySet()) {
+    public Map<ProdottoBean, Integer> doRetrieveByKeys(Map<Long, Integer> productsWithQuantity) throws SQLException {
+        Map<ProdottoBean, Integer> prodottoBeans = new HashMap<>();
+        for (Map.Entry<Long, Integer> entry : productsWithQuantity.entrySet()) {
             ProdottoBean p = doRetrieveByKey(entry.getKey());
             if (p != null) {
                 prodottoBeans.put(p, entry.getValue());
