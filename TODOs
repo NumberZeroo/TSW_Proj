@@ -2,6 +2,7 @@ DB:
 - Aggiungi informazioni di contatto dell'utente (numero di telefono, indirizzo di spedizione, ...)
 - Aggiungi informazioni di pagamento
 - Quando viene cancellato un prodotto dall'amministratore, il prodotto non deve scomparire dagli storici degli ordini.
+- Aggiungi valori di default alla taglia
 LOGIC:
 - Implementa logica admin
 - Nel catalogo mostra solo i prodotti "visibili"
@@ -10,12 +11,13 @@ LOGIC:
 - Implementa logger
 - Aggiungi Feedback a:
     - rimozione prodotto dal carrello
+    - aggiunta prodotto da admin
 - Aggiungi ajax a:
     - Barra di ricerca
     - Controllo email in fase di registrazione
 PAGE STRUCTURE:
-- Modifiche pagine quando utente è admin
 - Rendere "catalogo" raggiungibile tramite l'header della pagina
 - TestCatalogo ora è il vero catalogo...rinomina
 - Aggiungi path navigabile alla navbar
+- Spostare tutti gli script di file jsp in file js a parte
 
