@@ -16,6 +16,19 @@ public class ProdottoBean implements Serializable {
     private boolean sterilizzati;
     private String imgPath;
     private long tipoAnimale;
+    private boolean isVisibile;
+
+    public void setTipoAnimale(long tipoAnimale) {
+        this.tipoAnimale = tipoAnimale;
+    }
+
+    public boolean isVisibile() {
+        return isVisibile;
+    }
+
+    public void setVisibile(boolean visibile) {
+        isVisibile = visibile;
+    }
 
     public ProdottoBean() {}
 
