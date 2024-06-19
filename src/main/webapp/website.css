@@ -53,34 +53,6 @@ body {
         bottom: 20px;
     }
 
-    .product-details {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "image"
-            "info"
-            "cart";
-    }
-
-    .product-info {
-        margin-top: 0;
-    }
-
-    .product-image {
-        grid-area: image;
-        display: flex;
-        justify-content: center; /* Centra l'immagine orizzontalmente */
-        align-items: center; /* Centra l'immagine verticalmente */
-    }
-
-    .product-info-specs {
-        margin-top: 2px;
-        grid-area: info;
-    }
-
-    .addToCart {
-        grid-area: cart;
-    }
-
     .navbar-nav {
         flex-direction: column;
     }
@@ -110,10 +82,10 @@ body {
     }
 
     .filter-bar {
+        font-style: italic;
         width: 20%;
-        animation: width 1s ease;
+        animation: width 2s ease;
         z-index: 1;
-        position: fixed;
         top: 60px; /* Altezza della navbar */
         right: 0;
         height: calc(100% - 60px - 2.5rem); /* Altezza totale della finestra meno l'altezza della navbar e del footer */
@@ -123,6 +95,8 @@ body {
         transition: transform 0.3s ease-in-out;
         transform: translateX(100%);
         margin: 0;
+        border: 1px solid grey; /* Aggiunge un bordo nero */
+        position: fixed;
     }
 
     /* Stile per la barra dei filtri quando è visibile */
@@ -552,7 +526,7 @@ body {
 }
 
 .test-div-class a {
-    cursor: url('cursor/CatPaw_normal.cur'), auto;
+    cursor: url('cursor/Jake.cur'), auto;
 }
 
 .test-div-class img{
@@ -570,4 +544,101 @@ body {
     .footer .column {
         border-right: none !important; /* Rimuove il bordo bianco */
     }
+}
+
+@media (max-width: 900px){
+    .product-details {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "image"
+            "info"
+            "cart";
+    }
+
+    .product-info {
+        margin-top: 0;
+    }
+
+    .product-image {
+        grid-area: image;
+        display: flex;
+        justify-content: center; /* Centra l'immagine orizzontalmente */
+        align-items: center; /* Centra l'immagine verticalmente */
+    }
+
+    .product-info-specs {
+        margin-top: 2px;
+        grid-area: info;
+    }
+
+    .addToCart {
+        grid-area: cart;
+    }
+}
+
+.review {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    max-width: 50%; /* Aggiungi questa linea */
+    margin-right: auto; /* Aggiungi questa linea */
+}
+
+.review h3 {
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.review p {
+    color: #666;
+    font-size: 1em;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+
+    font-style: italic;
+}
+
+.form-container label {
+    align-self: flex-start;
+}
+
+.form-container input[type="submit"] {
+    margin-top: 20px;
+    align-self: center;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 10px;
+    align-items: center;
+}
+
+.form-grid label {
+    grid-column: 1;
+}
+
+.form-grid input,
+.form-grid textarea {
+    grid-column: 2;
+}
+
+.center-button-add{
+    display: block;
+    margin: 0 auto;
 }

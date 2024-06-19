@@ -79,14 +79,19 @@
         <% try(RecensioneDAO recensioneDAO = new RecensioneDAO()){
                 List<RecensioneBean> recensioni = (List<RecensioneBean>) recensioneDAO.doRetrieveByProduct(prodotto.getId());
 
-                for (RecensioneBean recensione : recensioni) { %>
-                    <div class="review">
-                        <h3>Utente n.<%=recensione.getIdUtente()%> - <%=recensione.getTitolo()%></h3>
-                        <p><%=recensione.getCommento()%></p>
-                        <p>Valutazione: <%=recensione.getValutazione()%></p>
-                        <p>Data: <%=recensione.getData()%></p>
-                    </div>
-                <% }
+                if(recensioni.isEmpty()){ %>
+                    <center><h3 style="font-style: italic">Nessuna recensione disponibile!</h3></center>
+                <% }else{
+                    for (RecensioneBean recensione : recensioni) { %>
+                        <div class="review">
+                            <h4>Utente n.<%=recensione.getIdUtente()%></h4>
+                            <h3><%=recensione.getTitolo()%> - Valutazione: <%=recensione.getValutazione()%></h3>
+                            <p><%=recensione.getCommento()%></p>
+                            <p>Data: <%=recensione.getData()%></p>
+                        </div>
+                    <% }
+
+                }
             }catch(Exception e){
                 e.printStackTrace();
         }%>

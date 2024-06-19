@@ -11,6 +11,17 @@
 <body>
  <%@ include file="navbar.jsp" %>
 
+    <% SessionFacade sessionFacade = new SessionFacade(request.getSession());
+        if(sessionFacade.isLoggedIn() && sessionFacade.getIsAdmin()){ %>
+        <button id="adminButton" class="adminButton">Aggiungi Prodotto</button>
+    <% } %>
+
+    <script>
+        document.getElementById('adminButton').addEventListener('click', function() {
+            window.location.href = 'addProduct.jsp';
+        });
+    </script>
+
     <div class="content">
         <button id="open-filter-button" class="display-none">
             <i class="fas fa-filter"></i>
@@ -37,17 +48,12 @@
                     <option value="Cat3">Cat3</option>
                 </select>
 
-                <!-- Filtro per tipo di animale -->
-            <%--    <label for="animalRace">Tipo di Animale:</label>--%>
-            <%--    <input type="number" id="animalRace" name="animalRace">--%>
-
                 <label for="animalRace">Tipo di animale:</label>
                 <select id="animalRace" name="animalRace">
                     <option value="1">Cane</option>
                     <option value="2">Gatto</option>
                     <option value="3">Volatile</option>
                 </select>
-
 
                 <!-- Filtro per età minima -->
                 <label for="min-age">Età Minima: </label><span id="min-age-value"></span>
@@ -91,30 +97,27 @@
 
     <!-- Barra dei filtri a pagina ingrandita -->
     <script>
-       // Seleziona il pulsante, la barra dei filtri e il pulsante di chiusura
         let filterButton = document.getElementById('filter-button');
         let filterBar = document.getElementById('filter-bar');
         let closeButton = document.getElementById('close-button');
-        let temp = document.getElementById('filter-button')
         let productGrid = document.querySelector('.griglia-prodotti');
 
-        // Aggiungi un gestore di eventi al pulsante per mostrare/nascondere la barra dei filtri
         filterButton.addEventListener('click', function() {
             filterBar.classList.toggle('show');
             productGrid.classList.toggle('shift-left');
             filterButton.classList.add('display-none');
-            // Cambia l'icona del pulsante dei filtri
-            if (!filterBar.classList.contains('show')) {
-                filterButton.className = 'fas fa-filter';
+            if (filterBar.classList.contains('show')) {
+                filterBar.style.position = 'absolute';
+            } else {
+                filterBar.style.position = 'fixed';
             }
         });
 
-        // Aggiungi un gestore di eventi al pulsante di chiusura per nascondere la barra dei filtri
         closeButton.addEventListener('click', function() {
             filterBar.classList.remove('show');
             filterButton.classList.remove('display-none');
             productGrid.classList.remove('shift-left');
-            filterButton.className = 'fas fa-filter';
+            filterBar.style.position = 'fixed';
         });
     </script>
 

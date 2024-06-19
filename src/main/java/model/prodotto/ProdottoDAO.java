@@ -95,7 +95,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
 
     @Override
     public void doSave(ProdottoBean prodotto) throws SQLException {
-        String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Tipo, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath, descrizione) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Categoria, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath, descrizione, TipoAnimale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, prodotto.getNome());
             statement.setInt(2, prodotto.getDisponibilita());
@@ -103,11 +103,12 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setString(4, prodotto.getCategoria());
             statement.setInt(5, prodotto.getMinEta());
             statement.setInt(6, prodotto.getMaxEta());
-            statement.setInt(7, prodotto.getIva());
+            statement.setString(7, prodotto.getIva());
             statement.setDouble(8, prodotto.getPrezzo());
             statement.setBoolean(9, prodotto.getSterilizzati());
             statement.setString(10, prodotto.getImgPath());
             statement.setString(11, prodotto.getDescrizione());
+            statement.setString(12, String.valueOf(prodotto.getTipoAnimale()));
             statement.executeUpdate();
         }
     }
@@ -152,11 +153,11 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         prodotto.setCategoria(resultSet.getString("Categoria"));
         prodotto.setMinEta(resultSet.getInt("MinEta"));
         prodotto.setMaxEta(resultSet.getInt("MaxEta"));
-        prodotto.setIva(Integer.parseInt(resultSet.getString("IVA")));
+        prodotto.setIva(resultSet.getString("IVA"));
         prodotto.setPrezzo(resultSet.getLong("Prezzo"));
         prodotto.setSterilizzati(resultSet.getBoolean("Sterilizzati"));
         prodotto.setImgPath(resultSet.getString("imgPath"));
-        prodotto.setTipoAnimale(resultSet.getLong("TipoAnimale"));
+        prodotto.setTipoAnimale(resultSet.getInt("TipoAnimale"));
         prodotto.setDescrizione(resultSet.getString("descrizione"));
         return prodotto;
     }
