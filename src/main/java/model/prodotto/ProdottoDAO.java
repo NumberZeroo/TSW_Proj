@@ -95,7 +95,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
 
     @Override
     public void doSave(ProdottoBean prodotto) throws SQLException {
-        String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Categoria, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath, descrizione, TipoAnimale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Categoria, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath, descrizione, TipoAnimale, visibile) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, prodotto.getNome());
             statement.setInt(2, prodotto.getDisponibilita());
@@ -109,6 +109,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setString(10, prodotto.getImgPath());
             statement.setString(11, prodotto.getDescrizione());
             statement.setString(12, String.valueOf(prodotto.getTipoAnimale()));
+            statement.setInt(13, prodotto.isVisibile() ? 1 : 0);
             statement.executeUpdate();
         }
     }
@@ -116,7 +117,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
     @Override
     public void doUpdate(ProdottoBean prodotto) throws SQLException {
 
-        String query = "UPDATE Prodotto SET Nome = ?, Disponibilità = ?, Taglia = ?, Categoria = ?, MinEta = ?, MaxEta = ?, IVA = ?, Prezzo = ?, Sterilizzati = ?, imgPath = ?, descrizione = ? WHERE id = ?";
+        String query = "UPDATE Prodotto SET Nome = ?, Disponibilità = ?, Taglia = ?, Categoria = ?, MinEta = ?, MaxEta = ?, IVA = ?, Prezzo = ?, Sterilizzati = ?, imgPath = ?, descrizione = ?, visibile = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, prodotto.getNome());
             statement.setInt(2, prodotto.getDisponibilita());
@@ -130,6 +131,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setString(10, prodotto.getImgPath());
             statement.setString(11, prodotto.getDescrizione());
             statement.setLong(12, prodotto.getId());
+            statement.setInt(13, prodotto.isVisibile() ? 1 : 0);
             statement.executeUpdate();
         }
     }
@@ -159,6 +161,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         prodotto.setImgPath(resultSet.getString("imgPath"));
         prodotto.setTipoAnimale(resultSet.getInt("TipoAnimale"));
         prodotto.setDescrizione(resultSet.getString("descrizione"));
+        prodotto.setVisibile(resultSet.getInt("visibile") == 1);
         return prodotto;
     }
 
