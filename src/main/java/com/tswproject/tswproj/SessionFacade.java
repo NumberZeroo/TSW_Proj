@@ -52,6 +52,14 @@ public class SessionFacade {
     }
 
     /**
+     * Bisognerebbe sempre chiamare "isLoggedIn()" prima di chiamare questo metodo
+     * @return id utente
+     */
+    public long getUserId() {
+        return (Long)this.session.getAttribute(USERID_SESSION_ATTRIBUTE_NAME);
+    }
+
+    /**
      * Imposta nella sessione i parametri di id utente e carrello, username e oggetto carrello
      * Se prima di fare login erano stati aggiunti dei prodotti al carrello questi vengono mantenuti dopo il login
      * Viene fatta un'interrogazione al server per ottene il carrello stored in una sessione passata
@@ -88,8 +96,6 @@ public class SessionFacade {
         storedItems.forEach((k, v) -> finalSessionItems.merge(k, v, Integer::sum));
 
         this.session.setAttribute(CART_SESSION_ATTRIBUTE_NAME, finalSessionItems);
-
-
     }
 
     // Ogni elemento della lista è un id di prodotto
@@ -120,7 +126,7 @@ public class SessionFacade {
         }
     }
 
-    synchronized public void removeCartProduct(long productId, int quantity) throws SQLException {
+    public void removeCartProduct(long productId, int quantity) throws SQLException {
         Map<Long, Integer> products = (Map<Long, Integer>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
         if (products == null) return;
         // Se nella mappa products esiste un elemento con chiave productId decrementa il valore di quantity
@@ -142,6 +148,17 @@ public class SessionFacade {
                 }
             }
         }
+    }
+
+    public void removeCartProducts(){
+        try(CartItemDAO cartItemDAO = new CartItemDAO()) {
+            for(Long cartItemId : ((Map<Long, Integer>)this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME)).keySet()){
+                cartItemDAO.doDelete(cartItemId);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeSQLException("Errore durante l'eliminazione dei prodotti dal carrello", e);
+        }
+        this.session.setAttribute(CART_SESSION_ATTRIBUTE_NAME, new HashMap<Long, Integer>());
     }
 
     public Optional<String> getUsername() {
