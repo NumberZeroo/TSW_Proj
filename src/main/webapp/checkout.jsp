@@ -3,13 +3,7 @@
 <%@ page import="model.prodotto.ProdottoBean" %>
 <%@ page import="model.prodotto.ProdottoDAO" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="java.sql.SQLException" %><%--
-  Created by IntelliJ IDEA.
-  User: developer
-  Date: 6/19/24
-  Time: 4:02 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -40,5 +34,16 @@
 
     <p>Prezzo totale: <%=products.entrySet().stream().mapToDouble(e -> e.getKey().getPrezzo() * e.getValue()).sum()%></p>
 
+    <p>Inserisci qui le informazioni di consegna</p>
+    <!--TODO: sanifica input -->
+    <!--TODO: Aggiungi info di default -->
+    <form method="post" action="${pageContext.request.contextPath}/checkout">
+        <label for="city-input">Città: </label><input id="city-input" type="text" name="city">
+        <label for="cap-input">CAP: </label><input id="cap-input" type="number" name="cap">
+        <label for="address-input">Indirizzo (via, corso, ...): </label><input id="address-input" type="text" name="address">
+        <label for="additional-info-input">Informazioni di recapito aggiuntive: </label><input id="additional-info-input" type="text" name="other">
+        <label for="receiver-input">Destinatario: </label><input id="receiver-input" type="text" name="receiver">
+        <button type="submit">Conferma</button>
+    </form>
 </body>
 </html>
