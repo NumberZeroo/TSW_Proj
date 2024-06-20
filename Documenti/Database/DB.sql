@@ -18,15 +18,19 @@ CREATE TABLE InfoConsegna(
     cap INT NOT NULL,
     via VARCHAR(255) NOT NULL,
     altro VARCHAR(255),
-    destinatario VARCHAR(255) NOT NULL
+    destinatario VARCHAR(255) NOT NULL,
+    idUtente BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (idUtente) REFERENCES Utente(id)
 );
 
 CREATE TABLE Ordine (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     idUtente BIGINT UNSIGNED NOT NULL,
     pathFattura VARCHAR(255) NOT NULL,
+    infoConsegna BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY(id, idUtente),
-    FOREIGN KEY (idUtente) REFERENCES Utente (id)
+    FOREIGN KEY (idUtente) REFERENCES Utente (id),
+    FOREIGN KEY (infoConsegna) REFERENCES InfoConsegna(id)
 );
 
 CREATE TABLE Animale (
