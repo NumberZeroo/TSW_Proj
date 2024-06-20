@@ -42,28 +42,37 @@ public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoCon
     }
 
     @Override
-    public void doSave(InfoConsegnaBean product) throws SQLException {
-        String query = "INSERT INTO InfoConsegna(citta, cap, via, altro, destinatario) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+    public long doSave(InfoConsegnaBean product) throws SQLException {
+        String query = "INSERT INTO InfoConsegna(citta, cap, via, altro, destinatario, idUtente) VALUES (?, ?, ?, ?, ?, ?)";
+        long generatedKey = -1;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, product.getCitta());
             preparedStatement.setInt(2, product.getCap());
             preparedStatement.setString(3, product.getVia());
             preparedStatement.setString(4, product.getAltro());
             preparedStatement.setString(5, product.getDestinatario());
-            preparedStatement.executeUpdate();
+            preparedStatement.setLong(6, product.getIdUtente());
+            if (preparedStatement.executeUpdate() > 0){
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()){
+                    generatedKey = resultSet.getLong(1);
+                }
+            }
         }
+        return generatedKey;
     }
 
     @Override
     public void doUpdate(InfoConsegnaBean product) throws SQLException {
-        String query = "UPDATE InfoConsegna SET citta = ?, cap = ?, via = ?, altro = ?, destinatario = ? WHERE citta = ?";
+        String query = "UPDATE InfoConsegna SET citta = ?, cap = ?, via = ?, altro = ?, destinatario = ?, idUtente = ? WHERE citta = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, product.getCitta());
             preparedStatement.setInt(2, product.getCap());
             preparedStatement.setString(3, product.getVia());
             preparedStatement.setString(4, product.getAltro());
             preparedStatement.setString(5, product.getDestinatario());
-            preparedStatement.setLong(6, product.getId());
+            preparedStatement.setLong(6, product.getIdUtente());
+            preparedStatement.setLong(7, product.getId());
             preparedStatement.executeUpdate();
         }
     }
@@ -85,6 +94,7 @@ public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoCon
         infoConsegnaBean.setVia(resultSet.getString("via"));
         infoConsegnaBean.setAltro(resultSet.getString("altro"));
         infoConsegnaBean.setDestinatario(resultSet.getString("destinatario"));
+        infoConsegnaBean.setIdUtente(resultSet.getLong("idUtente"));
         return infoConsegnaBean;
     }
 }

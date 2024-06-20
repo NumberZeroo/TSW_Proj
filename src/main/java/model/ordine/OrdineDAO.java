@@ -41,22 +41,31 @@ public class OrdineDAO extends AbstractDAO implements DAOInterface<OrdineBean, L
     }
 
     @Override
-    public void doSave(OrdineBean ordine) throws SQLException {
-        String query = "INSERT INTO Ordine (idUtente, pathFattura) VALUES (?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+    public long doSave(OrdineBean ordine) throws SQLException {
+        String query = "INSERT INTO Ordine (idUtente, pathFattura, infoConsegna) VALUES (?, ?, ?)";
+        long generatedKey = -1;
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, ordine.getIdUtente());
             statement.setString(2, ordine.getPathFattura());
-            statement.executeUpdate();
+            statement.setLong(3, ordine.getIdInfoConsegna());
+            if (statement.executeUpdate() > 0){
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()){
+                    generatedKey = resultSet.getLong(1);
+                }
+            }
         }
+        return generatedKey;
     }
 
     @Override
     public void doUpdate(OrdineBean ordine) throws SQLException {
-        String query = "UPDATE Ordine SET idUtente = ?, pathFattura = ? WHERE id = ?";
+        String query = "UPDATE Ordine SET idUtente = ?, pathFattura = ?, infoConsegna = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, ordine.getIdUtente());
             statement.setString(2, ordine.getPathFattura());
-            statement.setLong(3, ordine.getId());
+            statement.setLong(3, ordine.getIdInfoConsegna());
+            statement.setLong(4, ordine.getId());
             statement.executeUpdate();
         }
     }
@@ -76,6 +85,7 @@ public class OrdineDAO extends AbstractDAO implements DAOInterface<OrdineBean, L
         ordine.setId(resultSet.getLong("id"));
         ordine.setIdUtente(resultSet.getLong("idUtente"));
         ordine.setPathFattura(resultSet.getString("pathFattura"));
+        ordine.setIdInfoConsegna(resultSet.getLong("infoConsegna"));
         return ordine;
     }
 }

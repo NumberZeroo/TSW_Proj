@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class InfoConsegnaBean implements Serializable {
     private long id;
+    private long idUtente;
     private String citta;
     private int cap;
     private String via;
@@ -58,10 +59,19 @@ public class InfoConsegnaBean implements Serializable {
         this.destinatario = destinatario;
     }
 
+    public long getIdUtente() {
+        return idUtente;
+    }
+
+    public void setIdUtente(long idUtente) {
+        this.idUtente = idUtente;
+    }
+
     @Override
     public String toString() {
         return "InfoConsegnaBean{" +
                 "id=" + id +
+                ", idUtente=" + idUtente +
                 ", citta='" + citta + '\'' +
                 ", cap=" + cap +
                 ", via='" + via + '\'' +

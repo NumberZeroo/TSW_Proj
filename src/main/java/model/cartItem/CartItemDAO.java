@@ -7,6 +7,7 @@ import model.DAOInterface;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBean, Long> {
@@ -42,12 +43,19 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
     }
 
     @Override
-    public void doSave(CartItemBean cartItem) throws SQLException {
+    public long doSave(CartItemBean cartItem) throws SQLException {
         String query = "INSERT INTO CartItem (id) VALUES (?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        long generatedKey = -1;
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, cartItem.getId());
-            statement.executeUpdate();
+            if (statement.executeUpdate() > 0){
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()){
+                    generatedKey = resultSet.getLong(1);
+                }
+            }
         }
+        return generatedKey;
     }
 
     @Override
@@ -63,7 +71,7 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
 
     @Override
     public boolean doDelete(Long id) throws SQLException {
-        String query = "DELETE FROM CartItem WHERE id = ?";
+        String query = "DELETE FROM CartItem WHERE idProdotto = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             int rowsDeleted = statement.executeUpdate();

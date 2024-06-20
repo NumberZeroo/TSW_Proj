@@ -40,13 +40,39 @@ public class OrderItemDAO extends AbstractDAO implements DAOInterface<OrderItemB
     }
 
     @Override
-    public void doSave(OrderItemBean orderItem) throws SQLException {
-        String query = "INSERT INTO OrderItem (IdOrdine, Prezzo, Quantita) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+    public long doSave(OrderItemBean orderItem) throws SQLException {
+        String query = "INSERT INTO OrderItem (IdOrdine, IdProdotto, Prezzo, Quantita) VALUES (?, ?, ?, ?)";
+        long generatedKey = -1;
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, orderItem.getIdOrdine());
-            statement.setDouble(2, orderItem.getPrezzo());
-            statement.setLong(3, orderItem.getQuantita());
-            statement.executeUpdate();
+            statement.setLong(2, orderItem.getIdProdotto());
+            statement.setDouble(3, orderItem.getPrezzo());
+            statement.setLong(4, orderItem.getQuantita());
+            if (statement.executeUpdate() > 0){
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()){
+                    generatedKey = resultSet.getLong(1);
+                }
+            }
+        }
+        return generatedKey;
+    }
+
+    /**
+     * Manda "orderItems" come transazione
+     * @param orderItems
+     * @throws SQLException
+     */
+    public void doSaveAll(List<OrderItemBean> orderItems) throws SQLException {
+        connection.setAutoCommit(false);
+
+        try{
+            for (OrderItemBean orderItem : orderItems) {
+                doSave(orderItem);
+            }
+            connection.commit();
+        } finally {
+            connection.setAutoCommit(true);
         }
     }
 

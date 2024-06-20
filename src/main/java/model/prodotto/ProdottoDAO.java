@@ -94,9 +94,10 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
     }
 
     @Override
-    public void doSave(ProdottoBean prodotto) throws SQLException {
+    public long doSave(ProdottoBean prodotto) throws SQLException {
         String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Categoria, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath, descrizione, TipoAnimale) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        long generatedKey = -1;
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, prodotto.getNome());
             statement.setInt(2, prodotto.getDisponibilita());
             statement.setString(3, prodotto.getTaglia());
@@ -109,8 +110,14 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setString(10, prodotto.getImgPath());
             statement.setString(11, prodotto.getDescrizione());
             statement.setString(12, String.valueOf(prodotto.getTipoAnimale()));
-            statement.executeUpdate();
+            if (statement.executeUpdate() > 0){
+                ResultSet rs = statement.getGeneratedKeys();
+                if (rs.next()){
+                    generatedKey = rs.getLong(1);
+                }
+            }
         }
+        return generatedKey;
     }
 
     @Override

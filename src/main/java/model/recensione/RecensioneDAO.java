@@ -57,17 +57,24 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
     }
 
     @Override
-    public void doSave(RecensioneBean recensione) throws SQLException {
+    public long doSave(RecensioneBean recensione) throws SQLException {
         String query = "INSERT INTO Recensione (idUtente, Titolo, Commento, Valutazione, Data, idProdotto) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        long generatedKey = -1;
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, recensione.getIdUtente());
             statement.setString(2, recensione.getTitolo());
             statement.setString(3, recensione.getCommento());
             statement.setDouble(4, recensione.getValutazione());
             statement.setDate(5, recensione.getData());
             statement.setLong(6, recensione.getIdProdotto());
-            statement.executeUpdate();
+            if (statement.executeUpdate() > 0){
+                ResultSet rs = statement.getGeneratedKeys();
+                if (rs.next()){
+                    generatedKey = rs.getLong(1);
+                }
+            }
         }
+        return generatedKey;
     }
 
     @Override
