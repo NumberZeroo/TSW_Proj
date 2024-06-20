@@ -26,7 +26,7 @@ public class RegisterServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
             //Errore nella registrazione
-            response.sendRedirect("register.jsp"); // TODO: client side error message
+            response.sendRedirect("register.jsp?error=error");
         }
     }
 
