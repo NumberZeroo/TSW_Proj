@@ -38,6 +38,7 @@ public class addProductServlet extends HttpServlet {
         prodotto.setMaxEta(maxEta);
         prodotto.setDisponibilita(disponibilita);
         prodotto.setSterilizzati(sterilized);
+        prodotto.setVisibile(true);
 
         imgPath = "img/" + imgPath;
         prodotto.setImgPath(imgPath); // Setta il path dell'immagine del prodotto

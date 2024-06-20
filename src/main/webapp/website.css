@@ -649,3 +649,14 @@ body {
     display: block;
     margin: 0 auto;
 }
+
+/* Stile per il pulsante di aggiunta al catalogo a pagina ingrandita */
+@media (min-width: 900px) {
+    #adminButton {
+        width: 20%; /* Dimezza la larghezza del pulsante */
+    }
+
+    #visibilityButton {
+        width: 20%; /* Dimezza la larghezza del pulsante */
+    }
+}

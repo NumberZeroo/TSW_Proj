@@ -22,7 +22,10 @@
     <div id="notification"></div>
     <% SessionFacade sessionFacade = new SessionFacade(request.getSession());
         if(sessionFacade.isLoggedIn() && sessionFacade.getIsAdmin()){ %>
-    <button id="adminButton" class="adminButton">Modifica Prodotto</button>
+    <div class="adin-button" style="grid-row: auto">
+        <button id="adminButton" class="adminButton">Modifica Prodotto</button>
+        <button id="visibilityButton" class="adminButton"><%= prodotto.isVisibile() ? "Nascondi" : "Rendi visibile" %></button>
+    </div>
 
     <form id="editProductForm" style="display: none;" action="${pageContext.request.contextPath}/editProductServlet" method="post">
 
@@ -44,6 +47,27 @@
         document.getElementById('adminButton').addEventListener('click', function() {
             document.getElementById('editProductForm').style.display = 'block';
         });
+    </script>
+
+    <script> // Script per cambiare la visibilità del prodotto con Ajax
+        window.onload = function() {
+            var visibilityButton = document.getElementById('visibilityButton');
+            var productId = "<%=prodotto.getId()%>";
+            var isVisible = "<%= !prodotto.isVisibile() %>";
+
+            visibilityButton.onclick = function() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", 'changeVisibilityServlet', true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                        // Reindirizza il browser alla nuova pagina dopo aver ricevuto la risposta
+                        window.location.href = "product?id=" + productId;
+                    }
+                }
+                xhr.send("productId=" + productId + "&isVisible=" + isVisible);
+            };
+        };
     </script>
 <% } %>
 
