@@ -20,4 +20,9 @@ PAGE STRUCTURE:
 - TestCatalogo ora è il vero catalogo...rinomina
 - Aggiungi path navigabile alla navbar
 - Spostare tutti gli script di file jsp in file js a parte
+SECURITY:
+- Controllo input:
+    - checkout.jsp
+- Cross Site Request Forgery
+- Da sincronizzare c'è l'accesso in scrittura della sessione, controlla in sessionFacade
 
