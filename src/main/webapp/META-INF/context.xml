@@ -2,10 +2,10 @@
 
 <Context>
     <Resource name="jdbc/tswproj"
-        auth="Container"
-        driverClassName="com.mysql.cj.jdbc.Driver"
-        type="javax.sql.DataSource"
-        username="root"
-        password="e.amoreroot"
-        url="jdbc:mysql://localhost:3306/tavolando?serverTimezone=Europe/Rome;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+              auth="Container"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              type="javax.sql.DataSource"
+              username="root"
+              password="Emanuele@2003"
+              url="jdbc:mysql://localhost:3306/tswproj?serverTimezone=Europe/Rome;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
 </Context>

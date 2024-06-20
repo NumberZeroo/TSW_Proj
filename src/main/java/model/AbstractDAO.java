@@ -4,7 +4,6 @@ import com.tswproject.tswproj.ConnectionPool;
 import com.tswproject.tswproj.EmptyPoolException;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public abstract class AbstractDAO implements AutoCloseable{
     protected Connection connection;

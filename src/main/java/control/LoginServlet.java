@@ -1,6 +1,7 @@
 package control;
 
 import com.tswproject.tswproj.EmptyPoolException;
+import com.tswproject.tswproj.RuntimeSQLException;
 import com.tswproject.tswproj.Security;
 import com.tswproject.tswproj.SessionFacade;
 import jakarta.servlet.ServletException;
@@ -42,10 +43,16 @@ public class LoginServlet extends HttpServlet {
         if (user == null || !checkLogin(user, password)) {
             System.out.println("Login fallito, come te"); // TODO: client side error
             resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
 
         SessionFacade session = new SessionFacade(req.getSession());
-        session.login(user);
+        try {
+            session.login(user);
+        } catch (SQLException e) {
+            e.printStackTrace(); // TODO: log
+            throw new RuntimeSQLException("Errore durante il login", e);
+        }
         resp.sendRedirect(req.getContextPath() + "/profile.jsp");
 
     }
