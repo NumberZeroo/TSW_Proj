@@ -20,6 +20,7 @@ CREATE TABLE InfoConsegna(
     altro VARCHAR(255),
     destinatario VARCHAR(255) NOT NULL,
     idUtente BIGINT UNSIGNED NOT NULL,
+    isDefault TINYINT(1) DEFAULT 0 NOT NULL,
     FOREIGN KEY (idUtente) REFERENCES Utente(id)
 );
 
