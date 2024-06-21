@@ -4,12 +4,19 @@
 <%@ page import="model.prodotto.ProdottoDAO" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="model.infoConsegna.InfoConsegnaDAO" %>
+<%@ page import="model.infoConsegna.InfoConsegnaBean" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.tswproject.tswproj.RuntimeSQLException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Checkout</title>
 </head>
 <body>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/checkout.css">
+
     <%
         SessionFacade userSession = new SessionFacade(request.getSession());
         Map<Long, Integer> productIDs = userSession.getCartProducts();
@@ -34,15 +41,51 @@
 
     <p>Prezzo totale: <%=products.entrySet().stream().mapToDouble(e -> e.getKey().getPrezzo() * e.getValue()).sum()%></p>
 
+    <%
+        InfoConsegnaBean defaultInfoConsegna;
+        try(InfoConsegnaDAO infoConsegnaDAO = new InfoConsegnaDAO()) {
+            defaultInfoConsegna = infoConsegnaDAO.doRetrieveDefault(userSession.getUserId());
+        } catch(SQLException s){
+            throw new RuntimeSQLException("Problema durante la ricerca dei dati di spedizione dell'utente", s);
+        }
+
+
+    %>
+        <div id="shipment-options">
+            <%if (defaultInfoConsegna != null){%>
+            <form name="shipment-selection">
+                <input name="g1" type="radio" id="radio_<%=defaultInfoConsegna.getId()%>" value="<%=defaultInfoConsegna.getId()%>">
+                <div id="shipment-selection-<%=defaultInfoConsegna.getId()%>">
+                    <label for="radio_<%=defaultInfoConsegna.getId()%>"  class="shipment-option">
+                        <strong><%=defaultInfoConsegna.getVia()%></strong> <br>
+                                <%=defaultInfoConsegna.getCitta()%><br>
+                                <%=defaultInfoConsegna.getDestinatario()%> <br>
+                    </label>
+                </div>
+
+                <input name="g1" type="radio" id="radio_<%=defaultInfoConsegna.getId()%>" value="<%=defaultInfoConsegna.getId()%>">
+                <div id="shipment-selection-<%=defaultInfoConsegna.getId()%>">
+                    <label for="radio_<%=defaultInfoConsegna.getId()%>"  class="shipment-option">
+                        <strong><%=defaultInfoConsegna.getVia()%></strong> <br>
+                        <%=defaultInfoConsegna.getCitta()%><br>
+                        <%=defaultInfoConsegna.getDestinatario()%> <br>
+                    </label>
+                </div>
+            </form>
+            <%}%>
+            <button>Modifica</button> <!-- TODO: ajax deve togliere le default info e aggiungere tutte le info  -->
+        </div>
+
+
     <p>Inserisci qui le informazioni di consegna</p>
     <!--TODO: sanifica input -->
     <!--TODO: Aggiungi info di default -->
     <form method="post" action="${pageContext.request.contextPath}/checkout">
-        <label for="city-input">Città: </label><input id="city-input" type="text" name="city">
-        <label for="cap-input">CAP: </label><input id="cap-input" type="number" name="cap">
-        <label for="address-input">Indirizzo (via, corso, ...): </label><input id="address-input" type="text" name="address">
-        <label for="additional-info-input">Informazioni di recapito aggiuntive: </label><input id="additional-info-input" type="text" name="other">
-        <label for="receiver-input">Destinatario: </label><input id="receiver-input" type="text" name="receiver">
+        <label for="city-input">Città: </label><input id="city-input" type="text" name="city"> <br>
+        <label for="cap-input">CAP: </label><input id="cap-input" type="number" name="cap"><br>
+        <label for="address-input">Indirizzo (via, corso, ...): </label><input id="address-input" type="text" name="address"><br>
+        <label for="additional-info-input">Informazioni di recapito aggiuntive: </label><input id="additional-info-input" type="text" name="other"><br>
+        <label for="receiver-input">Destinatario: </label><input id="receiver-input" type="text" name="receiver"><br>
         <button type="submit">Conferma</button>
     </form>
 </body>
