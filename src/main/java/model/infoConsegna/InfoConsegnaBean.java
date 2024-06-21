@@ -10,6 +10,7 @@ public class InfoConsegnaBean implements Serializable {
     private String via;
     private String altro;
     private String destinatario;
+    private boolean isDefault;
 
     public long getId() {
         return id;
@@ -67,6 +68,14 @@ public class InfoConsegnaBean implements Serializable {
         this.idUtente = idUtente;
     }
 
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
+    }
+
     @Override
     public String toString() {
         return "InfoConsegnaBean{" +
@@ -77,6 +86,7 @@ public class InfoConsegnaBean implements Serializable {
                 ", via='" + via + '\'' +
                 ", altro='" + altro + '\'' +
                 ", destinatario='" + destinatario + '\'' +
+                ", isDefault=" + isDefault +
                 '}';
     }
 }

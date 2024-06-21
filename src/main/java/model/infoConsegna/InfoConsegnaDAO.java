@@ -41,9 +41,36 @@ public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoCon
         return infoConsegnaBeans;
     }
 
+    public List<InfoConsegnaBean> doRetrieveAllByUser(long idUser) throws SQLException {
+        String query = "SELECT * FROM infoConsegna WHERE idUtente = ?";
+        List<InfoConsegnaBean> infoConsegnaBeans = new ArrayList<>();
+        try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, idUser);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    infoConsegnaBeans.add(getByResultSet(resultSet));
+                }
+            }
+        }
+        return infoConsegnaBeans;
+    }
+
+    public InfoConsegnaBean doRetrieveDefault(long idUser) throws SQLException {
+        String query = "SELECT * FROM InfoConsegna WHERE idUtente = ? AND isDefault = 1";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, idUser);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return getByResultSet(resultSet);
+                }
+            }
+        }
+        return null;
+    }
+
     @Override
     public long doSave(InfoConsegnaBean product) throws SQLException {
-        String query = "INSERT INTO InfoConsegna(citta, cap, via, altro, destinatario, idUtente) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO InfoConsegna(citta, cap, via, altro, destinatario, idUtente, isDefault) VALUES (?, ?, ?, ?, ?, ?, ?)";
         long generatedKey = -1;
         try (PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, product.getCitta());
@@ -52,6 +79,7 @@ public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoCon
             preparedStatement.setString(4, product.getAltro());
             preparedStatement.setString(5, product.getDestinatario());
             preparedStatement.setLong(6, product.getIdUtente());
+            preparedStatement.setInt(7, product.isDefault() ? 1 : 0);
             if (preparedStatement.executeUpdate() > 0){
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
                 if (resultSet.next()){
@@ -64,7 +92,7 @@ public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoCon
 
     @Override
     public void doUpdate(InfoConsegnaBean product) throws SQLException {
-        String query = "UPDATE InfoConsegna SET citta = ?, cap = ?, via = ?, altro = ?, destinatario = ?, idUtente = ? WHERE citta = ?";
+        String query = "UPDATE InfoConsegna SET citta = ?, cap = ?, via = ?, altro = ?, destinatario = ?, idUtente = ?, isDefault = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, product.getCitta());
             preparedStatement.setInt(2, product.getCap());
@@ -72,7 +100,8 @@ public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoCon
             preparedStatement.setString(4, product.getAltro());
             preparedStatement.setString(5, product.getDestinatario());
             preparedStatement.setLong(6, product.getIdUtente());
-            preparedStatement.setLong(7, product.getId());
+            preparedStatement.setBoolean(7, product.isDefault());
+            preparedStatement.setLong(8, product.getId());
             preparedStatement.executeUpdate();
         }
     }
@@ -95,6 +124,7 @@ public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoCon
         infoConsegnaBean.setAltro(resultSet.getString("altro"));
         infoConsegnaBean.setDestinatario(resultSet.getString("destinatario"));
         infoConsegnaBean.setIdUtente(resultSet.getLong("idUtente"));
+        infoConsegnaBean.setDefault(resultSet.getInt("isDefault") == 1);
         return infoConsegnaBean;
     }
 }
