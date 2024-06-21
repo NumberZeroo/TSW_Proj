@@ -5,11 +5,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-
     <title>Catalogo Prodotti</title>
 </head>
 <body>
- <%@ include file="navbar.jsp" %>
+    <%@ include file="navbar.jsp" %>
 
     <% SessionFacade sessionFacade = new SessionFacade(request.getSession());
         if(sessionFacade.isLoggedIn() && sessionFacade.getIsAdmin()){ %>
@@ -22,11 +21,12 @@
         });
     </script>
 
+
     <div class="content">
         <button id="open-filter-button" class="display-none">
             <i class="fas fa-filter"></i>
         </button> <!-- Pulsante per mostrare la barra dei filtri a pagina rimpicciolita -->
-        <i id="filter-button" class="fas fa-filter"></i> <!-- Pulsante per mostrare/nascondere la barra dei filtri -->
+        <i id="filter-button" class="fas fa-filter"></i>
 
         <div id="filter-bar" class="filter-bar">
             <i id="close-button" class="fas fa-times"></i>
@@ -78,85 +78,36 @@
 
     <% if(prodotti == null || prodotti.isEmpty()){ %>
         <p>Nessun prodotto disponibile.</p>
-    <% } else { %>
+    <% } else if(sessionFacade.isLoggedIn() && sessionFacade.getIsAdmin()) { %>
         <div class="griglia-prodotti">
             <%for(ProdottoBean prodotto : prodotti) { %>
                 <div class = "test-div-class">
                     <a href="product?id=<%=prodotto.getId()%>">
                         <img src="<%= prodotto.getImgPath() %>" alt="Immagine">
-                        <h2><%=prodotto.getNome()%></h2>
+                        <h3><%=prodotto.getNome()%></h3>
                     </a>
                     <p>Prezzo: <%=prodotto.getPrezzo()%> €</p>
                 </div>
-                <% }
-            } %>
+            <% } %>
         </div>
-    </div>
+            <% } else { %>
+                <div class="griglia-prodotti">
+                        <%for(ProdottoBean prodotto : prodotti.stream().filter(ProdottoBean::isVisibile).toList()) { %>
+                            <div class = "test-div-class">
+                                <a href="product?id=<%=prodotto.getId()%>">
+                                    <img src="<%= prodotto.getImgPath() %>" alt="Immagine">
+                                    <h3><%=prodotto.getNome()%></h3>
+                                </a>
+                            <p>Prezzo: <%=prodotto.getPrezzo()%> €</p>
+                        </div>
+                        <% }
+                } %>
+                </div>
+        </div>
 
     <%@ include file="footer.jsp" %>
 
     <!-- Barra dei filtri a pagina ingrandita -->
-    <script>
-        let filterButton = document.getElementById('filter-button');
-        let filterBar = document.getElementById('filter-bar');
-        let closeButton = document.getElementById('close-button');
-        let productGrid = document.querySelector('.griglia-prodotti');
-
-        filterButton.addEventListener('click', function() {
-            filterBar.classList.toggle('show');
-            productGrid.classList.toggle('shift-left');
-            filterButton.classList.add('display-none');
-            if (filterBar.classList.contains('show')) {
-                filterBar.style.position = 'absolute';
-            } else {
-                filterBar.style.position = 'fixed';
-            }
-        });
-
-        closeButton.addEventListener('click', function() {
-            filterBar.classList.remove('show');
-            filterButton.classList.remove('display-none');
-            productGrid.classList.remove('shift-left');
-            filterBar.style.position = 'fixed';
-        });
-    </script>
-
-    <script>
-        // Seleziona i filtri e gli elementi <span>
-        let priceFilter = document.getElementById('price');
-        let priceValue = document.getElementById('price-value');
-        let minAgeFilter = document.getElementById('min-age');
-        let minAgeValue = document.getElementById('min-age-value');
-        let maxAgeFilter = document.getElementById('max-age');
-        let maxAgeValue = document.getElementById('max-age-value');
-
-        // Aggiorna il contenuto degli elementi <span> con il valore corrente del filtro
-        priceValue.textContent = priceFilter.value;
-        minAgeValue.textContent = minAgeFilter.value;
-        maxAgeValue.textContent = maxAgeFilter.value;
-
-        // Aggiungi un gestore di eventi a ciascun filtro per aggiornare il valore ogni volta che cambia
-        priceFilter.addEventListener('input', function() {
-            priceValue.textContent = this.value;
-        });
-
-        minAgeFilter.addEventListener('input', function() {
-            minAgeValue.textContent = this.value;
-        });
-
-        maxAgeFilter.addEventListener('input', function() {
-            maxAgeValue.textContent = this.value;
-        });
-    </script>
-
-    <!-- Barra dei filtri a pagina rimpicciolita -->
-    <script>
-        let openFilterButton = document.getElementById('open-filter-button');
-
-        openFilterButton.addEventListener('click', function() {
-            filterBar.style.display = 'block';
-            openFilterButton.style.display = 'none';
-        });
-    </script>
+    <script src="${pageContext.request.contextPath}/scripts/catalogo.js"></script>
 </body>
 </html>

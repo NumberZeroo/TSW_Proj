@@ -142,6 +142,11 @@ public class SessionFacade {
         return Optional.ofNullable((String)this.session.getAttribute(USERNAME_SESSION_ATTRIBUTE_NAME));
     }
 
+    public long getUserId() {
+        if (this.session.getAttribute(USERID_SESSION_ATTRIBUTE_NAME) == null) return -1;
+        return (long) this.session.getAttribute(USERID_SESSION_ATTRIBUTE_NAME);
+    }
+
     public boolean getIsAdmin() {
         if (this.session.getAttribute(ISADMIN_SESSION_ATTRIBUTE_NAME) == null) return false;
         return (boolean) this.session.getAttribute(ISADMIN_SESSION_ATTRIBUTE_NAME);

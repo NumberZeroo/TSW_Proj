@@ -5,7 +5,7 @@
     <%@ include file="navbar.jsp" %>
 </head>
 <body>
-    <form action="addProductServlet" method="post" class="form-container form-grid">
+<form action="addProductServlet" method="post" class="form-container form-grid">
         <h2 style="font-style: italic">Aggiungi un nuovo prodotto</h2>
 
         <label for="nome">Nome:</label>
@@ -91,7 +91,7 @@
             let maxAge = parseInt(maxAgeInput.value);
 
             if (maxAge < minAge) {
-                alert("L'età massima deve essere maggiore o uguale all'età minima.");
+                alert("L'età massima deve essere maggiore o uguale all'età minima."); //todo cambiare alert con un messaggio più elegante
                 maxAgeInput.value = minAge;
             }
         }

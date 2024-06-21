@@ -48,7 +48,7 @@ public class PetDAO extends AbstractDAO implements DAOInterface<PetBean, String>
             statement.setString(3, pet.getImgPath());
             statement.setString(4, pet.getTipo());
             statement.setString(5, pet.getTaglia());
-            statement.setString(6, pet.getSterilizzato());
+            statement.setInt(6, pet.getSterilizzato() ? 1 : 0);
             statement.setDate(7, pet.getDataNascita());
             statement.executeUpdate();
         }
@@ -62,7 +62,7 @@ public class PetDAO extends AbstractDAO implements DAOInterface<PetBean, String>
             statement.setString(2, pet.getImgPath());
             statement.setString(3, pet.getTipo());
             statement.setString(4, pet.getTaglia());
-            statement.setString(5, pet.getSterilizzato());
+            statement.setInt(5, pet.getSterilizzato() ? 1 : 0);
             statement.setDate(6, pet.getDataNascita());
             statement.setString(7, pet.getNome());
             statement.executeUpdate();
@@ -86,8 +86,23 @@ public class PetDAO extends AbstractDAO implements DAOInterface<PetBean, String>
         pet.setImgPath(resultSet.getString("imgPath"));
         pet.setTipo(resultSet.getString("Tipo"));
         pet.setTaglia(resultSet.getString("Taglia"));
-        pet.setSterilizzato(resultSet.getString("Sterilizzato"));
+        pet.setSterilizzato(resultSet.getInt("Sterilizzato") == 1);
         pet.setDataNascita(resultSet.getDate("DataNascita"));
         return pet;
+    }
+
+    public List<PetBean> doRetrieveByUser(long id) throws SQLException {
+        List<PetBean> pets = new ArrayList<>();
+        String query = "SELECT * FROM Pet WHERE IdUtente = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    PetBean pet = extractPetFromResultSet(resultSet);
+                    pets.add(pet);
+                }
+            }
+        }
+        return pets;
     }
 }

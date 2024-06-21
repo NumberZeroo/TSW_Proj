@@ -20,6 +20,13 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+
+        if (!password.equals(confirmPassword)) {
+            //Password e conferma password non coincidono
+            response.sendRedirect("register.jsp?error=error");
+            return;
+        }
 
         if(registerUser(username, email, password)) {
             //Utente registrato con successo
@@ -53,7 +60,7 @@ public class RegisterServlet extends HttpServlet {
         utente.setUsername(username);
         utente.setEmail(email);
         utente.setImgPath("/test");  //todo default imgPath
-        utente.setIsAdmin(true); //todo default isAdmin
+        utente.setIsAdmin(false); //todo default isAdmin
         utente.setPassword(hashedPassword.get());
 
         try(UtenteDAO ut = new UtenteDAO()){

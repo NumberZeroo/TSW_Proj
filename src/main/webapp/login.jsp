@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/website.css">
 </head>
 <body>
     <%@ include file="navbar.jsp" %>
@@ -9,13 +10,17 @@
     <div id="notification"></div>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/popupFeedback.css">
 
-    <h2>Login</h2>
-    <form action="loginServlet" method="post">
-        Username: <input type="text" name="username"><br>
-        Password: <input type="password" name="password"><br>
-        <input type="submit" value="Login">
-    </form>
-    <p>Non sei registrato? Registrati qui: <a href="register.jsp">Register page</a></p>
+    <div class="auth-container">
+        <h2>Login</h2>
+        <form action="loginServlet" method="post" class="auth-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <input type="submit" value="Login">
+        </form>
+        <p>Non sei registrato? <a href="register.jsp">Registrati qui</a></p>
+    </div>
 
     <%@ include file="footer.jsp" %>
 
