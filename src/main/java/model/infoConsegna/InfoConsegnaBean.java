@@ -89,4 +89,17 @@ public class InfoConsegnaBean implements Serializable {
                 ", isDefault=" + isDefault +
                 '}';
     }
+
+    public String toJson() {
+        return "{" +
+                "\"id\": " + "\"" + String.valueOf(id) + "\"" + "," +
+                "\"idUtente\": " + "\"" + String.valueOf(idUtente) + "\"" +  "," +
+                "\"citta\": " + "\"" + citta + "\"" + "," +
+                "\"cap\": " + "\"" + String.valueOf(cap) + "\"" + "," +
+                "\"via\": " + "\"" + via + "\"" + "," +
+                "\"altro\": " + "\"" + altro + "\"" + "," +
+                "\"destinatario\": " + "\"" + destinatario + "\"" + "," +
+                "\"isDefault\": " + "\"" + String.valueOf(isDefault) + "\"" +
+                "}";
+    }
 }

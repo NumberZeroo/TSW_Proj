@@ -27,8 +27,8 @@ import java.util.Map;
 public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO 1:  Inserisci i dati di "infoConsegna" e "ordine"
-        // TODO 2:  Implementa indirizzo di fatturazione
+        // TODO 1:  Inserisci i dati di "infoConsegna" e "ordine" (DONE)
+        // TODO 2:  Implementa indirizzo di fatturazione (DONE, sarebbe il default)
         // TODO 3:  Implementa creazione di fattura
         // TODO 4:  Rimanda a pagina di esito
         SessionFacade session = new SessionFacade(req.getSession());
@@ -49,6 +49,10 @@ public class CheckoutServlet extends HttpServlet {
         String other = req.getParameter("other");
         String receiver = req.getParameter("receiver");
 
+
+        Object isDefaultObj = req.getParameter("willBeDefault");
+        boolean isDefault = isDefaultObj != null;
+
         // 1. Crea un infoConsegna
         InfoConsegnaBean infoConsegnaBean = new InfoConsegnaBean();
         infoConsegnaBean.setCitta(city);
@@ -57,6 +61,7 @@ public class CheckoutServlet extends HttpServlet {
         infoConsegnaBean.setAltro(other);
         infoConsegnaBean.setDestinatario(receiver);
         infoConsegnaBean.setIdUtente(session.getUserId());
+        infoConsegnaBean.setDefault(isDefault);
 
         long idInfoConsegna;
         try(InfoConsegnaDAO infoConsegnaDAO = new InfoConsegnaDAO()) {

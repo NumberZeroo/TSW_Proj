@@ -42,7 +42,7 @@ public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoCon
     }
 
     public List<InfoConsegnaBean> doRetrieveAllByUser(long idUser) throws SQLException {
-        String query = "SELECT * FROM infoConsegna WHERE idUtente = ?";
+        String query = "SELECT * FROM InfoConsegna WHERE idUtente = ?";
         List<InfoConsegnaBean> infoConsegnaBeans = new ArrayList<>();
         try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, idUser);
