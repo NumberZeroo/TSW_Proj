@@ -30,6 +30,8 @@ IN PROGRESS:
 - La info consegna va creata prima di arrivare alla checkout servlet. Quest'ultima deve solo selezionare tramite un id.
 - Nella pagina di checkout deve esserci:
     - Un radio button che seleziona le informazioni di spedizione (DONE)
+    - Il pulsante di submit deve essere cliccabile solo se c'è una selezione attiva
+    - La selezione deve essere registrata nell'hidden input tramite js perché stanno in due form diversi
     - Un pulsante per aggiungere una nuova informazione di spedizione:
         - Deve far aprire un popover che rimanda ad una servlet che aggiunge l'informazione di spedizione.
         - La pagina si deve aggiornare per far vedere la nuova informazione di spedizione
