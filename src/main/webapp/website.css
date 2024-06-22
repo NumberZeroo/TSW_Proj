@@ -28,7 +28,7 @@ body {
 .navbar-nav li.nav-item { /* Stile per le icone della navbar */
     display: flex;
     align-items: center;
-    margin-left: 15px;
+    margin-left: 5px;
     margin-right: 0;
 }
 
@@ -226,8 +226,8 @@ svg text {
     color: #EBB114;
     z-index: 3;
     position: fixed;
-    right: 20px;
-    bottom: 8rem;
+    right: 15px;
+    bottom: 19rem;
     transform: translateY(-50%);
     font-size: 2rem;
     cursor: pointer;
@@ -777,4 +777,14 @@ body {
     height: 100px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+#infoSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#infoSection img {
+    margin-right: 20px;
 }
