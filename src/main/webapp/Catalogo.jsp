@@ -81,7 +81,7 @@
     <% } else if(sessionFacade.isLoggedIn() && sessionFacade.getIsAdmin()) { %>
         <div class="griglia-prodotti">
             <%for(ProdottoBean prodotto : prodotti) { %>
-                <div class = "test-div-class">
+                <div class = "catalogoProd">
                     <a href="product?id=<%=prodotto.getId()%>">
                         <img src="<%= prodotto.getImgPath() %>" alt="Immagine">
                         <h3><%=prodotto.getNome()%></h3>
@@ -93,7 +93,7 @@
             <% } else { %>
                 <div class="griglia-prodotti">
                         <%for(ProdottoBean prodotto : prodotti.stream().filter(ProdottoBean::isVisibile).toList()) { %>
-                            <div class = "test-div-class">
+                            <div class = "catalogoProd">
                                 <a href="product?id=<%=prodotto.getId()%>">
                                     <img src="<%= prodotto.getImgPath() %>" alt="Immagine">
                                     <h3><%=prodotto.getNome()%></h3>

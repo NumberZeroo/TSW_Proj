@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Login Page</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/website.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/auth.css">
 </head>
 <body>
     <%@ include file="navbar.jsp" %>

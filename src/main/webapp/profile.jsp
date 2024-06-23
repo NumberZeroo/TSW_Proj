@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>Profilo Utente</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/website.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/profile.css">
 </head>
 <body>
     <%@ include file="navbar.jsp" %>

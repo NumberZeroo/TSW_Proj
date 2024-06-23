@@ -1,0 +1,95 @@
+body {
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #ff6600;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ff6600;
+    padding-bottom: 10px;
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15px;
+    padding: 15px;
+    overflow-x: auto; /* Aggiungi una barra di scorrimento se i prodotti non entrano tutti nella larghezza della pagina */
+}
+
+.product {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    padding: 15px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    min-width: 250px; /* Imposta una larghezza minima per i prodotti */
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+.product img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.product h4 {
+    margin: 15px 0 10px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.product p {
+    font-size: 1em;
+    color: #666;
+}
+
+.product a {
+    text-decoration: none;
+    color: inherit; /* eredita il colore del testo dall'elemento padre */
+}
+
+.descrizione {
+    background: #fff;
+    padding: 40px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 800px;
+}
+
+.descrizione h1 {
+    color: #50b3a2;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.descrizione p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin: 10px 0;
+}

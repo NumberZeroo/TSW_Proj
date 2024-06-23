@@ -1,0 +1,50 @@
+/* Pagina di login */
+.auth-container {
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,2);
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #50b3a2;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-form label {
+    margin-bottom: 5px;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.auth-form input[type="submit"] {
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.auth-form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.auth-container p {
+    margin-top: 15px;
+    text-align: center;
+}

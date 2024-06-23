@@ -137,7 +137,7 @@ body {
 }
 
 /* Stile per il div dei prodotti */
-.test-div-class {
+.catalogoProd {
     transition: margin-left 0.7s ease-in-out;
     width: 300px;
     height: auto;
@@ -147,69 +147,25 @@ body {
     border: 1px solid black;
     border-radius: 10px;
     text-align: center;
-    background-color: #EB9917;
+    background-color: #50b3a2; /*todo AAAAAAAAAAA*/
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombra */
 }
 
-.test-div-class img {
+.catalogoProd img {
     width: 100%;
     height: auto; /* Imposta l'altezza dell'immagine in base all'aspetto */
     object-fit: contain;
 }
 
-.test-div-class h3 {
+.catalogoProd h3 {
     font-style: normal;
     display: block; /* Posizionato in un blocco */
 }
 
-.test-div-class p {
+.catalogoProd p {
     display: block; /* Posizionato in un blocco */
     background-color: white;
     border-radius: 10px;
-}
-
-/* Stile per il logo */
-svg {
-    font-family: "Rubik Dirt", sans-serif;
-    width: 100%;
-    height: 100%;
-}
-
-svg text {
-    animation: stroke 7s infinite alternate;
-    stroke-width: 2;
-    stroke: #365FA0;
-    font-size: 100px;
-}
-
-@keyframes stroke {
-    0% {
-        fill: rgba(72,138,204,0);
-        stroke: rgba(54,95,160,1);
-        stroke-dashoffset: 25%;
-        stroke-dasharray: 0 50%;
-        stroke-width: 2;
-    }
-    70% {
-        fill: rgba(72,138,204,0);
-        stroke: rgba(54,95,160,1);
-    }
-    80% {
-        fill: rgba(72,138,204,0);
-        stroke: rgba(54,95,160,1);
-        stroke-width: 3;
-    }
-    100% {
-        fill: rgba(72,138,204,1);
-        stroke: rgba(54,95,160,0);
-        stroke-dashoffset: -25%;
-        stroke-dasharray: 50% 0;
-        stroke-width: 0;
-    }
-}
-
-.wrapper {
-    background-color: white;
 }
 
 #filter-bar form input,
@@ -526,7 +482,7 @@ svg text {
     }
 }
 
-.test-div-class p {
+.catalogoProd p {
     font-size: 1.5em; /* Prezzo più grande */
 }
 
@@ -534,17 +490,17 @@ body {
     cursor: url('cursor/rabbit1.cur'), auto;
 }
 
-.test-div-class a {
+.catalogoProd a {
     cursor: url('cursor/Jake.cur'), auto;
 }
 
-.test-div-class img{
+.catalogoProd img{
     border-radius: 10px;
     border: 1px solid #000; /* Bordo nero */
     margin: 5px 0; /* Spazio sopra e sotto ogni elemento */
 }
 
-.test-div-class p {
+.catalogoProd p {
     border: 2px solid #000; /* Bordo nero */
     margin: 5px 0; /* Spazio sopra e sotto ogni elemento */
 }
@@ -661,130 +617,4 @@ body {
     #visibilityButton {
         width: 20%; /* Dimezza la larghezza del pulsante */
     }
-}
-
-/* Pagina di login */
-.auth-container {
-    width: 300px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,2);
-    border-radius: 10px;
-    margin: 20px auto;
-}
-
-.auth-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.auth-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.auth-form label {
-    margin-bottom: 5px;
-}
-
-.auth-form input[type="text"],
-.auth-form input[type="password"] {
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.auth-form input[type="submit"] {
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.auth-form input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-.auth-container p {
-    margin-top: 15px;
-    text-align: center;
-}
-
-/* Stile pagina profilo */
-
-.profile-container {
-    font-style: italic;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    width: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-    display: flex;
-    flex-grow: 1;
-}
-
-.profile-column {
-    border-left: 2px solid rgba(0, 0, 0, 1);
-    flex: 1;
-    padding: 20px;
-}
-
-.menu-column {
-    width: 20%;
-    align-items: center;
-}
-
-.menu-column button {
-    margin-top: 15px;
-    width: 70%; /* Imposta la larghezza al 100% del contenitore */
-    padding: 10px; /* Aggiunge spazio intorno al testo */
-    margin-bottom: 10px; /* Aggiunge spazio tra i pulsanti */
-    background-color: #007BFF; /* Imposta il colore di sfondo */
-    color: #fff; /* Imposta il colore del testo */
-    border: none; /* Rimuove il bordo */
-    border-radius: 5px; /* Aggiunge bordi arrotondati */
-    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
-    transition: background-color 0.3s ease; /* Aggiunge un effetto di transizione al cambio di colore */
-}
-
-.profile-column button:hover {
-    background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
-}
-
-.profile-column {
-    background-color: #f8f9fa; /* Imposta un colore di sfondo leggero */
-    border-radius: 10px; /* Aggiunge bordi arrotondati */
-    padding: 20px; /* Aggiunge spazio intorno al contenuto */
-    margin: 10px; /* Aggiunge spazio intorno alla colonna */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 1); /* Aggiunge un leggero ombreggiamento */
-    color: #333; /* Imposta un colore del testo scuro */
-}
-
-.pet{
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Centra verticalmente il contenuto */
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-}
-
-.pet img{
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-#infoSection {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#infoSection img {
-    margin-right: 20px;
 }
