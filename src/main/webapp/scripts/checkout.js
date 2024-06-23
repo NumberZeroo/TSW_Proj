@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     function retrieveShipmentInfos() {
 
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', 'getShipmentInfos', true);
             xhr.setRequestHeader('Accept', 'application/json');
@@ -19,46 +19,53 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     }
 
-    function addToPage(infos) {
-         infos.forEach(function(item) {
-            var radio = document.createElement('input');
-            radio.name = "g1";
-            radio.type = "radio";
-            radio.id = "radio_" + item['id'];
-            radio.value = item['id'];
+    /**
+     * Modifica "shipment-info-form" per contenere tutte le informazioni di spedizione
+     *  tranne quella di default (giò nella pagina)
+     * @param infos
+     */
+    function updatePage(infos) {
+        infos.forEach(function (item) {
+            console.log(item['isDefault']);
+            if (item['isDefault'] !== 'true'){
+                var radio = document.createElement('input');
+                radio.name = "g1";
+                radio.type = "radio";
+                radio.id = "radio_" + item['id'];
+                radio.value = item['id'];
 
-            var outerDiv = document.createElement('div');
-            outerDiv.id = "shipment-selection-" + item['id'];
+                var outerDiv = document.createElement('div');
+                outerDiv.id = "shipment-selection-" + item['id'];
 
-            var label = document.createElement('label');
-            label.for = "radio_" + item['id'];
-            label.class = "shipment-option";
-            label.innerHTML = "<strong>" + item['via'] + "</strong><br>" +
-                item['citta'] + "<br>" +
-                item['destinatario'] + "<br>";
+                var label = document.createElement('label');
+                label.for = "radio_" + item['id'];
+                label.class = "shipment-option";
+                label.innerHTML = "<strong>" + item['via'] + "</strong><br>" +
+                    item['citta'] + "<br>" +
+                    item['destinatario'] + "<br>";
 
-            // TODO: se non esiste crea
-            var outerForm = document.getElementById("shipment-info-form");
+                // TODO: se non esiste crea
+                var outerForm = document.getElementById("shipment-info-form");
 
-            outerDiv.appendChild(label);
-            outerForm.appendChild(radio);
-            outerForm.appendChild(outerDiv);
-
+                outerDiv.appendChild(label);
+                outerForm.appendChild(radio);
+                outerForm.appendChild(outerDiv);
+            }
         })
     }
 
     var addShipmentInfosBtn = document.getElementById("add-shipment-infos-btn");
-    addShipmentInfosBtn.addEventListener("click", function (){
+    addShipmentInfosBtn.addEventListener("click", function () {
         console.log("Implementa");
     });
 
     var getShipmentInfosBtn = document.getElementById("get-shipment-infos-btn");
-    getShipmentInfosBtn.addEventListener('click', function() {
-        retrieveShipmentInfos().then(function(shipmentInfos) {
-            addToPage(shipmentInfos);
+    getShipmentInfosBtn.addEventListener('click', function () {
+        retrieveShipmentInfos().then(function (shipmentInfos) {
+            updatePage(shipmentInfos);
             getShipmentInfosBtn.hidden = true;
             addShipmentInfosBtn.hidden = false;
-        }).catch(function(err) {
+        }).catch(function (err) {
             console.error(err);
         });
     })

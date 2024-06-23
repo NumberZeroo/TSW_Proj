@@ -53,7 +53,7 @@
 
     %>
         <div id="shipment-options">
-            <%if (defaultInfoConsegna != null){%>
+        <%if (defaultInfoConsegna != null){%>
             <form id = "shipment-info-form" name="shipment-selection">
                 <input name="g1" type="radio" id="radio_<%=defaultInfoConsegna.getId()%>" value="<%=defaultInfoConsegna.getId()%>" checked="checked">
                 <div id="shipment-selection-<%=defaultInfoConsegna.getId()%>">
@@ -65,7 +65,40 @@
                 </div>
             </form>
             <button id="get-shipment-infos-btn">Modifica</button> <!-- TODO: ajax deve togliere le default info e aggiungere tutte le info  -->
-            <button id="add-shipment-infos-btn" hidden>Aggiungi metodo di spedizione</button>
+            <button id="add-shipment-infos-btn" onclick="togglePopup()" hidden >Usa un altro metodo di spedizione</button>
+
+            <!-- Popup per l'aggiunta di informazioni di spedizione -->
+            <div id="popupOverlay" class="overlay-container">
+                <div class="popup-box">
+                    <h2 style="color: green;">Popup Form</h2>
+                    <form class="form-container">
+                        <label class="form-label" for="destinatario">Destinatario</label>
+                        <input class="form-input" type="text" id="destinatario" name="destinatario" required>
+                        <label class="form-label" for="citta">Città: </label>
+                        <input class="form-input" type="email" id="citta" name="citta" required>
+                        <label class="form-label" for="via">Via: </label>
+                        <input class="form-input" type="email" id="via" name="via" required>
+                        <label class="form-label" for="cap">CAP: </label>
+                        <input class="form-input" type="email" id="cap" name="cap" required>
+                        <label class="form-label" for="altro">Informazioni aggiuntive: </label>
+                        <input class="form-input" type="email" id="altro" name="altro" required>
+
+                        <button class="btn-submit" type="submit">Submit</button>
+                    </form>
+
+                    <button class="btn-close-popup" onclick="togglePopup()">Close</button>
+                </div>
+            </div>
+
+            <script>
+                function togglePopup() {
+                    const overlay = document.getElementById('popupOverlay');
+                    overlay.classList.toggle('show');
+                }
+            </script>
+
+            <!-- Fine popup -->
+
             <%} else {%>
             <p>Inserisci qui le informazioni di consegna</p>
             <!--TODO: sanifica input -->
@@ -78,7 +111,7 @@
                 <input name="willBeDefault" type="hidden" value="1">
                 <button type="submit">Conferma</button>
             </form>
-            <% } %>
+        <% } %>
         </div>
 
     <!-- TODO: questo bottone dovrebbe essere cliccabile solo se è stato selezionato qualcosa
