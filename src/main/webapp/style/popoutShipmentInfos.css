@@ -1,4 +1,4 @@
-.add-shipment-infos-btn {
+.btn-popout-submit {
     padding: 12px 24px;
     font-size: 18px;
     background-color: green;
@@ -9,7 +9,7 @@
     transition: background-color 0.3s ease;
 }
 
-.add-shipment-infos-btn:hover {
+.btn-popout-submit:hover {
     background-color: #4caf50;
 }
 
@@ -39,7 +39,7 @@
     animation: fadeInUp 0.5s ease-out forwards;
 }
 
-.form-container {
+#popout-form-container {
     display: flex;
     flex-direction: column;
 }
