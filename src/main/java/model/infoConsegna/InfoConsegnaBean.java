@@ -2,6 +2,7 @@ package model.infoConsegna;
 
 import java.io.Serializable;
 
+
 public class InfoConsegnaBean implements Serializable {
     private long id;
     private long idUtente;
@@ -102,4 +103,5 @@ public class InfoConsegnaBean implements Serializable {
                 "\"isDefault\": " + "\"" + String.valueOf(isDefault) + "\"" +
                 "}";
     }
+
 }
