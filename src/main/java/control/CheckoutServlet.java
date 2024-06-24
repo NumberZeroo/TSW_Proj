@@ -25,6 +25,7 @@ import java.util.Map;
 
 @WebServlet(value="/checkout")
 public class CheckoutServlet extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // TODO 1:  Inserisci i dati di "infoConsegna" e "ordine" (DONE)
@@ -43,31 +44,10 @@ public class CheckoutServlet extends HttpServlet {
             return;
         }
 
-        String city = req.getParameter("city");
-        int cap = Integer.parseInt(req.getParameter("cap"));
-        String address = req.getParameter("address");
-        String other = req.getParameter("other");
-        String receiver = req.getParameter("receiver");
-
-
-        Object isDefaultObj = req.getParameter("willBeDefault");
-        boolean isDefault = isDefaultObj != null;
-
-        // 1. Crea un infoConsegna
-        InfoConsegnaBean infoConsegnaBean = new InfoConsegnaBean();
-        infoConsegnaBean.setCitta(city);
-        infoConsegnaBean.setCap(cap);
-        infoConsegnaBean.setVia(address);
-        infoConsegnaBean.setAltro(other);
-        infoConsegnaBean.setDestinatario(receiver);
-        infoConsegnaBean.setIdUtente(session.getUserId());
-        infoConsegnaBean.setDefault(isDefault);
-
-        long idInfoConsegna;
-        try(InfoConsegnaDAO infoConsegnaDAO = new InfoConsegnaDAO()) {
-            idInfoConsegna = infoConsegnaDAO.doSave(infoConsegnaBean);
-        } catch (SQLException e) {
-            throw new RuntimeSQLException("Errore durante la creazione delle informazioni di consegna", e);
+        long idInfoConsegna = Long.parseLong(req.getParameter("selected-option"));
+        if (idInfoConsegna < 0) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
         }
 
         // 2. Crea un ordine

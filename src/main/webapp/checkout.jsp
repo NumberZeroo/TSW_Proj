@@ -16,7 +16,36 @@
 </head>
 <body>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/checkout.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/popoutShipmentInfos.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/popupFeedback.css">
     <script src="${pageContext.request.contextPath}/scripts/checkout.js" type="module"></script>
+    <script src="${pageContext.request.contextPath}/scripts/addShipmentInfo.js" type="module"></script>
+    <div id="notification"></div>
+
+    <!-- Popup per l'aggiunta di informazioni di spedizione -->
+    <!-- hidden di default -->
+    <div id="popupOverlay" class="overlay-container">
+        <div class="popup-box">
+            <h2 style="color: green;">Popup Form</h2>
+            <form id="popout-form-container">
+                <label class="form-label" for="destinatario">Destinatario</label>
+                <input class="form-input" type="text" id="destinatario" name="destinatario" required>
+                <label class="form-label" for="citta">Città: </label>
+                <input class="form-input" type="text" id="citta" name="citta" required>
+                <label class="form-label" for="via">Via: </label>
+                <input class="form-input" type="text" id="via" name="via" required>
+                <label class="form-label" for="cap">CAP: </label>
+                <input class="form-input" type="number" id="cap" name="cap" required>
+                <label class="form-label" for="altro">Informazioni aggiuntive: </label>
+                <input class="form-input" type="text" id="altro" name="altro">
+
+                <button class="btn-popout-submit" >Submit</button>
+            </form>
+
+            <button class="btn-close-popup" onclick="togglePopup()">Close</button>
+        </div>
+    </div>
+    <!-- Fine popup -->
 
     <%
         SessionFacade userSession = new SessionFacade(request.getSession());
@@ -64,60 +93,39 @@
                     </label>
                 </div>
             </form>
-            <button id="get-shipment-infos-btn">Modifica</button> <!-- TODO: ajax deve togliere le default info e aggiungere tutte le info  -->
+            <button id="get-shipment-infos-btn">Modifica</button>
             <button id="add-shipment-infos-btn" onclick="togglePopup()" hidden >Usa un altro metodo di spedizione</button>
 
-            <!-- Popup per l'aggiunta di informazioni di spedizione -->
-            <div id="popupOverlay" class="overlay-container">
-                <div class="popup-box">
-                    <h2 style="color: green;">Popup Form</h2>
-                    <form class="form-container">
-                        <label class="form-label" for="destinatario">Destinatario</label>
-                        <input class="form-input" type="text" id="destinatario" name="destinatario" required>
-                        <label class="form-label" for="citta">Città: </label>
-                        <input class="form-input" type="email" id="citta" name="citta" required>
-                        <label class="form-label" for="via">Via: </label>
-                        <input class="form-input" type="email" id="via" name="via" required>
-                        <label class="form-label" for="cap">CAP: </label>
-                        <input class="form-input" type="email" id="cap" name="cap" required>
-                        <label class="form-label" for="altro">Informazioni aggiuntive: </label>
-                        <input class="form-input" type="email" id="altro" name="altro" required>
-
-                        <button class="btn-submit" type="submit">Submit</button>
-                    </form>
-
-                    <button class="btn-close-popup" onclick="togglePopup()">Close</button>
-                </div>
-            </div>
-
-            <script>
-                function togglePopup() {
-                    const overlay = document.getElementById('popupOverlay');
-                    overlay.classList.toggle('show');
-                }
-            </script>
-
-            <!-- Fine popup -->
-
-            <%} else {%>
-            <p>Inserisci qui le informazioni di consegna</p>
-            <!--TODO: sanifica input -->
-            <form method="post" action="${pageContext.request.contextPath}/checkout">
-                <label for="city-input">Città: </label><input id="city-input" type="text" name="city"> <br>
-                <label for="cap-input">CAP: </label><input id="cap-input" type="number" name="cap"><br>
-                <label for="address-input">Indirizzo (via, corso, ...): </label><input id="address-input" type="text" name="address"><br>
-                <label for="additional-info-input">Informazioni di recapito aggiuntive: </label><input id="additional-info-input" type="text" name="other"><br>
-                <label for="receiver-input">Destinatario: </label><input id="receiver-input" type="text" name="receiver"><br>
-                <input name="willBeDefault" type="hidden" value="1">
-                <button type="submit">Conferma</button>
-            </form>
+            <%} else {%> <!-- TODO: testa questo caso -->
+<%--            <p>Inserisci qui le informazioni di consegna</p>--%>
+<%--            <!--TODO: sanifica input -->--%>
+<%--            <form id="add-shipment-info-form">--%>
+<%--                <label for="city-input">Città: </label><input id="city-input" type="text" name="city"> <br>--%>
+<%--                <label for="cap-input">CAP: </label><input id="cap-input" type="number" name="cap"><br>--%>
+<%--                <label for="address-input">Indirizzo (via, corso, ...): </label><input id="address-input" type="text" name="address"><br>--%>
+<%--                <label for="additional-info-input">Informazioni di recapito aggiuntive: </label><input id="additional-info-input" type="text" name="other"><br>--%>
+<%--                <label for="receiver-input">Destinatario: </label><input id="receiver-input" type="text" name="receiver"><br>--%>
+<%--                <input name="willBeDefault" type="hidden" value="1">--%>
+<%--                <button type="submit">Conferma</button>--%>
+<%--            </form>--%>
+            <input id="default-shipment-info" type="hidden" value="1"> <!-- Flag per js -->
+            <button class="btn-close-popup" onclick="togglePopup()">Aggiungi un metodo di spedizione</button>
         <% } %>
         </div>
 
     <!-- TODO: questo bottone dovrebbe essere cliccabile solo se è stato selezionato qualcosa
                 tramite js imposta il value all'id del radio selezionato -->
-    <form method="post" action="${pageContext.request.contextPath}/checkout">
-        <input id="selected-option" type="hidden" value="-1">
+    <form id="submit-form" method="post" action="${pageContext.request.contextPath}/checkout">
+        <input name ="selected-option" id="selected-option" type="hidden" value="-1">
+        <button type="submit">Checkout</button>
     </form>
+
+    <script>
+        function togglePopup() {
+            const overlay = document.getElementById('popupOverlay');
+            overlay.classList.toggle('show');
+        }
+    </script>
+
 </body>
 </html>
