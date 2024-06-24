@@ -29,6 +29,7 @@ CREATE TABLE Ordine (
     idUtente BIGINT UNSIGNED NOT NULL,
     pathFattura VARCHAR(255) NOT NULL,
     infoConsegna BIGINT UNSIGNED NOT NULL,
+    dataOrdine DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id, idUtente),
     FOREIGN KEY (idUtente) REFERENCES Utente (id),
     FOREIGN KEY (infoConsegna) REFERENCES InfoConsegna(id)
