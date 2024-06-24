@@ -320,19 +320,36 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding: 5px;
 }
 
 .recommended-products .product {
     flex: 0 0 calc(33.33% - 1em);
-    border: 1px solid #ccc;
-    padding: 1em;
     margin-bottom: 1em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    padding: 15px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    min-width: 250px; /* Imposta una larghezza minima per i prodotti */
+}
+
+.recommended-products .product:hover {
+    transform: scale(1.05);
 }
 
 .recommended-products .product img {
     width: 100%;
     height: auto;
     object-fit: cover;
+}
+
+.recommended-products .product a {
+    text-decoration: none;
+    color: inherit; /* eredita il colore del testo dall'elemento padre */
 }
 
 .product-specs {
@@ -446,6 +463,7 @@ body {
     border: 2px solid #fff; /* Bordo bianco */
     padding: 10px;
     display: inline-block;
+    margin-bottom: 15px;
 }
 
 .footer h6 {
@@ -617,4 +635,20 @@ body {
     #visibilityButton {
         width: 20%; /* Dimezza la larghezza del pulsante */
     }
+}
+
+.catalogoProd {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #50b3a2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.catalogoProd:hover {
+    transform: scale(1.05);
+}
+
+.catalogoProd h3{
+    color: #333;
 }

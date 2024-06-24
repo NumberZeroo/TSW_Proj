@@ -132,8 +132,10 @@
 
                 for (ProdottoBean prod : prodottiConsigliati) { %>
                     <div class="product">
-                        <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
-                        <h4><%=prod.getNome()%></h4>
+                        <a href="product?id=<%=prod.getId()%>">
+                            <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
+                            <h4><%=prod.getNome()%></h4>
+                        </a>
                         <p>Prezzo: <%=prod.getPrezzo()%> €</p>
                     </div>
                 <% }
