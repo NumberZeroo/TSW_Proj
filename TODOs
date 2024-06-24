@@ -36,4 +36,5 @@ IN PROGRESS:
         - La pagina si deve aggiornare per far vedere la nuova informazione di spedizione
     - Il submit, invece di mandare le informazioni di spedizione campo, per campo manderà l'id. (DONE)
 - Nel carrello deve esserci la possibilità di cambiare la quantità di prodotti.
+- Redirezione verso pagina di ordine effettuato (orderRecap)
 
