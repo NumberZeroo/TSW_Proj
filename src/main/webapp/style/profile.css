@@ -1,0 +1,73 @@
+.profile-container {
+    font-style: italic;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    display: flex;
+    flex-grow: 1;
+}
+
+.profile-column {
+    border-left: 2px solid rgba(0, 0, 0, 1);
+    flex: 1;
+    padding: 20px;
+}
+
+.menu-column {
+    width: 20%;
+    align-items: center;
+}
+
+.menu-column button {
+    margin-top: 15px;
+    width: 70%; /* Imposta la larghezza al 100% del contenitore */
+    padding: 10px; /* Aggiunge spazio intorno al testo */
+    margin-bottom: 10px; /* Aggiunge spazio tra i pulsanti */
+    background-color: #007BFF; /* Imposta il colore di sfondo */
+    color: #fff; /* Imposta il colore del testo */
+    border: none; /* Rimuove il bordo */
+    border-radius: 5px; /* Aggiunge bordi arrotondati */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    transition: background-color 0.3s ease; /* Aggiunge un effetto di transizione al cambio di colore */
+}
+
+.profile-column button:hover {
+    background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+.profile-column {
+    background-color: #f8f9fa; /* Imposta un colore di sfondo leggero */
+    border-radius: 10px; /* Aggiunge bordi arrotondati */
+    padding: 20px; /* Aggiunge spazio intorno al contenuto */
+    margin: 10px; /* Aggiunge spazio intorno alla colonna */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1); /* Aggiunge un leggero ombreggiamento */
+    color: #333; /* Imposta un colore del testo scuro */
+}
+
+.pet{
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centra verticalmente il contenuto */
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.pet img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#infoSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#infoSection img {
+    margin-right: 20px;
+}

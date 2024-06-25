@@ -130,8 +130,8 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setBoolean(9, prodotto.getSterilizzati());
             statement.setString(10, prodotto.getImgPath());
             statement.setString(11, prodotto.getDescrizione());
-            statement.setLong(12, prodotto.getId());
-            statement.setInt(13, prodotto.isVisibile() ? 1 : 0);
+            statement.setInt(12, prodotto.isVisibile() ? 1 : 0);
+            statement.setLong(13, prodotto.getId());
             statement.executeUpdate();
         }
     }
@@ -182,4 +182,13 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         }
         return prodotti;
     }
+
+    public void changeVisibility(long id, boolean isVisible) throws SQLException {
+    String query = "UPDATE Prodotto SET visibile = ? WHERE id = ?";
+    try (PreparedStatement statement = connection.prepareStatement(query)) {
+        statement.setInt(1, isVisible ? 1 : 0);
+        statement.setLong(2, id);
+        statement.executeUpdate();
+    }
+}
 }
