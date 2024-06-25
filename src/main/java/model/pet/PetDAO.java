@@ -40,9 +40,10 @@ public class PetDAO extends AbstractDAO implements DAOInterface<PetBean, String>
     }
 
     @Override
-    public void doSave(PetBean pet) throws SQLException {
+    public long doSave(PetBean pet) throws SQLException {
         String query = "INSERT INTO Pet (Nome, IdUtente, imgPath, Tipo, Taglia, Sterilizzato, DataNascita) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        long generatedKey = -1;
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, pet.getNome());
             statement.setLong(2, pet.getIdUtente());
             statement.setString(3, pet.getImgPath());
@@ -50,8 +51,14 @@ public class PetDAO extends AbstractDAO implements DAOInterface<PetBean, String>
             statement.setString(5, pet.getTaglia());
             statement.setInt(6, pet.getSterilizzato() ? 1 : 0);
             statement.setDate(7, pet.getDataNascita());
-            statement.executeUpdate();
+            if (statement.executeUpdate() > 0){
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()){
+                    generatedKey = resultSet.getLong(1);
+                }
+            }
         }
+        return generatedKey;
     }
 
     @Override

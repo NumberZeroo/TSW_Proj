@@ -1,0 +1,7 @@
+.shipment-option-choice {
+    border: 2px solid #000000;
+}
+
+.selected-choice {
+    border: 2px solid #ff0000;
+}

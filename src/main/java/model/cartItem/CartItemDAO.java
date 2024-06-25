@@ -7,6 +7,7 @@ import model.DAOInterface;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBean, Long> {
@@ -42,12 +43,19 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
     }
 
     @Override
-    public void doSave(CartItemBean cartItem) throws SQLException {
+    public long doSave(CartItemBean cartItem) throws SQLException {
         String query = "INSERT INTO CartItem (id) VALUES (?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        long generatedKey = -1;
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, cartItem.getId());
-            statement.executeUpdate();
+            if (statement.executeUpdate() > 0){
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()){
+                    generatedKey = resultSet.getLong(1);
+                }
+            }
         }
+        return generatedKey;
     }
 
     @Override
@@ -63,7 +71,7 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
 
     @Override
     public boolean doDelete(Long id) throws SQLException {
-        String query = "DELETE FROM CartItem WHERE id = ?";
+        String query = "DELETE FROM CartItem WHERE idProdotto = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             int rowsDeleted = statement.executeUpdate();
@@ -159,14 +167,14 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
         }
     }
 
-    public Map<Long, Long> getCartItems(long cartId) throws SQLException {
+    public Map<Long, Integer> getCartItems(long cartId) throws SQLException {
         String query = "SELECT * FROM CartItem WHERE idCarrello = ?";
-        Map<Long, Long> cartItem = new HashMap<>();
+        Map<Long, Integer> cartItem = new HashMap<>();
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, cartId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    cartItem.put(resultSet.getLong("idProdotto"), resultSet.getLong("quantita"));
+                    cartItem.put(resultSet.getLong("idProdotto"), (int) resultSet.getLong("quantita")); // TODO: cambia ad int nel db
                 }
             }
         }

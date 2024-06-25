@@ -29,9 +29,9 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
     // Prende come parametri una mappa <id_prodotto, quantità> e ritorna una mappa <ProdottoBean, quantità>
     // Non posso fare un prepared statement contenente tutti gli id perché le query non vengono fatte in modo ordinato
     // TODO: Questo metodo fa tante query...c'è un modo migliore?
-    public Map<ProdottoBean, Long> doRetrieveByKeys(Map<Long, Long> productsWithQuantity) throws SQLException {
-        Map<ProdottoBean, Long> prodottoBeans = new HashMap<>();
-        for (Map.Entry<Long, Long> entry : productsWithQuantity.entrySet()) {
+    public Map<ProdottoBean, Integer> doRetrieveByKeys(Map<Long, Integer> productsWithQuantity) throws SQLException {
+        Map<ProdottoBean, Integer> prodottoBeans = new HashMap<>();
+        for (Map.Entry<Long, Integer> entry : productsWithQuantity.entrySet()) {
             ProdottoBean p = doRetrieveByKey(entry.getKey());
             if (p != null) {
                 prodottoBeans.put(p, entry.getValue());
@@ -94,9 +94,10 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
     }
 
     @Override
-    public void doSave(ProdottoBean prodotto) throws SQLException {
-        String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Categoria, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath, descrizione, TipoAnimale, visibile) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+    public long doSave(ProdottoBean prodotto) throws SQLException {
+        String query = "INSERT INTO Prodotto (Nome, Disponibilità, Taglia, Categoria, MinEta, MaxEta, IVA, Prezzo, Sterilizzati, imgPath, descrizione, TipoAnimale, visible) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        long generatedKey = -1;
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, prodotto.getNome());
             statement.setInt(2, prodotto.getDisponibilita());
             statement.setString(3, prodotto.getTaglia());
@@ -110,8 +111,14 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
             statement.setString(11, prodotto.getDescrizione());
             statement.setString(12, String.valueOf(prodotto.getTipoAnimale()));
             statement.setInt(13, prodotto.isVisibile() ? 1 : 0);
-            statement.executeUpdate();
+            if (statement.executeUpdate() > 0){
+                ResultSet rs = statement.getGeneratedKeys();
+                if (rs.next()){
+                    generatedKey = rs.getLong(1);
+                }
+            }
         }
+        return generatedKey;
     }
 
     @Override

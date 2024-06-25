@@ -12,12 +12,27 @@ CREATE TABLE Utente (
     CONSTRAINT fk_utente_admin CHECK (isAdmin IN (0, 1))
 );
 
+CREATE TABLE InfoConsegna(
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    citta VARCHAR(255) NOT NULL,
+    cap INT NOT NULL,
+    via VARCHAR(255) NOT NULL,
+    altro VARCHAR(255),
+    destinatario VARCHAR(255) NOT NULL,
+    idUtente BIGINT UNSIGNED NOT NULL,
+    isDefault TINYINT(1) DEFAULT 0 NOT NULL,
+    FOREIGN KEY (idUtente) REFERENCES Utente(id)
+);
+
 CREATE TABLE Ordine (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     idUtente BIGINT UNSIGNED NOT NULL,
     pathFattura VARCHAR(255) NOT NULL,
+    infoConsegna BIGINT UNSIGNED NOT NULL,
+    dataOrdine DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id, idUtente),
-    FOREIGN KEY (idUtente) REFERENCES Utente (id)
+    FOREIGN KEY (idUtente) REFERENCES Utente (id),
+    FOREIGN KEY (infoConsegna) REFERENCES InfoConsegna(id)
 );
 
 CREATE TABLE Animale (

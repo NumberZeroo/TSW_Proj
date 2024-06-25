@@ -74,8 +74,9 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
     }
 
     @Override
-    public void doSave(UtenteBean utente) throws SQLException {
+    public long doSave(UtenteBean utente) throws SQLException {
         String query = "INSERT INTO Utente (username, email, imgPath, isAdmin, password) VALUES (?, ?, ?, ?, ?)";
+        long generatedKey = -1;
         try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, utente.getUsername());
             statement.setString(2, utente.getEmail());
@@ -83,17 +84,18 @@ public class UtenteDAO extends AbstractDAO implements DAOInterface<UtenteBean, L
             statement.setBoolean(4, utente.getIsAdmin());
             statement.setString(5, utente.getPassword());
             if (statement.executeUpdate() > 0){ // Creazione carrello associato
-                ResultSet generatedKeys = statement.getGeneratedKeys();
-                if (generatedKeys.next()){
-                    long userId = generatedKeys.getInt(1);
+                ResultSet rs = statement.getGeneratedKeys();
+                if (rs.next()){
+                    generatedKey = rs.getInt(1);
                     CarrelloBean carrello = new CarrelloBean();
-                    carrello.setIdUtente(userId);
+                    carrello.setIdUtente(generatedKey);
                     try(CarrelloDAO carrelloDAO = new CarrelloDAO()) {
                         carrelloDAO.doSave(carrello);
                     }
                 }
             }
         }
+        return generatedKey;
     }
 
     @Override

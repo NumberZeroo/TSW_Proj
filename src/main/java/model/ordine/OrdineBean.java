@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class OrdineBean implements Serializable {
     private long id;
     private long idUtente;
+    private long idInfoConsegna;
     private String pathFattura;
 
     public OrdineBean() {}
@@ -33,11 +34,21 @@ public class OrdineBean implements Serializable {
         this.pathFattura = pathFattura;
     }
 
+    public long getIdInfoConsegna() {
+
+        return idInfoConsegna;
+    }
+
+    public void setIdInfoConsegna(long idInfoConsegna) {
+        this.idInfoConsegna = idInfoConsegna;
+    }
+
     @Override
     public String toString() {
-        return "Ordine{" +
+        return "OrdineBean{" +
                 "id=" + id +
                 ", idUtente=" + idUtente +
+                ", idInfoConsegna=" + idInfoConsegna +
                 ", pathFattura='" + pathFattura + '\'' +
                 '}';
     }

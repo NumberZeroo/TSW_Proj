@@ -36,8 +36,8 @@ public class SessionFacade {
      * In caso contrario ritorna una mappa vuota
      * @return mappa key: idProdotto, value: quantitò
      */
-    private Map<Long, Long> initCart() throws SQLException {
-        Map<Long, Long> products = new HashMap<>();
+    private Map<Long, Integer> initCart() throws SQLException {
+        Map<Long, Integer> products = new HashMap<>();
         if (this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME) == null)
             return products;
 
@@ -49,6 +49,14 @@ public class SessionFacade {
 
     public boolean isLoggedIn() {
         return this.session != null && this.session.getAttribute(USERID_SESSION_ATTRIBUTE_NAME) != null;
+    }
+
+    /**
+     * Bisognerebbe sempre chiamare "isLoggedIn()" prima di chiamare questo metodo
+     * @return id utente
+     */
+    public long getUserId() {
+        return (Long)this.session.getAttribute(USERID_SESSION_ATTRIBUTE_NAME);
     }
 
     /**
@@ -68,8 +76,8 @@ public class SessionFacade {
             long cartId = utenteDAO.getCartId(user.getId());
             this.session.setAttribute(CARTID_SESSION_ATTRIBUTE_NAME, cartId);
         }
-        Map<Long, Long> storedItems = initCart();
-        Map<Long, Long> sessionItems = (Map<Long, Long>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
+        Map<Long, Integer> storedItems = initCart();
+        Map<Long, Integer> sessionItems = (Map<Long, Integer>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
         if (sessionItems == null){
             this.session.setAttribute(CART_SESSION_ATTRIBUTE_NAME, storedItems);
             return;
@@ -84,58 +92,73 @@ public class SessionFacade {
         });
 
         // Merge di prodotti della sessione con prodotti del db
-        Map<Long, Long> finalSessionItems = sessionItems; // Perché gli stream vogliono "effective final variables"
-        storedItems.forEach((k, v) -> finalSessionItems.merge(k, v, Long::sum));
+        Map<Long, Integer> finalSessionItems = sessionItems; // Perché gli stream vogliono "effective final variables"
+        storedItems.forEach((k, v) -> finalSessionItems.merge(k, v, Integer::sum));
 
         this.session.setAttribute(CART_SESSION_ATTRIBUTE_NAME, finalSessionItems);
-
-
     }
 
     // Ogni elemento della lista è un id di prodotto
-    public Map<Long, Long> getCartProducts() {
-        Map<Long, Long> products = (Map<Long, Long>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
+    public Map<Long, Integer> getCartProducts() {
+        Map<Long, Integer> products = (Map<Long, Integer>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
         if (products == null) {
             return new HashMap<>();
         }
         return products;
     }
 
-    synchronized public void addCartProduct(long productId, long quantity) throws SQLException {
-        Map<Long, Long> products = (Map<Long, Long>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
+    synchronized public void addCartProduct(long productId, int quantity) throws SQLException {
+        Map<Long, Integer> products = (Map<Long, Integer>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
         if (products == null) {
             products = new HashMap<>();
         }
-        products.merge(productId, quantity, Long::sum); // Se non c'è aggiungi, altrimenti incrementa quantità
+        products.merge(productId, quantity, Integer::sum); // Se non c'è aggiungi, altrimenti incrementa quantità
         this.session.setAttribute(CART_SESSION_ATTRIBUTE_NAME, products);
 
         this.storeItemInDb(productId, quantity);
     }
 
-    private void storeItemInDb(long productId, long quantity) throws SQLException {
+    private void storeItemInDb(long productId, int quantity) throws SQLException {
         if (this.isLoggedIn()){
             try(CartItemDAO cartItemDAO = new CartItemDAO()){
-                cartItemDAO.addProduct(productId, (Long)this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME), 1);
+                cartItemDAO.addProduct(productId, (Long) this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME), quantity);
             }
         }
     }
 
-    synchronized public void removeCartProduct(long productId, int quantity) throws SQLException {
-        Map<Long, Long> products = (Map<Long, Long>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
+    public void removeCartProduct(long productId, int quantity) throws SQLException {
+        Map<Long, Integer> products = (Map<Long, Integer>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
         if (products == null) return;
         // Se nella mappa products esiste un elemento con chiave productId decrementa il valore di quantity
         if (products.get(productId) != null){
-            long oldQuantity = products.get(productId);
-            if (quantity > oldQuantity) {
-                quantity = (int) oldQuantity;
-            }
-            products.put(productId, products.get(productId) - quantity);
-            if (this.isLoggedIn()){
-                try(CartItemDAO cartItemDAO = new CartItemDAO()){
-                    cartItemDAO.removeProduct(productId, (Long)this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME), quantity);
+            int oldQuantity = products.get(productId);
+            if (quantity >= oldQuantity) { // Togli il prodotto dal carrello
+                products.remove(productId);
+                if (this.isLoggedIn()){
+                    try(CartItemDAO cartItemDAO = new CartItemDAO()){
+                        cartItemDAO.removeProduct(productId, (Long)this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME));
+                    }
+                }
+            } else { // Togli una certa quantità
+                products.put(productId, products.get(productId) - quantity);
+                if (this.isLoggedIn()){
+                    try(CartItemDAO cartItemDAO = new CartItemDAO()){
+                        cartItemDAO.removeProduct(productId, (Long)this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME), quantity);
+                    }
                 }
             }
         }
+    }
+
+    public void removeCartProducts(){
+        try(CartItemDAO cartItemDAO = new CartItemDAO()) {
+            for(Long cartItemId : ((Map<Long, Integer>)this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME)).keySet()){
+                cartItemDAO.doDelete(cartItemId);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeSQLException("Errore durante l'eliminazione dei prodotti dal carrello", e);
+        }
+        this.session.setAttribute(CART_SESSION_ATTRIBUTE_NAME, new HashMap<Long, Integer>());
     }
 
     public Optional<String> getUsername() {

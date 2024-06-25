@@ -44,12 +44,19 @@ public class CarrelloDAO extends AbstractDAO implements DAOInterface<CarrelloBea
     }
 
     @Override
-    public void doSave(CarrelloBean carrello) throws SQLException {
+    public long doSave(CarrelloBean carrello) throws SQLException {
         String query = "INSERT INTO Carrello (IdUtente) VALUES (?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        long generatedKey = -1;
+        try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, carrello.getIdUtente());
-            statement.executeUpdate();
+            if (statement.executeUpdate() > 0){
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()){
+                    generatedKey = resultSet.getLong(1);
+                }
+            }
         }
+        return generatedKey;
     }
 
     @Override

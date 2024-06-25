@@ -2,6 +2,7 @@ DB:
 - Aggiungi informazioni di contatto dell'utente (numero di telefono, indirizzo di spedizione, ...)
 - Aggiungi informazioni di pagamento
 - Quando viene cancellato un prodotto dall'amministratore, il prodotto non deve scomparire dagli storici degli ordini.
+- Aggiungi valori di default alla taglia
 LOGIC:
 - Implementa logica admin
 - Nel catalogo mostra solo i prodotti "visibili"
@@ -10,12 +11,30 @@ LOGIC:
 - Implementa logger
 - Aggiungi Feedback a:
     - rimozione prodotto dal carrello
+    - aggiunta prodotto da admin
 - Aggiungi ajax a:
     - Barra di ricerca
     - Controllo email in fase di registrazione
 PAGE STRUCTURE:
-- Modifiche pagine quando utente è admin
 - Rendere "catalogo" raggiungibile tramite l'header della pagina
 - TestCatalogo ora è il vero catalogo...rinomina
 - Aggiungi path navigabile alla navbar
+- Spostare tutti gli script di file jsp in file js a parte
+SECURITY:
+- Controllo input:
+    - checkout.jsp
+- Cross Site Request Forgery
+- Da sincronizzare c'è l'accesso in scrittura della sessione, controlla in sessionFacade
+
+IN PROGRESS:
+- La info consegna va creata prima di arrivare alla checkout servlet. Quest'ultima deve solo selezionare tramite un id. (DONE)
+- Nella pagina di checkout deve esserci:
+    - Un radio button che seleziona le informazioni di spedizione (DONE)
+    - La selezione deve essere registrata nell'hidden input tramite js perché stanno in due form diversi (DONE)
+    - Un pulsante per aggiungere una nuova informazione di spedizione (DONE):
+        - Deve far aprire un popover che rimanda ad una servlet che aggiunge l'informazione di spedizione.
+        - La pagina si deve aggiornare per far vedere la nuova informazione di spedizione
+    - Il submit, invece di mandare le informazioni di spedizione campo, per campo manderà l'id. (DONE)
+- Nel carrello deve esserci la possibilità di cambiare la quantità di prodotti.
+- Redirezione verso pagina di ordine effettuato (orderRecap)
 

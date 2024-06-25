@@ -19,10 +19,10 @@
     <title>Carrello</title>
 </head>
 <body>
-    <% // PROBLEMA: capisci come includere le quantità
+    <%
         SessionFacade userSession = new SessionFacade(request.getSession());
-        Map<Long, Long> productIDs = userSession.getCartProducts();
-        Map<ProdottoBean, Long> products = new HashMap<>();
+        Map<Long, Integer> productIDs = userSession.getCartProducts();
+        Map<ProdottoBean, Integer> products = new HashMap<>();
         try(ProdottoDAO prodottoDAO = new ProdottoDAO()) {
             products = prodottoDAO.doRetrieveByKeys(productIDs);
         } catch (SQLException s){
@@ -30,11 +30,15 @@
             // TODO: log
         }
 
-        for (Map.Entry<ProdottoBean, Long> entry : products.entrySet()) {
+        for (Map.Entry<ProdottoBean, Integer> entry : products.entrySet()) {
     %>
     <h3><%=entry.getKey().getNome()%></h3>
     <p>Quantità: <%=entry.getValue()%></p>
     <a href="<%=request.getContextPath() + "/removeFromCart?id=" + entry.getKey().getId()%>">Rimuovi</a>
     <%}%>
+
+    <a href="${pageContext.request.contextPath}/checkout.jsp">
+        <button id="checkout-btn">Check out</button>
+    </a>
 </body>
 </html>
