@@ -3,6 +3,8 @@
 <%@ page import="model.pet.PetBean" %>
 <%@ page import="model.utente.*" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="com.tswproject.tswproj.RuntimeSQLException" %>
 <html>
 <head>
     <title>Profilo Utente</title>
@@ -28,7 +30,9 @@
                     <% UtenteBean user = userDAO.doRetrieveByKey(sessionFacade.getUserId()); %>
                     <p>Username: <%= user.getUsername() %></p>
                     <p>Email: <%= user.getEmail() %></p>
-                <% } %>
+                <% } catch(SQLException s){
+                    throw new RuntimeSQLException("Errore durante la ricerca delle informazioni utente", s);
+                } %>
             </div>
 
             <div id="ordersSection" style="display: none;">
@@ -38,16 +42,18 @@
 
             <div id="petsSection" style="display: none;">
                 <h1>I Miei Pet</h1>
-                <% PetDAO petDAO = new PetDAO(); %>
-                <% List<PetBean> pets = petDAO.doRetrieveByUser(sessionFacade.getUserId()); %>
-                <% for (PetBean pet : pets) { %>
+                <%
+                    try(PetDAO petDAO = new PetDAO()){
+                        List<PetBean> pets = petDAO.doRetrieveByUser(sessionFacade.getUserId());
+                        for (PetBean pet : pets) { %>
                     <div class="pet">
                         <img alt="<%= pet.getNome() %>" src="<%= pet.getImgPath() %>">
                         <h4>Taglia: <%= pet.getTaglia() %></h4>
                         <h4>Sterilizzato: <%= pet.getSterilizzato() ? "Sì" : "No" %></h4>
                         <h4>Data di nascita: <%= pet.getDataNascita() %></h4>
                     </div>
-                <% } %>
+                        <% } %>
+                <% } catch(SQLException s) {throw new RuntimeSQLException("Errore durante il retrieve dei pets", s);} %>
             </div>
         </div>
     </div>
