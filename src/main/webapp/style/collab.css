@@ -1,0 +1,85 @@
+body {
+    background-color: white;
+    background-repeat: repeat;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.collabContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section {
+    margin-bottom: 30px;
+    background: #fff;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    color: #50b3a2;
+    padding-top: 10px;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.collaborator {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.collaborator img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.collaborator h4 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.descrizione {
+    background: #fff;
+    padding: 40px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 800px;
+}
+
+.descrizione h1 {
+    color: #50b3a2;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.descrizione p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+@media (min-width: 900px) {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .col {
+        flex: 0 0 calc(33.33% - 20px);
+        max-width: calc(33.33% - 20px);
+        margin: 10px;
+    }
+}

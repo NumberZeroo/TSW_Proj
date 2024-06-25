@@ -67,6 +67,7 @@ CREATE TABLE Prodotto (
     IVA ENUM('4', '10', '22') NOT NULL,
     Prezzo DECIMAL(7, 2) NOT NULL, -- 5 cifre intere, 2 decimali
     Sterilizzati TINYINT(1),
+    Visibile    TINYINT(1) DEFAULT 1 NOT NULL,
     imgPath VARCHAR(255) NOT NULL,
     FOREIGN KEY(TipoAnimale) REFERENCES Animale(id)
 );

@@ -35,7 +35,7 @@ public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
                     prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
                 }
                 request.setAttribute("prodotti", prodotti);
-                request.getRequestDispatcher("/TestCatalogo.jsp").forward(request, response);
+                request.getRequestDispatcher("/Catalogo.jsp").forward(request, response);
             } catch (Exception e) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
             }

@@ -10,7 +10,7 @@ public class PetBean implements Serializable {
     private String imgPath;
     private String tipo;
     private String taglia;
-    private String sterilizzato;
+    private boolean sterilizzato;
     private Date dataNascita;
 
     public PetBean() {
@@ -64,11 +64,11 @@ public class PetBean implements Serializable {
         this.taglia = taglia;
     }
 
-    public String getSterilizzato() {
+    public boolean getSterilizzato() {
         return sterilizzato;
     }
 
-    public void setSterilizzato(String sterilizzato) {
+    public void setSterilizzato(boolean sterilizzato) {
         this.sterilizzato = sterilizzato;
     }
 

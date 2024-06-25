@@ -20,6 +20,13 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+
+        if (!password.equals(confirmPassword)) {
+            //Password e conferma password non coincidono
+            response.sendRedirect("register.jsp?error=error");
+            return;
+        }
 
         if(registerUser(username, email, password)) {
             //Utente registrato con successo
