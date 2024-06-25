@@ -39,10 +39,11 @@
         <location>/error.jsp</location>
     </error-page>
 
+    <!--
     <error-page>
         <exception-type>com.tswproject.tswproj.RuntimeSQLException</exception-type>
         <location>/error.jsp</location>
-    </error-page>
+    </error-page> -->
 
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>

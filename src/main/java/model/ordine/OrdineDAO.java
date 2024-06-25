@@ -60,12 +60,13 @@ public class OrdineDAO extends AbstractDAO implements DAOInterface<OrdineBean, L
 
     @Override
     public void doUpdate(OrdineBean ordine) throws SQLException {
-        String query = "UPDATE Ordine SET idUtente = ?, pathFattura = ?, infoConsegna = ? WHERE id = ?";
+        String query = "UPDATE Ordine SET idUtente = ?, pathFattura = ?, infoConsegna = ?, dataOrdine = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, ordine.getIdUtente());
             statement.setString(2, ordine.getPathFattura());
             statement.setLong(3, ordine.getIdInfoConsegna());
-            statement.setLong(4, ordine.getId());
+            statement.setDate(4, ordine.getData());
+            statement.setLong(5, ordine.getId());
             statement.executeUpdate();
         }
     }
@@ -86,6 +87,7 @@ public class OrdineDAO extends AbstractDAO implements DAOInterface<OrdineBean, L
         ordine.setIdUtente(resultSet.getLong("idUtente"));
         ordine.setPathFattura(resultSet.getString("pathFattura"));
         ordine.setIdInfoConsegna(resultSet.getLong("infoConsegna"));
+        ordine.setData(resultSet.getDate("dataOrdine"));
         return ordine;
     }
 }

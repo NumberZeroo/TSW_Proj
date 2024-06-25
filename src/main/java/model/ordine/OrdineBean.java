@@ -1,12 +1,22 @@
 package model.ordine;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class OrdineBean implements Serializable {
     private long id;
     private long idUtente;
     private long idInfoConsegna;
     private String pathFattura;
+    private Date data;
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
 
     public OrdineBean() {}
 
