@@ -70,10 +70,6 @@ body {
         border-right: none;
         border-bottom: 1px solid #fff;
     }
-
-    .griglia-prodotti {
-        grid-template-columns: repeat(2, 1fr); /* Modifica questa linea */
-    }
 }
 
 @media (min-width: 900px) {
@@ -103,11 +99,6 @@ body {
     #filter-bar.show {
         transform: translateX(0);
     }
-
-    /* Stile per il div dei prodotti quando la barra dei filtri è visibile */
-    .griglia-prodotti.shift-left {
-        margin-right: 20%; /* Sposta il div del prodotto a destra del 20% */
-    }
 }
 
 .search-bar {
@@ -123,49 +114,6 @@ body {
     min-height: 3rem; /* Footer height */
     margin: 0;
     flex-shrink: 0;
-}
-
-.griglia-prodotti {
-    transition: margin-right 0.3s ease-in-out;
-    min-height: auto;
-    max-width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    column-gap: 10px;
-    margin-top: 0;
-    margin-bottom: 3rem;
-}
-
-/* Stile per il div dei prodotti */
-.catalogoProd {
-    transition: margin-left 0.7s ease-in-out;
-    width: 300px;
-    height: auto;
-    display: inline-block;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid black;
-    border-radius: 10px;
-    text-align: center;
-    background-color: #50b3a2; /*todo AAAAAAAAAAA*/
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombra */
-}
-
-.catalogoProd img {
-    width: 100%;
-    height: auto; /* Imposta l'altezza dell'immagine in base all'aspetto */
-    object-fit: contain;
-}
-
-.catalogoProd h3 {
-    font-style: normal;
-    display: block; /* Posizionato in un blocco */
-}
-
-.catalogoProd p {
-    display: block; /* Posizionato in un blocco */
-    background-color: white;
-    border-radius: 10px;
 }
 
 #filter-bar form input,
@@ -266,6 +214,50 @@ body {
     gap: 2em;
 }
 
+.product-info-mod {
+    margin-top: 1em;
+    margin-bottom: 2em;
+    border-radius: 10px;
+    display: none;
+    grid-template-columns: 1fr;
+    background-color: #f3f3f3; /* Sfondo grigio chiaro */
+    padding: 10px; /* Spazio intorno al contenuto del form */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra leggera intorno al form */
+}
+
+.product-info-mod label {
+    margin-top: 5px;
+}
+
+.product-info-mod input[type="text"],
+.product-info-mod input[type="number"] {
+    width: 100%; /* Larghezza completa */
+    padding: 10px; /* Spazio intorno al testo */
+    border: 1px solid #ccc; /* Bordo grigio */
+    border-radius: 5px; /* Angoli arrotondati */
+}
+
+.product-info-mod input[type="submit"] {
+<!-- centrare il pulsante --> display: block;
+    margin: 10px auto 0;
+    width: 30%;
+    background-color: #50b3a2; /* Sfondo blu */
+    color: #fff; /* Testo bianco */
+    border: none; /* Nessun bordo */
+    padding: 10px 20px; /* Spazio intorno al testo */
+    border-radius: 5px; /* Angoli arrotondati */
+}
+
+.adminButton {
+    margin-top: 10px;
+    margin-bottom: 0;
+    background-color: #50b3a2; /* Sfondo blu */
+    color: #fff; /* Testo bianco */
+    border: none; /* Nessun bordo */
+    padding: 10px 20px; /* Spazio intorno al testo */
+    border-radius: 5px; /* Angoli arrotondati */
+}
+
 .product-image {
     grid-column: 1;
 }
@@ -274,7 +266,7 @@ body {
     flex: 1;
     margin-top: 10px;
     margin-left: 15px;
-    width: 30vw;  /* Imposta la larghezza dell'immagine al 50% della larghezza del viewport */
+    width: 30vw; /* Imposta la larghezza dell'immagine al 50% della larghezza del viewport */
     height: auto; /* Mantiene le proporzioni originali dell'immagine */
 }
 
@@ -494,10 +486,6 @@ body {
         border-right: none;
         border-bottom: 1px solid #fff;
     }
-
-    .griglia-prodotti {
-        grid-template-columns: repeat(2, 1fr); /* Modifica questa linea */
-    }
 }
 
 .catalogoProd p {
@@ -512,7 +500,7 @@ body {
     cursor: url('cursor/Jake.cur'), auto;
 }
 
-.catalogoProd img{
+.catalogoProd img {
     border-radius: 10px;
     border: 1px solid #000; /* Bordo nero */
     margin: 5px 0; /* Spazio sopra e sotto ogni elemento */
@@ -529,7 +517,7 @@ body {
     }
 }
 
-@media (max-width: 900px){
+@media (max-width: 900px) {
     .product-details {
         grid-template-columns: 1fr;
         grid-template-areas:
@@ -621,34 +609,34 @@ body {
     grid-column: 2;
 }
 
-.center-button-add{
+.center-button-add {
     display: block;
     margin: 0 auto;
 }
 
-/* Stile per il pulsante di aggiunta al catalogo a pagina ingrandita */
-@media (min-width: 900px) {
-    #adminButton {
-        width: 20%; /* Dimezza la larghezza del pulsante */
-    }
+/*!* Stile per il pulsante di aggiunta al catalogo a pagina ingrandita *!*/
+/*@media (min-width: 900px) {*/
+/*    #adminButton {*/
+/*        width: 20%; !* Dimezza la larghezza del pulsante *!*/
+/*    }*/
 
-    #visibilityButton {
-        width: 20%; /* Dimezza la larghezza del pulsante */
-    }
+/*    #visibilityButton {*/
+/*        width: 20%; !* Dimezza la larghezza del pulsante *!*/
+/*    }*/
+/*}*/
+
+.filter-bar {
+    transition: transform 0.3s ease-in-out; /* Aumenta la durata dell'animazione e utilizza la funzione di temporizzazione ease-in-out */
 }
 
-.catalogoProd {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #50b3a2;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+.filter-bar {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Aggiungi una transizione per l'opacità */
+    opacity: 0; /* Imposta l'opacità iniziale a 0 */
+    border: 0;
 }
 
-.catalogoProd:hover {
-    transform: scale(1.05);
+#filter-bar.show {
+    transform: translateX(0);
+    opacity: 1; /* Imposta l'opacità a 1 quando la barra dei filtri è visibile */
 }
 
-.catalogoProd h3{
-    color: #333;
-}

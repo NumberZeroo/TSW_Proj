@@ -3,25 +3,20 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/website.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/error.css">
+
+    <%@include file="navbar.jsp" %>
     <title>Errore</title>
 </head>
 <body>
-<h1>Si è verificato un errore</h1>
+<div class="error-container">
+    <img class="error-image" src="${pageContext.request.contextPath}/img/gattoChePiange.jpg" alt="Error Image">
+    <h2>Si è verificato un errore</h2>
+    <button class="home-button" onclick="window.location.href='home.jsp'">Torna alla Home</button>
 
-<!-- TODO: errori personalizzati in base al codice d'errore (es: 401 -> "hey...non sei autorizzato a farlo..."-->
-
-<h3>Nota bene: questa è una pagina di errore custom e quindi va fatta la grafica :D</h3>
-
-<% if (request.getAttribute("jakarta.servlet.error.exception") instanceof EmptyPoolException) {%>
-
-<p>Servizio non disponibile. Riprovare più tardi :(</p>
-
-<% } else {%>
-
-<p>Codice di stato: <%= request.getAttribute("jakarta.servlet.error.status_code") %></p>
-<p>Messaggio: <%= request.getAttribute("jakarta.servlet.error.message") %></p>
-<p>Eccezione: <%= request.getAttribute("jakarta.servlet.error.exception") %></p>
-
-<% } %>
+    <!-- TODO: errori personalizzati in base al codice d'errore (es: 401 -> "hey...non sei autorizzato a farlo..."-->
+</div>
+<%@include file="footer.jsp" %>
 </body>
 </html>

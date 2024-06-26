@@ -27,21 +27,7 @@
 .pets{
     margin-top: 5%;
     border-top: 1px solid #ccc;
-}
-
-.pet{
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Centra verticalmente il contenuto */
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-}
-
-.pet img{
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
+    padding-top: 20px;
 }
 
 #infoSection {
@@ -130,12 +116,12 @@ h1{
     width: 20%; /* Imposta la larghezza al 100% del contenitore */
     padding: 10px; /* Aggiunge spazio intorno al testo */
     margin-bottom: 10px; /* Aggiunge spazio tra i pulsanti */
-    background-color: #007BFF; /* Imposta il colore di sfondo */
     color: #fff; /* Imposta il colore del testo */
     border: none; /* Rimuove il bordo */
     border-radius: 5px; /* Aggiunge bordi arrotondati */
     cursor: pointer; /* Cambia il cursore al passaggio del mouse */
     transition: background-color 0.3s ease; /* Aggiunge un effetto di transizione al cambio di colore */
+    background-color: #50b3a2;
 }
 
 .menu-row button:hover {
@@ -144,4 +130,74 @@ h1{
 
 .profile-content {
     flex-grow: 1;
+}
+
+/* Modifiche nuove */
+
+.pets{
+    align-content: center;
+}
+.pet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pets table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pets th, .pets td {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.pets th {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.pets img {
+    width: 50px; /* Imposta la larghezza dell'immagine */
+    height: 50px; /* Imposta l'altezza dell'immagine */
+    object-fit: cover; /* Mantiene le proporzioni dell'immagine */
+    border-radius: 50%; /* Rende l'immagine rotonda */
+    align-items: center;
+}
+
+.pets th, .pets td {
+    padding: 10px;
+    text-align: center; /* Centra il testo nelle celle */
+    font-size: 20px; /* Imposta la dimensione del testo */
+    font-style: italic;
+}
+
+.pets img {
+    width: 100px; /* Aumenta la larghezza dell'immagine */
+    height: 100px; /* Aumenta l'altezza dell'immagine */
+    object-fit: cover; /* Mantiene le proporzioni dell'immagine */
+    border-radius: 50%; /* Rende l'immagine rotonda */
+}
+
+.pet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.addPetButton{
+    background-color: #50b3a2;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
 }

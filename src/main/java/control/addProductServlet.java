@@ -58,7 +58,7 @@ public class addProductServlet extends HttpServlet {
         }
 
         // Reindirizza l'utente alla pagina di conferma
-        response.sendRedirect("productAdded.jsp");
+        response.sendRedirect("Catalogo.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

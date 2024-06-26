@@ -1,7 +1,7 @@
 let filterButton = document.getElementById('filter-button');
 let filterBar = document.getElementById('filter-bar');
 let closeButton = document.getElementById('close-button');
-let productGrid = document.querySelector('.griglia-prodotti');
+let productGrid = document.querySelector('.product-grid-new');
 
 // Aggiungi un gestore di eventi al pulsante Filtra per mostrare o nascondere la barra dei filtri
 filterButton.addEventListener('click', function () {

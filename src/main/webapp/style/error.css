@@ -1,0 +1,32 @@
+.error-container {
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.error-image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px;
+}
+
+.home-button {
+    margin-top: 20px;
+    width: 50%;
+    background-color: #50b3a2;
+    border: 0;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.home-button {
+    width: 30%; /* Riduci la larghezza al 30% del contenitore */
+    height: 40px; /* Imposta un'altezza specifica */
+    /* il resto del tuo codice CSS... */
+}
