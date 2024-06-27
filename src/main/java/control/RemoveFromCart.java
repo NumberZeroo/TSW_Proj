@@ -21,9 +21,11 @@ public class RemoveFromCart extends HttpServlet {
         }
         long id = Long.parseLong(req.getParameter("id"));
         try {
-            (new SessionFacade(req.getSession())).removeCartProduct(id, 1);
+            (new SessionFacade(req.getSession())).removeCartProduct(id);
         } catch (SQLException e) {
-            throw new RuntimeSQLException("Errore durante la rimozione del prodotto dal carrello", e);
+            e.printStackTrace();
+            resp.sendRedirect(req.getContextPath() + "/cart.jsp?error=1");
+            return;
         }
         resp.sendRedirect(req.getContextPath() + "/cart.jsp");
     }

@@ -12,7 +12,7 @@ public class ConnectionPool {
             + "&useLegacyDatetimecode=false&serverTimezone=UTC";
 
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "e.amoreroot";
+    private static final String PASSWORD = "Emanuele@2003";
     private static List<Connection> freeDbConnections;
 
     // Inizializzazione (da chiamare nel context)

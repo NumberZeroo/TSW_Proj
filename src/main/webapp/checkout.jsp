@@ -49,7 +49,7 @@
 
     <%
         SessionFacade userSession = new SessionFacade(request.getSession());
-        Map<Long, Integer> productIDs = userSession.getCartProducts();
+        Map<Long, Integer> productIDs = userSession.getCartProducts(); // TODO (refactor ids): saranno id di cartItems, per la visualizzazione fai associazione
         Map<ProdottoBean, Integer> products = new HashMap<>();
         try(ProdottoDAO prodottoDAO = new ProdottoDAO()) {
             products = prodottoDAO.doRetrieveByKeys(productIDs);
@@ -96,18 +96,7 @@
             <button id="get-shipment-infos-btn">Modifica</button>
             <button id="add-shipment-infos-btn" onclick="togglePopup()" hidden >Usa un altro metodo di spedizione</button>
 
-            <%} else {%> <!-- TODO: testa questo caso -->
-<%--            <p>Inserisci qui le informazioni di consegna</p>--%>
-<%--            <!--TODO: sanifica input -->--%>
-<%--            <form id="add-shipment-info-form">--%>
-<%--                <label for="city-input">Città: </label><input id="city-input" type="text" name="city"> <br>--%>
-<%--                <label for="cap-input">CAP: </label><input id="cap-input" type="number" name="cap"><br>--%>
-<%--                <label for="address-input">Indirizzo (via, corso, ...): </label><input id="address-input" type="text" name="address"><br>--%>
-<%--                <label for="additional-info-input">Informazioni di recapito aggiuntive: </label><input id="additional-info-input" type="text" name="other"><br>--%>
-<%--                <label for="receiver-input">Destinatario: </label><input id="receiver-input" type="text" name="receiver"><br>--%>
-<%--                <input name="willBeDefault" type="hidden" value="1">--%>
-<%--                <button type="submit">Conferma</button>--%>
-<%--            </form>--%>
+            <%} else {%>
             <input id="default-shipment-info" type="hidden" value="1"> <!-- Flag per js -->
             <button class="btn-close-popup" onclick="togglePopup()">Aggiungi un metodo di spedizione</button>
         <% } %>

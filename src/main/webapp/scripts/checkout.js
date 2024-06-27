@@ -1,5 +1,3 @@
-
-
 function addElementToPage(item){
         var radio = document.createElement('input');
         radio.name = "g1";
