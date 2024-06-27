@@ -29,6 +29,25 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
         return null;
     }
 
+    /**
+     * Dato che in cart.jsp viene indicato l'id del prodotto e non del ca
+     * @param productId
+     * @return
+     * @throws SQLException
+     */
+    public CartItemBean doRetrieveByProductId(long productId) throws SQLException {
+        String query = "SELECT * FROM CartItem WHERE productId = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, productId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return extractCartItemFromResultSet(resultSet);
+                }
+            }
+        }
+        return null;
+    }
+
     @Override
     public Collection<CartItemBean> doRetrieveAll(String order) throws SQLException {
         List<CartItemBean> cartItem = new ArrayList<>();
@@ -60,11 +79,12 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
 
     @Override
     public void doUpdate(CartItemBean cartItem) throws SQLException {
-        String query = "UPDATE CartItem SET idProdotto = ?, idCarrello = ? WHERE id = ?";
+        String query = "UPDATE CartItem SET idProdotto = ?, idCarrello = ?, quantita = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, cartItem.getIdProdotto());
             statement.setLong(2, cartItem.getIdCarrello());
-            statement.setLong(3, cartItem.getId());
+            statement.setInt(3, cartItem.getQuantita());
+            statement.setLong(4, cartItem.getId());
             statement.executeUpdate();
         }
     }
@@ -167,7 +187,13 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
         }
     }
 
-    public Map<Long, Integer> getCartItems(long cartId) throws SQLException {
+    /**
+     * Ritorna una mappa che associa ad ogni id (prodotto) alla quantità nel carrello
+     * @param cartId
+     * @return mappa [Long-Integer]
+     * @throws SQLException Come al solito....
+     */
+    public Map<Long, Integer> getCartItemsAsProducts(long cartId) throws SQLException {
         String query = "SELECT * FROM CartItem WHERE idCarrello = ?";
         Map<Long, Integer> cartItem = new HashMap<>();
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -184,8 +210,9 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
     private CartItemBean extractCartItemFromResultSet(ResultSet resultSet) throws SQLException {
         CartItemBean cartItem = new CartItemBean();
         cartItem.setId(resultSet.getLong("id"));
-        cartItem.setIdProdotto(resultSet.getLong("idItem"));
-        cartItem.setIdCarrello(resultSet.getLong("IdOrdine"));
+        cartItem.setIdProdotto(resultSet.getLong("idProdotto"));
+        cartItem.setIdCarrello(resultSet.getLong("idCarrello"));
+        cartItem.setQuantita(resultSet.getInt("quantita"));
         return cartItem;
     }
 }
