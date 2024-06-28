@@ -1,4 +1,4 @@
-<%@ page import="model.prodotto.ProdottoBean" %>
+ <%@ page import="model.prodotto.ProdottoBean" %>
 <%@ page import="com.tswproject.tswproj.SessionFacade" %>
 <%@ page import="model.prodotto.ProdottoDAO" %>
 <%@ page import="java.sql.SQLException" %>
@@ -12,6 +12,7 @@
 <html>
 <head>
     <title>Carrello</title>
+    <meta charset="UTF-16">
 
 </head>
 <body>
@@ -19,6 +20,7 @@
     <%@include file="navbar.jsp"%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/cart.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/popupFeedback.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/checkoutBtn.css">
     <script type="module">
         import {incrementQuantity, decrementQuantity} from "${pageContext.request.contextPath}/scripts/cart.js";
         window.incrementQuantity = incrementQuantity;
@@ -79,7 +81,7 @@
     </div>
 
     <a href="${pageContext.request.contextPath}/checkout.jsp">
-        <button id="checkout-btn">Check out</button>
+        <button id="checkout-btn"><span>Check out</span></button>
     </a>
 
     <%@include file="footer.jsp"%>

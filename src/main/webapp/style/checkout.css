@@ -1,7 +1,109 @@
+#outer-container {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #f4f4f4;
+    overflow: scroll;
+}
+
+#container {
+    display: flex;
+    width: 80%;
+    padding: 1%;
+    background-color: white;
+    height: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+}
+
+#shipment-options, #product-details {
+    flex: 1;
+    padding: 20px;
+}
+
+.shipment-selection {
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.shipment-option {
+    display: inline-table;
+}
+
 .shipment-option-choice {
     border: 2px solid #000000;
 }
 
 .selected-choice {
     border: 2px solid #ff0000;
+}
+
+#add-shipment-infos-btn {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #EB9917;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px 50px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#add-shipment-infos-btn span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+#add-shipment-infos-btn span:before {
+    content: '+';
+    position: absolute;
+    opacity: 0;
+    top: -10%;
+    transition: 0.5s;
+    font-size: 25px;
+    left: -20px;
+}
+
+#add-shipment-infos-btn:hover span {
+    padding-left: 25px;
+}
+
+#add-shipment-infos-btn:hover span:before {
+    opacity: 1;
+    left: 0;
+}
+
+.product-details-box {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.product-details-box p {
+    margin-bottom: 5px;
+}
+
+#get-shipment-infos-btn {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #EB9917;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+    padding: 8px 15px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
 }

@@ -66,6 +66,18 @@ body {
     color: #555;
 }
 
+.quantity-btn {
+    border: none;
+    margin: 0;
+    background-color: transparent;
+    transition-duration: 0.4s;
+}
+
+.quantity-btn:hover {
+    color: #EB9917;
+}
+
+
 @media (max-width: 768px) {
     .item-box {
         flex-direction: column;

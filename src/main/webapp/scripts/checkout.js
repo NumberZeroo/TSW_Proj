@@ -6,11 +6,11 @@ function addElementToPage(item){
         radio.value = item['id'];
 
         var outerDiv = document.createElement('div');
-        outerDiv.id = "shipment-selection-" + item['id'];
+        outerDiv.classList.add("shipment-selection");
 
         var label = document.createElement('label');
-        label.for = "radio_" + item['id'];
-        label.class = "shipment-option";
+        label.htmlFor = "radio_" + item['id'];
+        label.classList.add("shipment-option");
         label.innerHTML = "<strong>" + item['via'] + "</strong><br>" +
             item['citta'] + "<br>" +
             item['destinatario'] + "<br>";
@@ -23,8 +23,8 @@ function addElementToPage(item){
             document.getElementById("shipment-options").appendChild(outerForm);
         }
 
+        outerDiv.appendChild(radio);
         outerDiv.appendChild(label);
-        outerForm.appendChild(radio);
         outerForm.appendChild(outerDiv);
 }
 
