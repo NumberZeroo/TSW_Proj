@@ -2,7 +2,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.recensione.RecensioneBean" %>
 <%@ page import="model.prodotto.ProdottoBean" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="model.recensione.RecensioneDAO" %>
 <%@ page import="model.prodotto.ProdottoDAO" %>
 <%@ page import="com.tswproject.tswproj.SessionFacade" %>
@@ -17,6 +16,7 @@
     </title>
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/popupFeedback.css">
+   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/product.css"> <!-- todo css separato -->
 </head>
 
 <body>
@@ -82,17 +82,27 @@ window.onload = function () {
             <input type="submit" value="Conferma Modifiche">
         </form>
 
-        <div class="product-specs">
+        <div id="product-specs" class="product-specs">
             <h2>Dettagli prodotto</h2>
             <p>Categoria: <%=prodotto.getCategoria()%>
             </p>
             <p>Taglia: <%=prodotto.getTaglia()%>
-            </p>
-            <p>Range età consigliata: <%=prodotto.getMinEta()%>/<%=prodotto.getMaxEta()%>
-            </p>
+<%--            </p>--%>
+<%--            <p>Range età consigliata: <%=prodotto.getMinEta()%>/<%=prodotto.getMaxEta()%>--%>
+<%--            </p>--%>
         </div>
 
-        <!-- todo aggiungere la possibilità di modificare le specifiche del prodotto -->
+        <form id="editProductFormDetails" class="product-info-mod"
+              action="${pageContext.request.contextPath}/editProductServlet"
+              method="post">
+
+            <input type="hidden" name="id" value="<%=prodotto.getId()%>">
+
+            <label for="category">Categoria:</label><input type="text" id="category" name="category" value="<%=prodotto.getCategoria()%>">
+
+            <label for="taglia">Taglia:</label>
+            <input type="text" id="taglia" name="taglia" value="<%=prodotto.getTaglia()%>">
+        </form>
     </div>
 
     <div class="addToCart">
@@ -107,7 +117,9 @@ window.onload = function () {
 <script>
     document.getElementById('adminButton').addEventListener('click', function () {
         document.getElementById('product-info').style.display = 'none';
+        document.getElementById('product-specs').style.display = 'none';
         document.getElementById('editProductForm').style.display = 'grid';
+        document.getElementById('editProductFormDetails').style.display = 'grid';
     });
 </script>
 
@@ -120,7 +132,7 @@ window.onload = function () {
         List<RecensioneBean> recensioni = (List<RecensioneBean>) recensioneDAO.doRetrieveByProduct(prodotto.getId());
 
         if (recensioni.isEmpty()) { %>
-    <center><h3 style="font-style: italic">Nessuna recensione disponibile!</h3></center>
+    <h3 style="font-style: italic">Nessuna recensione disponibile!</h3>
     <% } else {
         for (RecensioneBean recensione : recensioni) { %>
     <div class="review">

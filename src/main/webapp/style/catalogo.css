@@ -1,9 +1,13 @@
+p{
+    font-style: italic;
+}
+
 .product-card-new {
     position: relative;
     overflow: hidden;
     margin: 10px;
     max-width: 300px;
-    max-height: 400px;
+    max-height: 300px;
     border-radius: 5px;
 }
 
@@ -126,4 +130,8 @@
     .adminButton{
         width: 20%;
     }
+}
+
+button:hover {
+    background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
 }

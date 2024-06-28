@@ -180,7 +180,7 @@ body {
     display: inline-block;
     margin-top: 1em;
     padding: 0.5em 1em;
-    background-color: #007BFF;
+    background-color: #50b3a2;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -207,10 +207,10 @@ body {
     justify-content: space-between;
     margin-bottom: 2em;
     border-radius: 10px;
-    padding-bottom: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Aggiunge un'ombra al div */
+    padding-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Aggiunge un'ombra al div */
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
     gap: 2em;
 }
 
@@ -258,6 +258,10 @@ body {
     border-radius: 5px; /* Angoli arrotondati */
 }
 
+.adminButton:hover{
+    background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
 .product-image {
     grid-column: 1;
 }
@@ -268,6 +272,7 @@ body {
     margin-left: 15px;
     width: 30vw; /* Imposta la larghezza dell'immagine al 50% della larghezza del viewport */
     height: auto; /* Mantiene le proporzioni originali dell'immagine */
+    border-radius: 5px;
 }
 
 .product-info {
@@ -295,7 +300,7 @@ body {
 
 .product-info .addToCartButton {
     padding: 0.5em 1em;
-    background-color: #007BFF;
+    background-color: #50b3a2;
     color: #fff;
     border-radius: 10px;
     cursor: pointer;
@@ -382,7 +387,10 @@ body {
     flex: 1; /* Imposta la dimensione dei div in modo che abbiano la stessa dimensione */
     box-shadow: none; /* Rimuove l'ombra */
     box-sizing: border-box; /* Include padding e bordo nella larghezza e altezza totali */
-    width: 100%; /* Imposta una larghezza fissa */
+    width: 100%;
+    border: 0;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
 }
 
 .product-specs h2 {
@@ -614,17 +622,6 @@ body {
     margin: 0 auto;
 }
 
-/*!* Stile per il pulsante di aggiunta al catalogo a pagina ingrandita *!*/
-/*@media (min-width: 900px) {*/
-/*    #adminButton {*/
-/*        width: 20%; !* Dimezza la larghezza del pulsante *!*/
-/*    }*/
-
-/*    #visibilityButton {*/
-/*        width: 20%; !* Dimezza la larghezza del pulsante *!*/
-/*    }*/
-/*}*/
-
 .filter-bar {
     transition: transform 0.3s ease-in-out; /* Aumenta la durata dell'animazione e utilizza la funzione di temporizzazione ease-in-out */
 }
@@ -639,4 +636,3 @@ body {
     transform: translateX(0);
     opacity: 1; /* Imposta l'opacità a 1 quando la barra dei filtri è visibile */
 }
-

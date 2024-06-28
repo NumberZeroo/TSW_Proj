@@ -1,0 +1,137 @@
+.product-details {
+    margin-top: 1em;
+    justify-content: space-between;
+    margin-bottom: 2em;
+    border-radius: 10px;
+    padding-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Aggiunge un'ombra al div */
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 2em;
+}
+
+.product-image {
+    grid-column: 1;
+}
+
+.product-image img {
+    flex: 1;
+    margin-top: 10px;
+    margin-left: 15px;
+    width: 30vw; /* Imposta la larghezza dell'immagine al 50% della larghezza del viewport */
+    height: auto; /* Mantiene le proporzioni originali dell'immagine */
+    border-radius: 5px;
+}
+
+.product-info {
+    margin-top: 20px;
+    grid-column: 2;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f3f3f3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-style: italic;
+}
+
+.product-info h2 {
+    margin-top: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.product-info p {
+    font-style: italic;
+    margin-bottom: 0.5em;
+    font-family: 'Arial', sans-serif;
+    font-size: 1em;
+    color: #666;
+}
+
+.addToCartButton {
+    padding: 0.5em 1em;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 5%;
+}
+
+.review {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 0 2px rgba(0.5, 0.5, 0, 0.5);
+    font-style: italic;
+}
+
+.review p {
+    font-style: italic;
+    font-size: large;
+}
+
+.recommended-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 5px;
+    box-shadow: 0 0 2px rgba(0.5, 0.5, 0, 0.5);
+    font-style: italic;
+}
+
+.recommended-products .product {
+    flex: 0 0 250px;
+    box-sizing: content-box;
+    margin: 5px;
+}
+
+.recommended-products .product img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.recommended-products .product a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-specs {
+    grid-column: 2;
+    padding: 10px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-style: italic;
+}
+
+.product-specs p {
+    display: inline-block;
+    border: 0.1px solid;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    font-style: italic;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #ff6600;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+}
+
+.adminButton {
+    margin-top: 10px;
+    margin-bottom: 0;
+    background-color: #50b3a2; /* Sfondo blu */
+    color: #fff; /* Testo bianco */
+    border: none; /* Nessun bordo */
+    padding: 10px 20px; /* Spazio intorno al testo */
+    border-radius: 5px; /* Angoli arrotondati */
+}
+
+.adminButton:hover{
+    background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
+}
