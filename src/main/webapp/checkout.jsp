@@ -15,63 +15,42 @@
     <title>Checkout</title>
 </head>
 <body>
+    <%@include file="navbar.jsp"%>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/checkout.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/popoutShipmentInfos.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/popupFeedback.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/checkoutBtn.css">
     <script src="${pageContext.request.contextPath}/scripts/checkout.js" type="module"></script>
     <script src="${pageContext.request.contextPath}/scripts/addShipmentInfo.js" type="module"></script>
+
     <div id="notification"></div>
 
     <!-- Popup per l'aggiunta di informazioni di spedizione -->
     <!-- hidden di default -->
     <div id="popupOverlay" class="overlay-container">
         <div class="popup-box">
-            <h2 style="color: green;">Popup Form</h2>
+            <span class="close-popup" onclick="togglePopup()">&times;</span>
             <form id="popout-form-container">
                 <label class="form-label" for="destinatario">Destinatario</label>
-                <input class="form-input" type="text" id="destinatario" name="destinatario" required>
+                <input class="form-input" type="text" id="destinatario" name="destinatario" placeholder="Destinatario" required>
                 <label class="form-label" for="citta">Città: </label>
-                <input class="form-input" type="text" id="citta" name="citta" required>
+                <input class="form-input" type="text" id="citta" name="citta" placeholder="Città" required>
                 <label class="form-label" for="via">Via: </label>
-                <input class="form-input" type="text" id="via" name="via" required>
+                <input class="form-input" type="text" id="via" name="via" placeholder="Via" required>
                 <label class="form-label" for="cap">CAP: </label>
-                <input class="form-input" type="number" id="cap" name="cap" required>
+                <input class="form-input" type="number" id="cap" name="cap" placeholder="CAP" required>
                 <label class="form-label" for="altro">Informazioni aggiuntive: </label>
-                <input class="form-input" type="text" id="altro" name="altro">
+                <input class="form-input" type="text" id="altro" name="altro" placeholder="Informazioni aggiuntive">
 
-                <button class="btn-popout-submit" >Submit</button>
+                <button class="btn-popout-submit" >Aggiungi</button>
             </form>
-
-            <button class="btn-close-popup" onclick="togglePopup()">Close</button>
         </div>
     </div>
     <!-- Fine popup -->
 
+    <!-- Inizio scelta opzioni di consegna -->
     <%
         SessionFacade userSession = new SessionFacade(request.getSession());
-        Map<Long, Integer> productIDs = userSession.getCartProducts();
-        Map<ProdottoBean, Integer> products = new HashMap<>();
-        try(ProdottoDAO prodottoDAO = new ProdottoDAO()) {
-            products = prodottoDAO.doRetrieveByKeys(productIDs);
-        } catch (SQLException s){
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            // TODO: log
-        }
-
-        for (Map.Entry<ProdottoBean, Integer> entry : products.entrySet()) {
-    %>
-    <div class="product-details-box">
-        <h3><%=entry.getKey().getNome()%></h3>
-        <p>Quantità: <%=entry.getValue()%></p>
-        <p>Prezzo singolo: <%=entry.getKey().getPrezzo()%></p>
-        <p>Totale per prodotto: <%=entry.getKey().getPrezzo() * entry.getValue()%></p>
-    </div>
-    <br>
-    <%}%>
-
-    <p>Prezzo totale: <%=products.entrySet().stream().mapToDouble(e -> e.getKey().getPrezzo() * e.getValue()).sum()%></p>
-
-    <%
         InfoConsegnaBean defaultInfoConsegna;
         try(InfoConsegnaDAO infoConsegnaDAO = new InfoConsegnaDAO()) {
             defaultInfoConsegna = infoConsegnaDAO.doRetrieveDefault(userSession.getUserId());
@@ -79,46 +58,60 @@
             throw new RuntimeSQLException("Problema durante la ricerca dei dati di spedizione dell'utente", s);
         }
 
-
+        Map<Long, Integer> productIDs = userSession.getCartProducts(); // TODO (refactor ids): saranno id di cartItems, per la visualizzazione fai associazione
+        Map<ProdottoBean, Integer> products = new HashMap<>();
+        try(ProdottoDAO prodottoDAO = new ProdottoDAO()) {
+            products = prodottoDAO.doRetrieveByKeys(productIDs);
+        } catch (SQLException s){
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            // TODO: log
+        }
     %>
-        <div id="shipment-options">
-        <%if (defaultInfoConsegna != null){%>
-            <form id = "shipment-info-form" name="shipment-selection">
-                <input name="g1" type="radio" id="radio_<%=defaultInfoConsegna.getId()%>" value="<%=defaultInfoConsegna.getId()%>" checked="checked">
-                <div id="shipment-selection-<%=defaultInfoConsegna.getId()%>">
-                    <label for="radio_<%=defaultInfoConsegna.getId()%>"  class="shipment-option">
-                        <strong><%=defaultInfoConsegna.getVia()%></strong> <br>
-                                <%=defaultInfoConsegna.getCitta()%><br>
-                                <%=defaultInfoConsegna.getDestinatario()%> <br>
-                    </label>
+    <div id="outer-container">
+        <div id="container">
+            <div id="shipment-options">
+                <h3>Riepilogo</h3>
+                <% if (defaultInfoConsegna != null){ %>
+                <form id = "shipment-info-form" name="shipment-selection">
+                    <div class="shipment-selection">
+                        <input name="g1" type="radio" class="radio_<%=defaultInfoConsegna.getId()%>" value="<%=defaultInfoConsegna.getId()%>" checked="checked">
+                        <label for="radio_<%=defaultInfoConsegna.getId()%>"  class="shipment-option">
+                            <strong><%=defaultInfoConsegna.getVia()%></strong> <br>
+                            <%=defaultInfoConsegna.getCitta()%><br>
+                            <%=defaultInfoConsegna.getDestinatario()%> <br>
+                        </label>
+                    </div>
+                </form>
+                <button id="get-shipment-infos-btn">Modifica</button>
+                <button id="add-shipment-infos-btn" onclick="togglePopup()" hidden ><span>Aggiungi un metodo di spedizione</span></button>
+
+                <%} else {%>
+                <input id="default-shipment-info" type="hidden" value="1"> <!-- Flag per js -->
+                <button id="add-shipment-infos-btn" onclick="togglePopup()"><span>Aggiungi un metodo di spedizione</span></button>
+                <% } %>
+
+                <form id="submit-form" method="post" action="${pageContext.request.contextPath}/checkout">
+                    <input name ="selected-option" id="selected-option" type="hidden" value="-1">
+                    <button id="checkout-btn" type="submit"><span>Acquista</span></button>
+                    <span>
+                        Prezzo totale: <%=products.entrySet().stream().mapToDouble(e -> e.getKey().getPrezzo() * e.getValue()).sum()%>
+                    </span>
+                </form>
+            </div>
+
+            <div id="product-details">
+                <h3>Prodotti selezionati</h3>
+                <% for (Map.Entry<ProdottoBean, Integer> entry : products.entrySet()) { %>
+                <div class="product-details-box">
+                    <p><%=entry.getKey().getNome()%></p>
+                    <p>Prezzo: <%=entry.getKey().getPrezzo()%></p>
+                    <p>Quantità: <%=entry.getValue()%></p>
                 </div>
-            </form>
-            <button id="get-shipment-infos-btn">Modifica</button>
-            <button id="add-shipment-infos-btn" onclick="togglePopup()" hidden >Usa un altro metodo di spedizione</button>
-
-            <%} else {%> <!-- TODO: testa questo caso -->
-<%--            <p>Inserisci qui le informazioni di consegna</p>--%>
-<%--            <!--TODO: sanifica input -->--%>
-<%--            <form id="add-shipment-info-form">--%>
-<%--                <label for="city-input">Città: </label><input id="city-input" type="text" name="city"> <br>--%>
-<%--                <label for="cap-input">CAP: </label><input id="cap-input" type="number" name="cap"><br>--%>
-<%--                <label for="address-input">Indirizzo (via, corso, ...): </label><input id="address-input" type="text" name="address"><br>--%>
-<%--                <label for="additional-info-input">Informazioni di recapito aggiuntive: </label><input id="additional-info-input" type="text" name="other"><br>--%>
-<%--                <label for="receiver-input">Destinatario: </label><input id="receiver-input" type="text" name="receiver"><br>--%>
-<%--                <input name="willBeDefault" type="hidden" value="1">--%>
-<%--                <button type="submit">Conferma</button>--%>
-<%--            </form>--%>
-            <input id="default-shipment-info" type="hidden" value="1"> <!-- Flag per js -->
-            <button class="btn-close-popup" onclick="togglePopup()">Aggiungi un metodo di spedizione</button>
-        <% } %>
+                <br>
+                <%}%>
+            </div>
         </div>
-
-    <!-- TODO: questo bottone dovrebbe essere cliccabile solo se è stato selezionato qualcosa
-                tramite js imposta il value all'id del radio selezionato -->
-    <form id="submit-form" method="post" action="${pageContext.request.contextPath}/checkout">
-        <input name ="selected-option" id="selected-option" type="hidden" value="-1">
-        <button type="submit">Checkout</button>
-    </form>
+    </div>
 
     <script>
         function togglePopup() {
@@ -127,5 +120,6 @@
         }
     </script>
 
+    <%@include file="footer.jsp"%>
 </body>
 </html>

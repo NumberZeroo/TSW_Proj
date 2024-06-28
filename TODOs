@@ -35,6 +35,6 @@ IN PROGRESS:
         - Deve far aprire un popover che rimanda ad una servlet che aggiunge l'informazione di spedizione.
         - La pagina si deve aggiornare per far vedere la nuova informazione di spedizione
     - Il submit, invece di mandare le informazioni di spedizione campo, per campo manderà l'id. (DONE)
-- Nel carrello deve esserci la possibilità di cambiare la quantità di prodotti.
+- Nel carrello deve esserci la possibilità di cambiare la quantità di prodotti (WIP).
 - Redirezione verso pagina di ordine effettuato (orderRecap)
 

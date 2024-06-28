@@ -1,16 +1,29 @@
 .btn-popout-submit {
     padding: 12px 24px;
     font-size: 18px;
-    background-color: green;
-    color: #fff;
+    background-color: #EB9917;
+    color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s;
 }
 
 .btn-popout-submit:hover {
-    background-color: #4caf50;
+    transform: scale(1.05);
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+}
+
+.close-popup:hover {
+    color: #EB9917;
 }
 
 .overlay-container {
@@ -25,12 +38,13 @@
     align-items: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    z-index: 3;
 }
 
 .popup-box {
     background: #fff;
     padding: 24px;
-    border-radius: 12px;
+    border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     width: 320px;
     text-align: center;
@@ -61,31 +75,6 @@
     box-sizing: border-box;
 }
 
-.btn-submit,
-.btn-close-popup {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-submit {
-    background-color: green;
-    color: #fff;
-}
-
-.btn-close-popup {
-    margin-top: 12px;
-    background-color: #e74c3c;
-    color: #fff;
-}
-
-.btn-submit:hover,
-.btn-close-popup:hover {
-    background-color: #4caf50;
-}
-
 /* Keyframes for fadeInUp animation */
 @keyframes fadeInUp {
     from {
@@ -103,4 +92,35 @@
 .overlay-container.show {
     display: flex;
     opacity: 1;
+}
+
+/* Per popup quando si riduce la grandezza della fineestra verticalmente */
+@media (max-height: 600px) {
+    .form-label {
+        display: none;
+    }
+
+    .form-input {
+        margin-bottom: 10px;
+    }
+
+    #destinatario::placeholder {
+        content: 'Destinatario';
+    }
+
+    #citta::placeholder {
+        content: 'Città';
+    }
+
+    #via::placeholder {
+        content: 'Via';
+    }
+
+    #cap::placeholder {
+        content: 'CAP';
+    }
+
+    #altro::placeholder {
+        content: 'Informazioni aggiuntive';
+    }
 }

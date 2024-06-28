@@ -6,6 +6,7 @@ public class CartItemBean implements Serializable {
     private long id;
     private long idProdotto;
     private long idCarrello;
+    private int quantita;
 
     public CartItemBean() {}
 
@@ -33,12 +34,21 @@ public class CartItemBean implements Serializable {
         this.idCarrello = idCarrello;
     }
 
+    public int getQuantita() {
+        return quantita;
+    }
+
+    public void setQuantita(int quantita) {
+        this.quantita = quantita;
+    }
 
     @Override
     public String toString() {
-        return "OrderItem{" +
-                "idItem=" + idProdotto +
+        return "CartItemBean{" +
+                "id=" + id +
+                ", idProdotto=" + idProdotto +
                 ", idCarrello=" + idCarrello +
+                ", quantita=" + quantita +
                 '}';
     }
 }
