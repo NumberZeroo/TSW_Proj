@@ -6,6 +6,9 @@
 <head>
     <title>HomePage</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/home.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/defaultProductAdvices.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/scrollableContainer.css">
+    <script src="${pageContext.request.contextPath}/scripts/scrollController.js"></script>
 </head>
 <body>
 <%@ include file="navbar.jsp" %>
@@ -18,64 +21,60 @@
     </div>
     <section>
         <h2>Potrebbe piacerti...</h2>
-        <div class="product-container">
-            <%  try(ProdottoDAO prodottoDAO = new ProdottoDAO()){
-                List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
-
-                for (ProdottoBean prod : prodottiConsigliati) { %>
-            <div class="product">
-                <a href="product?id=<%=prod.getId()%>">
-                    <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
-                    <h4><%=prod.getNome()%></h4>
-                </a>
-                <p>Prezzo: <%=prod.getPrezzo()%> €</p>
-            </div>
-            <% }
-            }catch(Exception e){
-                e.printStackTrace();
-            }%>
+        <div class="scroll-container">
+            <button class="scroll-button left">&#9664;</button>
+            <%@include file="productAdvices.jsp"%>
+            <button class="scroll-button right">&#9654;</button>
         </div>
     </section>
 
     <section>
         <h2>Alimentari</h2>
-        <div class="product-container">
-            <%  try(ProdottoDAO prodottoDAO = new ProdottoDAO()){
-                List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory("Alimentazione");
+        <div class="scroll-container">
+            <button class="scroll-button left">&#9664;</button>
+            <div class="product-container">
+                <%  try(ProdottoDAO prodottoDAO = new ProdottoDAO()){
+                    List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory("Alimentazione");
 
-                for (ProdottoBean prod : prodottiConsigliati) { %>
-            <div class="product">
-                <a href="product?id=<%=prod.getId()%>">
-                    <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
-                    <h4><%=prod.getNome()%></h4>
-                </a>
-                <p>Prezzo: <%=prod.getPrezzo()%> €</p>
+                    for (ProdottoBean prod : prodottiConsigliati) { %>
+                <div class="product">
+                    <a href="product?id=<%=prod.getId()%>">
+                        <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
+                        <h4><%=prod.getNome()%></h4>
+                    </a>
+                    <p>Prezzo: <%=prod.getPrezzo()%> €</p>
+                </div>
+                <% }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }%>
             </div>
-            <% }
-            }catch(Exception e){
-                e.printStackTrace();
-            }%>
+            <button class="scroll-button right">&#9654;</button>
         </div>
     </section>
 
     <section>
         <h2>Giocattoli</h2>
-        <div class="product-container">
-            <%  try(ProdottoDAO prodottoDAO = new ProdottoDAO()){
-                List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory("Giocattoli");
+        <div class="scroll-container">
+            <button class="scroll-button left">&#9664;</button>
+            <div class="product-container gallery">
+                <%  try(ProdottoDAO prodottoDAO = new ProdottoDAO()){
+                    List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory("Giocattoli");
 
-                for (ProdottoBean prod : prodottiConsigliati) { %>
-            <div class="product">
-                <a href="product?id=<%=prod.getId()%>">
-                    <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
-                    <h4><%=prod.getNome()%></h4>
-                </a>
-                <p>Prezzo: <%=prod.getPrezzo()%> €</p>
+                    for (ProdottoBean prod : prodottiConsigliati) { %>
+                <div class="product">
+                    <a href="product?id=<%=prod.getId()%>">
+                        <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
+                        <h4><%=prod.getNome()%></h4>
+                    </a>
+                    <p>Prezzo: <%=prod.getPrezzo()%> €</p>
+                </div>
+                <% }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }%>
             </div>
-            <% }
-            }catch(Exception e){
-                e.printStackTrace();
-            }%>
+            <button class="scroll-button right">&#9654;</button>
         </div>
     </section>
 </main>
