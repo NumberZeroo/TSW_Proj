@@ -1,6 +1,7 @@
 package control;
 
 import jakarta.servlet.*;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import model.prodotto.ProdottoBean;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet(value = "/addProductServlet")
+@MultipartConfig
 public class addProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nome = request.getParameter("nome");
@@ -54,11 +56,12 @@ public class addProductServlet extends HttpServlet {
         try(ProdottoDAO dao = new ProdottoDAO();) {
             dao.doSave(prodotto);
         } catch (SQLException e) {
-            throw new ServletException(e);
+            response.getWriter().print("{\"status\": \"error\"}");
+            return;
         }
 
         // Reindirizza l'utente alla pagina di conferma
-        response.sendRedirect("Catalogo.jsp");
+        response.getWriter().print("{\"status\": \"success\"}");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
