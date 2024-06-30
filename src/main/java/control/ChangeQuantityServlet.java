@@ -1,6 +1,7 @@
 package control;
 
 import com.tswproject.tswproj.RuntimeSQLException;
+import com.tswproject.tswproj.SessionFacade;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,6 +19,7 @@ public class ChangeQuantityServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int quantity;
         long productId;
+        SessionFacade userSession = new SessionFacade(req.getSession());
         try{
             quantity = Integer.parseInt(req.getParameter("quantity"));
             productId = Long.parseLong(req.getParameter("id"));
@@ -31,6 +33,7 @@ public class ChangeQuantityServlet extends HttpServlet {
             CartItemBean cartItemBean = cartItemDAO.doRetrieveByKey(productId);
             cartItemBean.setQuantita(quantity);
             cartItemDAO.doUpdate(cartItemBean);
+            userSession.getCartProducts().put(cartItemBean.getIdProdotto(), quantity);
         } catch (SQLException e) {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             e.printStackTrace();

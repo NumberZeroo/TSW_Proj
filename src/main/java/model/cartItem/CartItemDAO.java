@@ -30,7 +30,7 @@ public class CartItemDAO extends AbstractDAO implements DAOInterface<CartItemBea
     }
 
     /**
-     * Dato che in cart.jsp viene indicato l'id del prodotto e non del ca
+     * Dato che in cart.jsp viene indicato l'id del prodotto e non del carrello (TODO: serve ancora?)
      * @param productId
      * @return
      * @throws SQLException
