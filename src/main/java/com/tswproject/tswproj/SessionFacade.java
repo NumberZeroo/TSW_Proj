@@ -42,7 +42,7 @@ public class SessionFacade {
             return products;
 
         try(CartItemDAO cartItemDAO = new CartItemDAO()) {
-            products = cartItemDAO.getCartItems((Long)this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME));
+            products = cartItemDAO.getCartItemsAsProducts((Long)this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME));
         }
         return products;
     }
@@ -56,7 +56,15 @@ public class SessionFacade {
      * @return id utente
      */
     public long getUserId() {
-        return (Long)this.session.getAttribute(USERID_SESSION_ATTRIBUTE_NAME);
+        if (!isLoggedIn())
+            return -1;
+        return (long) this.session.getAttribute(USERID_SESSION_ATTRIBUTE_NAME);
+    }
+
+    public long getCartId() {
+        if (!isLoggedIn())
+            return -1;
+        return (long) this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME);
     }
 
     /**
@@ -150,7 +158,21 @@ public class SessionFacade {
         }
     }
 
-    public void removeCartProducts(){
+    public void removeCartProduct(long productId) throws SQLException {
+        Map<Long, Integer> products = (Map<Long, Integer>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
+        if (products == null)
+            return;
+        if (products.get(productId) != null){
+            products.remove(productId);
+            if (this.isLoggedIn()){
+                try(CartItemDAO cartItemDAO = new CartItemDAO()){
+                    cartItemDAO.removeProduct(productId, (Long)this.session.getAttribute(CARTID_SESSION_ATTRIBUTE_NAME));
+                }
+            }
+        }
+    }
+
+    public void removeAllCartProducts(){
         try(CartItemDAO cartItemDAO = new CartItemDAO()) {
             for(Long cartItemId : ((Map<Long, Integer>)this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME)).keySet()){
                 cartItemDAO.doDelete(cartItemId);
