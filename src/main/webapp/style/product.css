@@ -194,3 +194,29 @@ h2 {
 .review-form input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+.deleteReviewButton {
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
+    background-color: #e83737; /* Sfondo rosso */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.deleteReviewButton:hover {
+    background-color: #b30000; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+.review {
+    position: relative;
+}
+
+@media(max-width: 900px) {
+    .review{
+        max-width: 100%;
+    }
+}

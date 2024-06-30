@@ -5,7 +5,7 @@
     <%@ include file="navbar.jsp" %>
 </head>
 <body>
-<form action="addProductServlet" method="post" class="form-container form-grid">
+<form action="addProductServlet" method="post" enctype="multipart/form-data" class="form-container form-grid">
         <h2 style="font-style: italic; color: #50b3a2;">Aggiungi un nuovo prodotto</h2>
 
         <label for="nome">Nome:</label>
