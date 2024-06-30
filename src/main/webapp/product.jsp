@@ -5,6 +5,7 @@
 <%@ page import="model.recensione.RecensioneDAO" %>
 <%@ page import="model.prodotto.ProdottoDAO" %>
 <%@ page import="com.tswproject.tswproj.SessionFacade" %>
+<%@ page import="model.ordine.*" %>
 
 <html>
 <head>
@@ -16,7 +17,8 @@
     </title>
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/popupFeedback.css">
-   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/product.css"> <!-- todo css separato -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/product.css">
+    <!-- todo css separato -->
 </head>
 
 <body>
@@ -87,9 +89,9 @@ window.onload = function () {
             <p>Categoria: <%=prodotto.getCategoria()%>
             </p>
             <p>Taglia: <%=prodotto.getTaglia()%>
-<%--            </p>--%>
-<%--            <p>Range età consigliata: <%=prodotto.getMinEta()%>/<%=prodotto.getMaxEta()%>--%>
-<%--            </p>--%>
+                <%--            </p>--%>
+                <%--            <p>Range età consigliata: <%=prodotto.getMinEta()%>/<%=prodotto.getMaxEta()%>--%>
+                <%--            </p>--%>
         </div>
 
         <form id="editProductFormDetails" class="product-info-mod"
@@ -98,7 +100,8 @@ window.onload = function () {
 
             <input type="hidden" name="id" value="<%=prodotto.getId()%>">
 
-            <label for="category">Categoria:</label><input type="text" id="category" name="category" value="<%=prodotto.getCategoria()%>">
+            <label for="category">Categoria:</label><input type="text" id="category" name="category"
+                                                           value="<%=prodotto.getCategoria()%>">
 
             <label for="taglia">Taglia:</label>
             <input type="text" id="taglia" name="taglia" value="<%=prodotto.getTaglia()%>">
