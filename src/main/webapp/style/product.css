@@ -122,7 +122,7 @@ h2 {
     padding-bottom: 10px;
 }
 
-.adminButton {
+.adminButton, .addReviewButton {
     margin-top: 10px;
     margin-bottom: 0;
     background-color: #50b3a2; /* Sfondo blu */
@@ -132,6 +132,65 @@ h2 {
     border-radius: 5px; /* Angoli arrotondati */
 }
 
-.adminButton:hover{
+.adminButton:hover, .addReviewButton:hover {
     background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+/* Stile per il modulo di recensione */
+.addReviewButton{
+    margin-bottom: 20px;
+}
+.review-form {
+    display: none; /* Nasconde il modulo di default */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-style: italic;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.review-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: normal;
+    margin-bottom: 20px;
+}
+
+.review-form-header label {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-left: 5px;
+
+}
+
+.review-form-header input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.review-form textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.review-form input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #50b3a2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.review-form input[type="submit"]:hover {
+    background-color: #0056b3;
 }

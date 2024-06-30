@@ -126,6 +126,50 @@ window.onload = function () {
     });
 </script>
 
+<%-- Visualizza il modulo per inserire o modificare una recensione --%>
+<div class="reviewOrModify">
+    <%
+        try (OrdineDAO ordineDAO = new OrdineDAO();
+             RecensioneDAO recensioneDAO = new RecensioneDAO();) {
+            boolean hasPurchased = ordineDAO.hasUserPurchasedProduct(sessionFacade.getUserId(), prodotto.getId());
+            boolean hasReviewed = recensioneDAO.hasUserReviewedProduct(sessionFacade.getUserId(), prodotto.getId());
+            if (hasPurchased && !hasReviewed) { %>
+    <button id="addReviewButton" class="addReviewButton">Aggiungi recensione</button>
+</div>
+
+<%-- Visualizza il modulo per inserire una recensione in un popup --%>
+<div id="addReview" class="review-form">
+        <form action="addReviewServlet" method="post">
+            <div class="review-form-header">
+                <label for="titolo">Titolo:</label>
+                <input type="text" id="titolo" name="titolo" required>
+                <label for="valutazione">Valutazione:</label>
+                <input type="number" id="valutazione" name="valutazione" min="1" max="5" required>
+            </div>
+            <label for="commento">Commento:</label>
+            <textarea id="commento" name="commento" required></textarea>
+            <input type="hidden" id="idProdotto" name="idProdotto" value="<%=prodotto.getId()%>">
+            <input type="hidden" id="idUtente" name="idUtente" value="<%=sessionFacade.getUserId()%>">
+            <input type="submit" value="Invia">
+        </form>
+    <% }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    %>
+</div>
+
+<script>
+    let modal = document.getElementById("addReview");
+    let btn = document.getElementById("addReviewButton");
+
+    // Quando l'utente fa clic sul pulsante, mostra il modulo
+    btn.onclick = function () {
+        modal.style.display = "block";
+        btn.style.display = "none";
+    }
+</script>
+
 <%-- Visualizza le recensioni --%>
 <div class="reviews">
     <h2 style="font-style: italic">Recensioni degli utenti</h2>
