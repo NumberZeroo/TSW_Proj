@@ -58,7 +58,7 @@
             throw new RuntimeSQLException("Problema durante la ricerca dei dati di spedizione dell'utente", s);
         }
 
-        Map<Long, Integer> productIDs = userSession.getCartProducts(); // TODO (refactor ids): saranno id di cartItems, per la visualizzazione fai associazione
+        Map<Long, Integer> productIDs = userSession.getCartProducts();
         Map<ProdottoBean, Integer> products = new HashMap<>();
         try(ProdottoDAO prodottoDAO = new ProdottoDAO()) {
             products = prodottoDAO.doRetrieveByKeys(productIDs);
@@ -71,6 +71,7 @@
         <div id="container">
             <div id="shipment-options">
                 <h3>Riepilogo</h3>
+                <div id = "added-form-container"></div> <!-- Serve per la creazione dinamica da js -->
                 <% if (defaultInfoConsegna != null){ %>
                 <form id = "shipment-info-form" name="shipment-selection">
                     <div class="shipment-selection">
@@ -84,9 +85,8 @@
                 </form>
                 <button id="get-shipment-infos-btn">Modifica</button>
                 <button id="add-shipment-infos-btn" onclick="togglePopup()" hidden ><span>Aggiungi un metodo di spedizione</span></button>
-
-                <%} else {%>
                 <input id="default-shipment-info" type="hidden" value="1"> <!-- Flag per js -->
+                <%} else {%>
                 <button id="add-shipment-infos-btn" onclick="togglePopup()"><span>Aggiungi un metodo di spedizione</span></button>
                 <% } %>
 

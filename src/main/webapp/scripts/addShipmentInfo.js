@@ -18,8 +18,14 @@ document.addEventListener('DOMContentLoaded', function () {
             jsonObject[key] = value;
         });
 
-        if (document.getElementById("default-shipment-info") != null)
+        if (document.getElementById("default-shipment-info") == null){
             jsonObject['isDefault'] = true;
+            const flag = document.createElement("input");
+            flag.id = "default-shipment-info";
+            flag.value = "1";
+            flag.type = "hidden";
+            document.getElementById("shipment-options").appendChild(flag);
+        }
 
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'addShipmentInfo', true);

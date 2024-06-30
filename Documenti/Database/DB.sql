@@ -86,7 +86,7 @@ CREATE TABLE OrderItem (
     Prezzo DECIMAL(7, 2) NOT NULL,
     Quantita INT NOT NULL,
     PRIMARY KEY(id, idProdotto, IdOrdine),
-    FOREIGN KEY(IdOrdine) REFERENCES Ordine(id),
+    FOREIGN KEY(IdOrdine) REFERENCES Ordine(id) ON DELETE CASCADE,
     FOREIGN KEY(idProdotto) REFERENCES Prodotto(id)
 );
 

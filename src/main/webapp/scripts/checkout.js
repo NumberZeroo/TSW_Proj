@@ -4,6 +4,9 @@ function addElementToPage(item){
         radio.type = "radio";
         radio.id = "radio_" + item['id'];
         radio.value = item['id'];
+        if (item['isDefault'] === true){
+            radio.checked = true
+        }
 
         var outerDiv = document.createElement('div');
         outerDiv.classList.add("shipment-selection");
@@ -20,7 +23,7 @@ function addElementToPage(item){
             outerForm = document.createElement("form");
             outerForm.id = "shipment-info-form";
             outerForm.name = "shipment-selection";
-            document.getElementById("shipment-options").appendChild(outerForm);
+            document.getElementById("added-form-container").appendChild(outerForm);
         }
 
         outerDiv.appendChild(radio);
@@ -39,13 +42,20 @@ export function updatePage(infos) {
         addElementToPage(infos[0])
     } else {
         infos.forEach(function (item) {
-            if (item['isDefault'] !== 'true')
+            if (item['isDefault'] !== 'true'){
                 addElementToPage(item);
+            }
         });
     }
+    document.getElementById("checkout-btn").disabled = false;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementsByClassName("shipment-selection").length <= 0){
+        document.getElementById("checkout-btn").disabled = true;
+    }
+
+
     function retrieveShipmentInfos() {
 
         return new Promise(function (resolve, reject) {
