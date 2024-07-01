@@ -6,7 +6,8 @@
     <%  try(ProdottoDAO prodottoDAO = new ProdottoDAO()){
         List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
 
-        for (ProdottoBean prod : prodottiConsigliati) { %>
+        for (ProdottoBean prod : prodottiConsigliati) {
+            if (prod.isVisibile()){}%>
     <div class="product">
         <a href="product?id=<%=prod.getId()%>">
             <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
