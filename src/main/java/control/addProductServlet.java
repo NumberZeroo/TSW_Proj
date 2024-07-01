@@ -71,12 +71,12 @@ public class addProductServlet extends HttpServlet {
         try (ProdottoDAO dao = new ProdottoDAO();) {
             dao.doSave(prodotto);
         } catch (SQLException e) {
-            throw new ServletException(e);
+            response.getWriter().print("{\"status\": \"error\"}");
+            return;
         }
+        // Reindirizza l'utente alla pagina di conferma
+        response.getWriter().print("{\"status\": \"success\"}");
 
-        //Reidirizza al catalogo
-//        System.out.println("Upload directory: " + uploadDir);
-        response.sendRedirect(request.getContextPath() + "/mostraCatalogoServlet");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -134,7 +134,7 @@ public class SessionFacade {
         }
     }
 
-    public void removeCartProduct(long productId, int quantity) throws SQLException {
+    synchronized public void removeCartProduct(long productId, int quantity) throws SQLException {
         Map<Long, Integer> products = (Map<Long, Integer>) this.session.getAttribute(CART_SESSION_ATTRIBUTE_NAME);
         if (products == null) return;
         // Se nella mappa products esiste un elemento con chiave productId decrementa il valore di quantity

@@ -48,6 +48,8 @@
                             });
                         </script>
                     </div>
+
+
                     <% try (PetDAO petDAO = new PetDAO()) { %>
                     <% List<PetBean> pets = petDAO.doRetrieveByUser(sessionFacade.getUserId()); %>
                     <% if (!pets.isEmpty()) { %>

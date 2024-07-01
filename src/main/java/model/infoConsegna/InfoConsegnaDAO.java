@@ -14,7 +14,7 @@ import java.util.List;
 public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoConsegnaBean, Long> {
     @Override
     public InfoConsegnaBean doRetrieveByKey(long id) throws SQLException {
-        String query = "SELECT * FROM infoConsegna WHERE idInfoConsegna = ?";
+        String query = "SELECT * FROM InfoConsegna WHERE idInfoConsegna = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -28,7 +28,7 @@ public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoCon
 
     @Override
     public Collection<InfoConsegnaBean> doRetrieveAll(String order) throws SQLException {
-        String query = "SELECT * FROM infoConsegna";
+        String query = "SELECT * FROM InfoConsegna";
         List<InfoConsegnaBean> infoConsegnaBeans = new ArrayList<>();
         try(Statement statement = connection.createStatement()) {
             statement.execute(query);
@@ -108,7 +108,7 @@ public class InfoConsegnaDAO extends AbstractDAO implements DAOInterface<InfoCon
 
     @Override
     public boolean doDelete(Long code) throws SQLException {
-        String query = "DELETE FROM infoConsegna WHERE idInfoConsegna = ?";
+        String query = "DELETE FROM InfoConsegna WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, code);
             return preparedStatement.executeUpdate() > 0;

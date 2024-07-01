@@ -13,14 +13,17 @@
 <head>
     <title>Carrello</title>
     <meta charset="UTF-16">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/cart.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/popupFeedback.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/checkoutBtn.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/defaultProductAdvices.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/scrollableContainer.css">
+    <script src="${pageContext.request.contextPath}/scripts/scrollController.js"></script>
 
 </head>
 <body>
 
     <%@include file="navbar.jsp"%>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/cart.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/popupFeedback.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/checkoutBtn.css">
     <script type="module">
         import {incrementQuantity, decrementQuantity} from "${pageContext.request.contextPath}/scripts/cart.js";
         window.incrementQuantity = incrementQuantity;
@@ -80,9 +83,21 @@
         <%}%>
     </div>
 
+    <% if(!products.isEmpty()) { %>
     <a href="${pageContext.request.contextPath}/checkout.jsp">
         <button id="checkout-btn"><span>Check out</span></button>
     </a>
+    <% } else { %>
+    <h3>Il carrello è vuoto</h3>
+    <% } %>
+
+    <h2>Potrebbe piacerti...</h2>
+    <div class="scroll-container">
+        <button class="scroll-button left">&#9664;</button>
+        <%@include file="productAdvices.jsp"%>
+        <button class="scroll-button right">&#9654;</button>
+    </div>
+
 
     <%@include file="footer.jsp"%>
 </body>

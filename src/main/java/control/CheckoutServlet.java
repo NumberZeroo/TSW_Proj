@@ -1,5 +1,6 @@
 package control;
 
+import com.tswproject.tswproj.OutOfStockException;
 import com.tswproject.tswproj.RuntimeSQLException;
 import com.tswproject.tswproj.SessionFacade;
 import jakarta.servlet.ServletException;
@@ -66,10 +67,10 @@ public class CheckoutServlet extends HttpServlet {
         try(ProdottoDAO prodottoDAO = new ProdottoDAO()) {
             toBuy = prodottoDAO.doRetrieveByKeys(cartProducts);
         } catch (SQLException e) {
-            try(InfoConsegnaDAO infoConsegnaDAO = new InfoConsegnaDAO()) {
-                infoConsegnaDAO.doDelete(idInfoConsegna);
-            } catch (SQLException ex) {
-                throw new RuntimeSQLException("Errore durante la procedura di free", e);
+            try(OrdineDAO ordineDAO = new OrdineDAO()) {
+                ordineDAO.doDelete(idOrdine);
+            }catch (SQLException s){
+                throw new RuntimeSQLException("Errore durante la procedura di free", s);
             }
             throw new RuntimeSQLException("Errore durante la determinazione degli articoli", e);
         }
@@ -84,15 +85,10 @@ public class CheckoutServlet extends HttpServlet {
             itemsToBuy.add(orderItemBean);
         }
 
+
         try(OrderItemDAO orderItemDAO = new OrderItemDAO()){
             orderItemDAO.doSaveAll(itemsToBuy);
         } catch (SQLException e) {
-            try(InfoConsegnaDAO infoConsegnaDAO = new InfoConsegnaDAO()) {
-                infoConsegnaDAO.doDelete(idInfoConsegna);
-            } catch (SQLException ex) {
-                throw new RuntimeSQLException("Errore durante la procedura di free", e);
-            }
-
             try(OrdineDAO ordineDAO = new OrdineDAO()) {
                 ordineDAO.doDelete(idOrdine);
             } catch (SQLException ex) {
@@ -101,8 +97,23 @@ public class CheckoutServlet extends HttpServlet {
             throw new RuntimeSQLException("Errore nel salvataggio dei prodotti dell'ordine", e);
         }
 
-        // 4. Svuota carrello
+        // 4. Decrementa disponibilità
+
+        try(ProdottoDAO prodottoDAO = new ProdottoDAO()){
+            prodottoDAO.doUpdateQuantities(toBuy);
+        } catch (OutOfStockException | SQLException e) {
+            try(OrdineDAO ordineDAO = new OrdineDAO()) {
+                ordineDAO.doDelete(idOrdine); // OrderItems eliminati per CASCADE
+            } catch (SQLException ex) {
+                throw new RuntimeSQLException("Errore durante la procedura di free", e);
+            }
+            throw new RuntimeSQLException("Errore nel salvataggio dei prodotti dell'ordine", e);
+        }
+
+        // 5. Svuota carrello
         session.removeAllCartProducts();
+
+        resp.sendRedirect(req.getContextPath() + "/greetings.jsp");
     }
 
     @Override

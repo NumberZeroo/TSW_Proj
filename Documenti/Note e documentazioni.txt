@@ -1,0 +1,18 @@
+Scroll controller:
+    Quando si ha un elemento simile ad una galleria (serie di elementi mostrati orizzontalmente con flex e overflow)
+    per fare scroll si possono usare i bottoni dello scrollController.
+    La galleria deve avere la seguente struttura:
+    <div class = "classe1 class2 ... gallery">
+        ...
+    </div>
+    IMPORTANTE: deve esserci la classe "gallery"
+
+    1. Fare wrapping del codice della galleria in questo modo:
+    <script src="${pageContext.request.contextPath}/scripts/scrollController.js"></script>
+    <div class="scroll-container">
+        <button class="scroll-button left">&#9664;</button>
+        [codice galleria]
+        <button class="scroll-button right">&#9654;</button>
+    </div>
+
+    2. Includere "scrollableContainer.css" per lo stile

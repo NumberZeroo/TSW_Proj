@@ -1,11 +1,18 @@
+<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Aggiungi Prodotto</title>
     <%@ include file="navbar.jsp" %>
+    <script src="${pageContext.request.contextPath}/scripts/addProduct.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/popupFeedback.css">
 </head>
 <body>
+
+
+<div id="notification"></div>
 <form action="addProductServlet" method="post" enctype="multipart/form-data" class="form-container form-grid">
+
         <h2 style="font-style: italic; color: #50b3a2;">Aggiungi un nuovo prodotto</h2>
 
         <label for="nome">Nome:</label>
@@ -65,39 +72,5 @@
         display: none;
     }
     </style>
-
-    <script>
-        let categorySelect = document.getElementById('category');
-        let sterilizedLabel = document.querySelector('label[for="sterilized"]');
-        let sterilizedSelect = document.getElementById('sterilized');
-
-        categorySelect.addEventListener('change', function() {
-            if (this.value === 'Alimentari') {
-                sterilizedLabel.style.display = 'block';
-                sterilizedSelect.style.display = 'block';
-            } else {
-                sterilizedLabel.style.display = 'none';
-                sterilizedSelect.style.display = 'none';
-            }
-        });
-    </script>
-
-    <script>
-        let minAgeInput = document.getElementById('minEta');
-        let maxAgeInput = document.getElementById('maxEta');
-
-        function validateAge() {
-            let minAge = parseInt(minAgeInput.value);
-            let maxAge = parseInt(maxAgeInput.value);
-
-            if (maxAge < minAge) {
-                alert("L'età massima deve essere maggiore o uguale all'età minima."); //todo cambiare alert con un messaggio più elegante
-                maxAgeInput.value = minAge;
-            }
-        }
-
-        minAgeInput.addEventListener('change', validateAge);
-        maxAgeInput.addEventListener('change', validateAge);
-    </script>
 </body>
 </html>

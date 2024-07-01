@@ -1,6 +1,7 @@
 package model.prodotto;
 
 import com.tswproject.tswproj.EmptyPoolException;
+import com.tswproject.tswproj.OutOfStockException;
 import model.AbstractDAO;
 import model.DAOInterface;
 
@@ -143,6 +144,30 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         }
     }
 
+    /**
+     * Questo metodo controlla per ogni prodotto nella mappa se c'è disponibilità (in termini di quantità) ed eventualmente fa update
+     * Usa una transaction per migliorare le prestazioni.
+     * Ritorna l'esito
+     * @param toUpdate mappa con chiave = id prodotto e valore = quantitò da sottrarre
+     * @return isUpdated
+     * @throws SQLException
+     */
+    public void doUpdateQuantities(Map<ProdottoBean, Integer> toUpdate) throws SQLException, OutOfStockException {
+        connection.setAutoCommit(false);
+        for (Map.Entry<ProdottoBean, Integer> entry : toUpdate.entrySet()) {
+            ProdottoBean prodotto = doRetrieveByKey(entry.getKey().getId());
+            if (prodotto == null || prodotto.getDisponibilita() < entry.getValue()) {
+                connection.rollback();
+                connection.setAutoCommit(true);
+                throw new OutOfStockException("Disponibilità per il prodotto con id " + entry.getKey().getId() + " terminata");
+            }
+            prodotto.setDisponibilita(prodotto.getDisponibilita() - entry.getValue());
+            doUpdate(prodotto);
+        }
+        connection.commit();
+        connection.setAutoCommit(true);
+    }
+
     @Override
     public boolean doDelete(Long id) throws SQLException {
         String query = "DELETE FROM Prodotto WHERE id = ?";
@@ -191,11 +216,11 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
     }
 
     public void changeVisibility(long id, boolean isVisible) throws SQLException {
-    String query = "UPDATE Prodotto SET visibile = ? WHERE id = ?";
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
-        statement.setInt(1, isVisible ? 1 : 0);
-        statement.setLong(2, id);
-        statement.executeUpdate();
+        String query = "UPDATE Prodotto SET visibile = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, isVisible ? 1 : 0);
+            statement.setLong(2, id);
+            statement.executeUpdate();
+        }
     }
-}
 }
