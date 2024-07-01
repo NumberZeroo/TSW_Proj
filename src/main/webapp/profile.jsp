@@ -35,6 +35,7 @@
                 <p>Email: <%= user.getEmail() %>
                 </p>
                 <% } catch (SQLException s) {
+                    s.printStackTrace();
                     throw new RuntimeSQLException("Errore durante il recupero delle informazioni utente", s);
                 }%>
 
@@ -82,6 +83,7 @@
                     </table>
                     <% }
                     } catch (SQLException e) {
+                        e.printStackTrace();
                         throw new RuntimeSQLException("Errore durante il recupero delle informazioni dei pet", e);
                     } %>
                 </div>
@@ -132,6 +134,7 @@
                     </div>
                     <%
                         } catch (SQLException s) {
+                            s.printStackTrace();
                             throw new RuntimeSQLException("Errore durante il recupero delle informazioni del prodotto", s);
                         }
                     %>
@@ -140,7 +143,10 @@
                         }
                     %>
                     <div class="order-footer">
-                        <button class="download-invoice">Scarica Fattura</button>
+                        <form method="get" action="getInvoice">
+                            <input type="hidden" name="orderId" value="<%=ordine.getId()%>">
+                            <button type="submit" class="download-invoice">Scarica Fattura</button>
+                        </form>
                     </div>
                 </div>
 
@@ -148,6 +154,7 @@
                             }
                         }
                     } catch (SQLException s) {
+                        s.printStackTrace();
                         throw new RuntimeSQLException("Errore durante il recupero degli ordini", s);
                     }
                 %>
