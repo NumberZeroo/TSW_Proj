@@ -46,20 +46,20 @@ window.onload = function () {
             buttons: true,
             dangerMode: true,
         })
-        .then((willDelete) => {
-            if (willDelete) {
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", 'changeVisibilityServlet', true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function () {
-                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                        // Reindirizza il browser alla nuova pagina dopo aver ricevuto la risposta
-                        window.location.href = "product?id=" + productId;
+            .then((willDelete) => {
+                if (willDelete) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", 'changeVisibilityServlet', true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                            // Reindirizza il browser alla nuova pagina dopo aver ricevuto la risposta
+                            window.location.href = "product?id=" + productId;
+                        }
                     }
+                    xhr.send("productId=" + productId + "&isVisible=" + isVisible);
                 }
-                xhr.send("productId=" + productId + "&isVisible=" + isVisible);
-            }
-        });
+            });
     };
 };
 </script>
@@ -97,8 +97,12 @@ window.onload = function () {
 
             <label for="category">Categoria:</label>
             <select id="category" name="category">
-                <option value="alimentari" <%=prodotto.getCategoria().equals("alimentari") ? "selected" : ""%>>Alimentari</option>
-                <option value="giocattoli" <%=prodotto.getCategoria().equals("giocattoli") ? "selected" : ""%>>Giocattoli</option>
+                <option value="alimentari" <%=prodotto.getCategoria().equals("alimentari") ? "selected" : ""%>>
+                    Alimentari
+                </option>
+                <option value="giocattoli" <%=prodotto.getCategoria().equals("giocattoli") ? "selected" : ""%>>
+                    Giocattoli
+                </option>
             </select>
 
             <label for="taglia">Taglia:</label>
@@ -121,18 +125,18 @@ window.onload = function () {
                 <%--            </p>--%>
         </div>
 
-<%--        <form id="editProductFormDetails" class="product-info-mod"--%>
-<%--              action="${pageContext.request.contextPath}/editProductServlet"--%>
-<%--              method="post">--%>
+        <%--        <form id="editProductFormDetails" class="product-info-mod"--%>
+        <%--              action="${pageContext.request.contextPath}/editProductServlet"--%>
+        <%--              method="post">--%>
 
-<%--            <input type="hidden" name="id" value="<%=prodotto.getId()%>">--%>
+        <%--            <input type="hidden" name="id" value="<%=prodotto.getId()%>">--%>
 
-<%--            <label for="category">Categoria:</label><input type="text" id="category" name="category"--%>
-<%--                                                           value="<%=prodotto.getCategoria()%>">--%>
+        <%--            <label for="category">Categoria:</label><input type="text" id="category" name="category"--%>
+        <%--                                                           value="<%=prodotto.getCategoria()%>">--%>
 
-<%--            <label for="taglia">Taglia:</label>--%>
-<%--            <input type="text" id="taglia" name="taglia" value="<%=prodotto.getTaglia()%>">--%>
-<%--        </form>--%>
+        <%--            <label for="taglia">Taglia:</label>--%>
+        <%--            <input type="text" id="taglia" name="taglia" value="<%=prodotto.getTaglia()%>">--%>
+        <%--        </form>--%>
     </div>
 
     <div class="addToCart">
