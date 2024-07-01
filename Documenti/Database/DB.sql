@@ -81,10 +81,12 @@ CREATE TABLE Carrello (
 
 CREATE TABLE OrderItem (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
     idProdotto BIGINT UNSIGNED NOT NULL,
     IdOrdine BIGINT UNSIGNED NOT NULL,
     Prezzo DECIMAL(7, 2) NOT NULL,
     Quantita INT NOT NULL,
+    IVA ENUM('4', '10', '22') NOT NULL,
     PRIMARY KEY(id, idProdotto, IdOrdine),
     FOREIGN KEY(IdOrdine) REFERENCES Ordine(id) ON DELETE CASCADE,
     FOREIGN KEY(idProdotto) REFERENCES Prodotto(id)

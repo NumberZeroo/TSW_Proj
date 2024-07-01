@@ -8,7 +8,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.infoConsegna.InfoConsegnaDAO;
 import model.orderItem.OrderItemBean;
 import model.orderItem.OrderItemDAO;
 import model.ordine.OrdineBean;
@@ -27,10 +26,7 @@ public class CheckoutServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO 1:  Inserisci i dati di "infoConsegna" e "ordine" (DONE)
-        // TODO 2:  Implementa indirizzo di fatturazione (DONE, sarebbe il default)
         // TODO 3:  Implementa creazione di fattura
-        // TODO 4:  Rimanda a pagina di esito
         SessionFacade session = new SessionFacade(req.getSession());
         if (!session.isLoggedIn()) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -82,6 +78,8 @@ public class CheckoutServlet extends HttpServlet {
             orderItemBean.setQuantita(toBuy.get(prodottoBean));
             orderItemBean.setIdOrdine(idOrdine);
             orderItemBean.setIdProdotto(prodottoBean.getId());
+            orderItemBean.setIva(Integer.parseInt(prodottoBean.getIva()));
+            orderItemBean.setNome(prodottoBean.getNome());
             itemsToBuy.add(orderItemBean);
         }
 

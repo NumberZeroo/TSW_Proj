@@ -4,10 +4,12 @@ import java.io.Serializable;
 
 public class OrderItemBean implements Serializable {
     private long id;
+    private String nome;
     private long idProdotto;
     private long idOrdine;
-    private double prezzo;
+    private double prezzo; // netto
     private int quantita;
+    private int iva;
 
     public OrderItemBean() {}
 
@@ -51,13 +53,32 @@ public class OrderItemBean implements Serializable {
         this.quantita = quantita;
     }
 
+    public int getIva() {
+        return iva;
+    }
+
+    public void setIva(int iva) {
+        this.iva = iva;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     @Override
     public String toString() {
-        return "OrderItem{" +
-                "idItem=" + idProdotto +
+        return "OrderItemBean{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", idProdotto=" + idProdotto +
                 ", idOrdine=" + idOrdine +
                 ", prezzo=" + prezzo +
                 ", quantita=" + quantita +
+                ", iva=" + iva +
                 '}';
     }
 }

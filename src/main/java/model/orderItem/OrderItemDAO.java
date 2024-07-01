@@ -41,13 +41,15 @@ public class OrderItemDAO extends AbstractDAO implements DAOInterface<OrderItemB
 
     @Override
     public long doSave(OrderItemBean orderItem) throws SQLException {
-        String query = "INSERT INTO OrderItem (IdOrdine, IdProdotto, Prezzo, Quantita) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO OrderItem (IdOrdine, IdProdotto, Prezzo, Quantita, Iva, Nome) VALUES (?, ?, ?, ?, ?, ?)";
         long generatedKey = -1;
         try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, orderItem.getIdOrdine());
             statement.setLong(2, orderItem.getIdProdotto());
             statement.setDouble(3, orderItem.getPrezzo());
             statement.setLong(4, orderItem.getQuantita());
+            statement.setString(5, Integer.toString(orderItem.getIva()));
+            statement.setString(6, orderItem.getNome());
             if (statement.executeUpdate() > 0){
                 ResultSet resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()){
@@ -78,13 +80,15 @@ public class OrderItemDAO extends AbstractDAO implements DAOInterface<OrderItemB
 
     @Override
     public void doUpdate(OrderItemBean orderItem) throws SQLException {
-        String query = "UPDATE OrderItem SET idProdotto = ?, IdOrdine = ?, Prezzo = ?, Quantita = ? WHERE id = ?";
+        String query = "UPDATE OrderItem SET idProdotto = ?, IdOrdine = ?, Prezzo = ?, Quantita = ?, iva = ?, Nome = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, orderItem.getIdProdotto());
             statement.setLong(2, orderItem.getIdOrdine());
             statement.setDouble(3, orderItem.getPrezzo());
             statement.setLong(4, orderItem.getQuantita());
-            statement.setLong(5, orderItem.getId());
+            statement.setString(5, Integer.toString(orderItem.getIva()));
+            statement.setString(6, orderItem.getNome());
+            statement.setLong(7, orderItem.getId());
             statement.executeUpdate();
         }
     }
@@ -106,6 +110,8 @@ public class OrderItemDAO extends AbstractDAO implements DAOInterface<OrderItemB
         orderItem.setIdOrdine(resultSet.getLong("IdOrdine"));
         orderItem.setPrezzo(resultSet.getDouble("Prezzo"));
         orderItem.setQuantita(resultSet.getInt("Quantita"));
+        orderItem.setIva(Integer.parseInt(resultSet.getString("Iva")));
+        orderItem.setNome(resultSet.getString("Nome"));
         return orderItem;
     }
 }
