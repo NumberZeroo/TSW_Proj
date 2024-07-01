@@ -4,6 +4,8 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 @WebListener
