@@ -48,7 +48,9 @@
                             });
                         </script>
                     </div>
-                    <% try(PetDAO petDAO = new PetDAO()){ %>
+
+
+                    <% try (PetDAO petDAO = new PetDAO()) { %>
                     <% List<PetBean> pets = petDAO.doRetrieveByUser(sessionFacade.getUserId()); %>
                     <% if (!pets.isEmpty()) { %>
                     <table>
@@ -78,10 +80,10 @@
                         <% } %>
                         </tbody>
                     </table>
-                    <% } }catch (SQLException s){
-                        throw new RuntimeSQLException("Errore durante il retrieve dei pets", s); // TODO: log
-                    }%>
-
+                    <% }
+                    } catch (SQLException e) {
+                        throw new RuntimeSQLException("Errore durante il recupero delle informazioni dei pet", e);
+                    } %>
                 </div>
             </div>
 

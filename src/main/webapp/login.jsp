@@ -14,7 +14,7 @@
         <h2>Login</h2>
         <form action="loginServlet" method="post" class="auth-form">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
+            <input autofocus type="text" id="username" name="username">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password">
             <input type="submit" value="Login">

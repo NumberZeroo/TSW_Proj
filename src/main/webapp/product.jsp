@@ -5,6 +5,7 @@
 <%@ page import="model.recensione.RecensioneDAO" %>
 <%@ page import="model.prodotto.ProdottoDAO" %>
 <%@ page import="com.tswproject.tswproj.SessionFacade" %>
+<%@ page import="model.ordine.*" %>
 
 <html>
 <head>
@@ -16,7 +17,8 @@
     </title>
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/popupFeedback.css">
-   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/product.css"> <!-- todo css separato -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/product.css">
+    <!-- todo css separato -->
 </head>
 
 <body>
@@ -29,6 +31,7 @@
     </button>
 </div>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script> // Script per cambiare la visibilità del prodotto con Ajax
 window.onload = function () {
     var visibilityButton = document.getElementById('visibilityButton');
@@ -36,16 +39,27 @@ window.onload = function () {
     var isVisible = "<%= !prodotto.isVisibile() %>";
 
     visibilityButton.onclick = function () {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", 'changeVisibilityServlet', true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function () {
-            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                // Reindirizza il browser alla nuova pagina dopo aver ricevuto la risposta
-                window.location.href = "product?id=" + productId;
-            }
-        }
-        xhr.send("productId=" + productId + "&isVisible=" + isVisible);
+        swal({
+            title: "Sei sicuro?",
+            text: "Sicuro di voler cambiare la visibilità del prodotto?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", 'changeVisibilityServlet', true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                            // Reindirizza il browser alla nuova pagina dopo aver ricevuto la risposta
+                            window.location.href = "product?id=" + productId;
+                        }
+                    }
+                    xhr.send("productId=" + productId + "&isVisible=" + isVisible);
+                }
+            });
     };
 };
 </script>
@@ -79,6 +93,25 @@ window.onload = function () {
             <label for="prezzo">Prezzo:</label>
             <input type="number" id="prezzo" name="prezzo" value="<%=prodotto.getPrezzo()%>">
 
+            <input type="hidden" name="id" value="<%=prodotto.getId()%>">
+
+            <label for="category">Categoria:</label>
+            <select id="category" name="category">
+                <option value="alimentari" <%=prodotto.getCategoria().equals("alimentari") ? "selected" : ""%>>
+                    Alimentari
+                </option>
+                <option value="giocattoli" <%=prodotto.getCategoria().equals("giocattoli") ? "selected" : ""%>>
+                    Giocattoli
+                </option>
+            </select>
+
+            <label for="taglia">Taglia:</label>
+            <select id="taglia" name="taglia">
+                <option value="piccola" <%=prodotto.getTaglia().equals("PICCOLA") ? "selected" : ""%>>PICCOLA</option>
+                <option value="media" <%=prodotto.getTaglia().equals("MEDIA") ? "selected" : ""%>>MEDIA</option>
+                <option value="grande" <%=prodotto.getTaglia().equals("GRANDE") ? "selected" : ""%>>GRANDE</option>
+            </select>
+
             <input type="submit" value="Conferma Modifiche">
         </form>
 
@@ -87,22 +120,23 @@ window.onload = function () {
             <p>Categoria: <%=prodotto.getCategoria()%>
             </p>
             <p>Taglia: <%=prodotto.getTaglia()%>
-<%--            </p>--%>
-<%--            <p>Range età consigliata: <%=prodotto.getMinEta()%>/<%=prodotto.getMaxEta()%>--%>
-<%--            </p>--%>
+                <%--            </p>--%>
+                <%--            <p>Range età consigliata: <%=prodotto.getMinEta()%>/<%=prodotto.getMaxEta()%>--%>
+                <%--            </p>--%>
         </div>
 
-        <form id="editProductFormDetails" class="product-info-mod"
-              action="${pageContext.request.contextPath}/editProductServlet"
-              method="post">
+        <%--        <form id="editProductFormDetails" class="product-info-mod"--%>
+        <%--              action="${pageContext.request.contextPath}/editProductServlet"--%>
+        <%--              method="post">--%>
 
-            <input type="hidden" name="id" value="<%=prodotto.getId()%>">
+        <%--            <input type="hidden" name="id" value="<%=prodotto.getId()%>">--%>
 
-            <label for="category">Categoria:</label><input type="text" id="category" name="category" value="<%=prodotto.getCategoria()%>">
+        <%--            <label for="category">Categoria:</label><input type="text" id="category" name="category"--%>
+        <%--                                                           value="<%=prodotto.getCategoria()%>">--%>
 
-            <label for="taglia">Taglia:</label>
-            <input type="text" id="taglia" name="taglia" value="<%=prodotto.getTaglia()%>">
-        </form>
+        <%--            <label for="taglia">Taglia:</label>--%>
+        <%--            <input type="text" id="taglia" name="taglia" value="<%=prodotto.getTaglia()%>">--%>
+        <%--        </form>--%>
     </div>
 
     <div class="addToCart">
@@ -123,6 +157,50 @@ window.onload = function () {
     });
 </script>
 
+<%-- Visualizza il modulo per inserire o modificare una recensione --%>
+<div class="reviewOrModify">
+    <%
+        try (OrdineDAO ordineDAO = new OrdineDAO();
+             RecensioneDAO recensioneDAO = new RecensioneDAO();) {
+            boolean hasPurchased = ordineDAO.hasUserPurchasedProduct(sessionFacade.getUserId(), prodotto.getId());
+            boolean hasReviewed = recensioneDAO.hasUserReviewedProduct(sessionFacade.getUserId(), prodotto.getId());
+            if (hasPurchased && !hasReviewed) { %>
+    <button id="addReviewButton" class="addReviewButton">Aggiungi recensione</button>
+</div>
+
+<%-- Visualizza il modulo per inserire una recensione in un popup --%>
+<div id="addReview" class="review-form">
+    <form action="addReviewServlet" method="post">
+        <div class="review-form-header">
+            <label for="titolo">Titolo:</label>
+            <input type="text" id="titolo" name="titolo" required>
+            <label for="valutazione">Valutazione:</label>
+            <input type="number" id="valutazione" name="valutazione" min="1" max="5" required>
+        </div>
+        <label for="commento">Commento:</label>
+        <textarea id="commento" name="commento" required></textarea>
+        <input type="hidden" id="idProdotto" name="idProdotto" value="<%=prodotto.getId()%>">
+        <input type="hidden" id="idUtente" name="idUtente" value="<%=sessionFacade.getUserId()%>">
+        <input type="submit" value="Invia">
+    </form>
+    <% }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    %>
+</div>
+
+<script>
+    let modal = document.getElementById("addReview");
+    let btn = document.getElementById("addReviewButton");
+
+    // Quando l'utente fa clic sul pulsante, mostra il modulo
+    btn.onclick = function () {
+        modal.style.display = "block";
+        btn.style.display = "none";
+    }
+</script>
+
 <%-- Visualizza le recensioni --%>
 <div class="reviews">
     <h2 style="font-style: italic">Recensioni degli utenti</h2>
@@ -132,10 +210,17 @@ window.onload = function () {
         List<RecensioneBean> recensioni = (List<RecensioneBean>) recensioneDAO.doRetrieveByProduct(prodotto.getId());
 
         if (recensioni.isEmpty()) { %>
-    <h3 style="font-style: italic">Nessuna recensione disponibile!</h3>
+    <h3 style="font-style: italic">Nessuna recensione disponibile!</h3><br>
     <% } else {
         for (RecensioneBean recensione : recensioni) { %>
     <div class="review">
+        <% if (sessionFacade.isLoggedIn() && sessionFacade.getIsAdmin()) { %>
+        <form action="${pageContext.request.contextPath}/deleteReviewServlet" method="post">
+            <input type="hidden" id="productId" name="productId" value="<%=prodotto.getId()%>">
+            <input type="hidden" name="reviewId" value="<%=recensione.getId()%>">
+            <input type="submit" class="deleteReviewButton" value="Elimina">
+        </form>
+        <% } %>
         <h4>Utente n.<%=recensione.getIdUtente()%>
         </h4>
         <h3><%=recensione.getTitolo()%> - Valutazione: <%=recensione.getValutazione()%>
@@ -146,7 +231,6 @@ window.onload = function () {
         </p>
     </div>
     <% }
-
     }
     } catch (Exception e) {
         e.printStackTrace();
@@ -159,7 +243,8 @@ window.onload = function () {
     <% try (ProdottoDAO prodottoDAO = new ProdottoDAO()) {
         List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory(prodotto.getCategoria());
 
-        for (ProdottoBean prod : prodottiConsigliati) { %>
+        for (ProdottoBean prod : prodottiConsigliati) {
+            if (prod.getId() != prodotto.getId() && prod.isVisibile()) { %>
     <div class="product">
         <a href="product?id=<%=prod.getId()%>">
             <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
@@ -169,6 +254,7 @@ window.onload = function () {
         <p>Prezzo: <%=prod.getPrezzo()%> €</p>
     </div>
     <% }
+    }
     } catch (Exception e) {
         e.printStackTrace();
     }%>

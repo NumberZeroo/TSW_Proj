@@ -48,9 +48,9 @@ public class OrdineDAO extends AbstractDAO implements DAOInterface<OrdineBean, L
             statement.setLong(1, ordine.getIdUtente());
             statement.setString(2, ordine.getPathFattura());
             statement.setLong(3, ordine.getIdInfoConsegna());
-            if (statement.executeUpdate() > 0){
+            if (statement.executeUpdate() > 0) {
                 ResultSet resultSet = statement.getGeneratedKeys();
-                if (resultSet.next()){
+                if (resultSet.next()) {
                     generatedKey = resultSet.getLong(1);
                 }
             }
@@ -89,5 +89,19 @@ public class OrdineDAO extends AbstractDAO implements DAOInterface<OrdineBean, L
         ordine.setIdInfoConsegna(resultSet.getLong("infoConsegna"));
         ordine.setData(resultSet.getDate("dataOrdine"));
         return ordine;
+    }
+
+    public boolean hasUserPurchasedProduct(long userId, long productId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM Ordine JOIN OrderItem ON Ordine.id = OrderItem.IdOrdine WHERE Ordine.idUtente = ? AND OrderItem.idProdotto = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, userId);
+            statement.setLong(2, productId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
     }
 }

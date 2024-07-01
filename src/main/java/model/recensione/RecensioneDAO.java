@@ -67,9 +67,9 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
             statement.setDouble(4, recensione.getValutazione());
             statement.setDate(5, recensione.getData());
             statement.setLong(6, recensione.getIdProdotto());
-            if (statement.executeUpdate() > 0){
+            if (statement.executeUpdate() > 0) {
                 ResultSet rs = statement.getGeneratedKeys();
-                if (rs.next()){
+                if (rs.next()) {
                     generatedKey = rs.getLong(1);
                 }
             }
@@ -112,5 +112,19 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
         recensione.setData(resultSet.getDate("Data"));
         recensione.setIdProdotto(resultSet.getLong("idProdotto"));
         return recensione;
+    }
+
+    public boolean hasUserReviewedProduct(long userId, long productId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM Recensione WHERE idUtente = ? AND idProdotto = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, userId);
+            statement.setLong(2, productId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -17,6 +17,8 @@ public class EditProductServlet extends HttpServlet {
         String nome = request.getParameter("nome");
         String descrizione = request.getParameter("descrizione");
         double prezzo = Double.parseDouble(request.getParameter("prezzo"));
+        String category = request.getParameter("category");
+        String taglia = request.getParameter("taglia");
 
         try (ProdottoDAO prodottoDAO = new ProdottoDAO()) {
             ProdottoBean prodotto = prodottoDAO.doRetrieveByKey(id);
@@ -24,6 +26,8 @@ public class EditProductServlet extends HttpServlet {
             prodotto.setNome(nome);
             prodotto.setDescrizione(descrizione);
             prodotto.setPrezzo(prezzo);
+            prodotto.setCategoria(category);
+            prodotto.setTaglia(taglia);
 
             prodottoDAO.doUpdate(prodotto);
             request.setAttribute("product", prodotto);
