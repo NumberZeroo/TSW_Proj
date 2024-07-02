@@ -41,6 +41,20 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         return prodottoBeans;
     }
 
+    public List<ProdottoBean> doRetrieveByName(String name) throws SQLException {
+        List<ProdottoBean> prodottoBeans = new ArrayList<>();
+        String query = "SELECT * FROM Prodotto WHERE LOWER(Nome) LIKE LOWER(?) LIMIT 5";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, "%" + name + "%");
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    prodottoBeans.add(getProdotto(resultSet));
+                }
+            }
+        }
+        return prodottoBeans;
+    }
+
     public Collection<ProdottoBean> doRetrieveFiltered(String price, String size, String category, String animalRace, String sterilized, String minAge, String maxAge) throws SQLException {
     List<ProdottoBean> prodotti = new ArrayList<>();
         String query = "SELECT * FROM Prodotto WHERE Prezzo <= ? AND Taglia = ? AND Categoria = ? AND TipoAnimale = ? AND Sterilizzati = ? AND MinEta >= ? AND MaxEta <= ?";
