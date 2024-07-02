@@ -24,9 +24,7 @@
     color: #333; /* Imposta un colore del testo scuro */
 }
 
-.pets{
-    margin-top: 5%;
-    border-top: 1px solid #ccc;
+.utenti{
     padding-top: 20px;
 }
 
@@ -75,7 +73,7 @@ h1{
     justify-content: flex-end;
 }
 
-.download-invoice {
+.orderHistoryButton, .download-invoice {
     background-color: #50b3a2;
     color: white;
     border: none;
@@ -113,7 +111,7 @@ h1{
 
 .menu-row button {
     margin-top: 15px;
-    width: 20%; /* Imposta la larghezza al 100% del contenitore */
+    /*width: 20%; !* Imposta la larghezza al 100% del contenitore *!*/
     padding: 10px; /* Aggiunge spazio intorno al testo */
     margin-bottom: 10px; /* Aggiunge spazio tra i pulsanti */
     color: #fff; /* Imposta il colore del testo */
@@ -124,7 +122,8 @@ h1{
     background-color: #50b3a2;
 }
 
-.menu-row button:hover, #addPetButton:hover, .download-invoice:hover {
+.menu-row button:hover, .refillButton:hover,
+    .changeAdminButton:hover, .download-invoice:hover, .orderHistoryButton:hover{
     background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
 }
 
@@ -134,33 +133,33 @@ h1{
 
 /* Modifiche nuove */
 
-.pets{
+.utenti{
     align-content: center;
 }
-.pet-header {
+.utente-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.pets table {
+.utenti table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.pets th, .pets td {
+.utenti th, .utenti td {
     border-bottom: 1px solid #ccc;
     padding: 10px;
     text-align: left;
 }
 
-.pets th {
+.utenti th {
     background-color: #f8f9fa;
     color: #333;
 }
 
-.pets img {
+.utenti img {
     width: 50px; /* Imposta la larghezza dell'immagine */
     height: 50px; /* Imposta l'altezza dell'immagine */
     object-fit: cover; /* Mantiene le proporzioni dell'immagine */
@@ -168,28 +167,28 @@ h1{
     align-items: center;
 }
 
-.pets th, .pets td {
+.utenti th, .utenti td {
     padding: 10px;
     text-align: center; /* Centra il testo nelle celle */
     font-size: 20px; /* Imposta la dimensione del testo */
     font-style: italic;
 }
 
-.pets img {
+.utenti img {
     width: 100px; /* Aumenta la larghezza dell'immagine */
     height: 100px; /* Aumenta l'altezza dell'immagine */
     object-fit: cover; /* Mantiene le proporzioni dell'immagine */
     border-radius: 50%; /* Rende l'immagine rotonda */
 }
 
-.pet-header {
+.utente-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.addPetButton{
+.changeAdminButton{
     background-color: #50b3a2;
     color: white;
     border: none;
@@ -200,4 +199,101 @@ h1{
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+form{
+    margin: 0;
+}
+
+.dispSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.item-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    justify-content: space-between; /* Aggiunto */
+}
+
+.item-box img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.refillButton {
+    background-color: #50b3a2;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.lowStock {
+    background-color: red;
+}
+
+.item-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    justify-content: space-between; /* Aggiunto */
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1; /* Aggiunto */
+}
+
+.refillButton {
+    margin-left: auto; /* Aggiunto */
+}
+
+.refillForm {
+    background-color: #f8f9fa; /* Imposta un colore di sfondo leggero */
+    border-radius: 10px; /* Aggiunge bordi arrotondati */
+    padding: 10px; /* Aggiunge spazio intorno al contenuto */
+    margin: 10px; /* Aggiunge spazio intorno al form */
+    color: #333; /* Imposta un colore del testo scuro */
+    display: flex; /* Imposta il layout del form a flex */
+    justify-content: space-between; /* Distribuisce gli elementi figli lungo l'asse orizzontale */
+}
+
+.refillForm input[type="number"] {
+    flex-grow: 1; /* Permette all'input di espandersi per occupare lo spazio disponibile */
+    margin-right: 10px; /* Aggiunge un margine a destra dell'input */
+}
+
+.refillForm input[type="submit"] {
+    background-color: #50b3a2; /* Imposta un colore di sfondo */
+    color: white; /* Imposta un colore del testo */
+    border: none; /* Rimuove il bordo */
+    padding: 10px; /* Aggiunge spazio intorno al testo */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    border-radius: 5px; /* Aggiunge bordi arrotondati */
+}
+
+.refillFormButton:hover{
+    background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
 }

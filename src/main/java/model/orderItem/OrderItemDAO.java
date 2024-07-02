@@ -114,4 +114,19 @@ public class OrderItemDAO extends AbstractDAO implements DAOInterface<OrderItemB
         orderItem.setNome(resultSet.getString("Nome"));
         return orderItem;
     }
+
+    public Collection<OrderItemBean> doRetrieveByOrder(long idOrder) throws SQLException {
+        List<OrderItemBean> orderItems = new ArrayList<>();
+        String query = "SELECT * FROM OrderItem WHERE IdOrdine = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, idOrder);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    OrderItemBean orderItem = extractOrderItemFromResultSet(resultSet);
+                    orderItems.add(orderItem);
+                }
+            }
+        }
+        return orderItems;
+    }
 }
