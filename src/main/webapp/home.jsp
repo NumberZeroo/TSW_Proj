@@ -23,15 +23,16 @@
     <section>
         <h2>Potrebbe piacerti...</h2>
         <div class="scroll-container">
-            <button class="scroll-button left">&#9664;</button>
-            <%@include file="productAdvices.jsp"%>
-            <button class="scroll-button right">&#9654;</button>
+            <button class="scroll-button left"><i class="fas fa-chevron-left"></i></button>
+            <%@include file="productAdvices.jsp" %>
+            <button class="scroll-button right"><i class="fas fa-chevron-right"></i></button>
+        </div>
     </section>
 
     <section>
         <h2>Alimentari</h2>
         <div class="scroll-container">
-            <button class="scroll-button left">&#9664;</button>
+            <button class="scroll-button left"><i class="fas fa-chevron-left"></i></button>
             <div class="product-container gallery">
                 <% try (ProdottoDAO prodottoDAO = new ProdottoDAO()) {
                     List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory("Alimentazione");
@@ -52,14 +53,14 @@
                     e.printStackTrace();
                 }%>
             </div>
-            <button class="scroll-button right">&#9654;</button>
+            <button class="scroll-button right"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 
     <section>
         <h2>Giocattoli</h2>
         <div class="scroll-container">
-            <button class="scroll-button left">&#9664;</button>
+            <button class="scroll-button left"><i class="fas fa-chevron-left"></i></button>
             <div class="product-container gallery">
                 <% try (ProdottoDAO prodottoDAO = new ProdottoDAO()) {
                     List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory("Giocattoli");
@@ -80,7 +81,7 @@
                     e.printStackTrace();
                 }%>
             </div>
-            <button class="scroll-button right">&#9654;</button>
+            <button class="scroll-button right"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 </main>

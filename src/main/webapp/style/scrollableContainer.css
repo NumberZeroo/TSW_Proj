@@ -25,3 +25,18 @@
 .scroll-button.right {
     right: 0;
 }
+
+.scroll-button {
+    background-color: #50b3a2; /* Cambia il colore di sfondo */
+    color: #fff; /* Cambia il colore del testo */
+    border: none; /* Rimuove il bordo */
+    border-radius: 50%; /* Rende i bordi rotondi */
+    padding: 10px; /* Aggiunge spazio intorno al testo */
+    font-size: 18px; /* Aumenta la dimensione del testo */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    transition: background-color 0.3s; /* Aggiunge un'animazione al cambio di colore di sfondo */
+}
+
+.scroll-button:hover {
+    background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
+}

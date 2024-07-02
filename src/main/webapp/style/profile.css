@@ -113,7 +113,6 @@ h1{
 
 .menu-row button {
     margin-top: 15px;
-    width: 20%; /* Imposta la larghezza al 100% del contenitore */
     padding: 10px; /* Aggiunge spazio intorno al testo */
     margin-bottom: 10px; /* Aggiunge spazio tra i pulsanti */
     color: #fff; /* Imposta il colore del testo */
@@ -200,4 +199,68 @@ h1{
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+.menu-row {
+    position: relative; /* Aggiunto */
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+#logoutButton {
+    position: absolute; /* Aggiunto */
+    right: 0; /* Aggiunto */
+    top: 50%; /* Aggiunto */
+    transform: translateY(-50%); /* Aggiunto */
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+#logoutButton:hover {
+    background-color: darkred; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+@media (max-width: 900px) {
+    .pets table, .pets thead, .pets tbody, .pets th, .pets td, .pets tr {
+        display: block;
+    }
+
+    .pets thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .pets tr {
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+
+    .pets td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .pets td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-column);
+        font-weight: bold;
+    }
+
+    #infoSection img {
+        margin-right: 0;
+    }
 }

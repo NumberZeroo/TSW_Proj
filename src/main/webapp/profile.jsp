@@ -22,6 +22,10 @@
     <div class="menu-row">
         <button id="infoButton">Informazioni</button>
         <button id="ordersButton">Storico Ordini</button>
+
+        <form action="logout" method="post">
+            <input type="submit" value="Logout" id="logoutButton">
+        </form>
     </div>
 
     <div class="profile-content">
@@ -69,13 +73,13 @@
                         <tr>
                             <td><img class="pet-image" src="<%= pet.getImgPath() %>" alt="<%= pet.getNome() %>">
                             </td> <!-- Immagine del pet -->
-                            <td><%= pet.getNome() %>
+                            <td data-column="Nome"><%= pet.getNome() %>
                             </td>
-                            <td><%= pet.getTaglia() %>
+                            <td data-column="Taglia"><%= pet.getTaglia() %>
                             </td>
-                            <td><%= pet.getSterilizzato() ? "Sì" : "No" %>
+                            <td data-column="Sterilizzato"><%= pet.getSterilizzato() ? "Sì" : "No" %>
                             </td>
-                            <td><%= pet.getDataNascita() %>
+                            <td data-column="Data di Nascita"><%= pet.getDataNascita() %>
                             </td>
                         </tr>
                         <% } %>

@@ -636,3 +636,9 @@ body {
     transform: translateX(0);
     opacity: 1; /* Imposta l'opacità a 1 quando la barra dei filtri è visibile */
 }
+
+@media(max-width: 900px) {
+    .review{
+        max-width: 100%;
+    }
+}

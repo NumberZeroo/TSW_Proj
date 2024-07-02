@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/defaultProductAdvices.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/scrollableContainer.css">
     <script src="${pageContext.request.contextPath}/scripts/scrollController.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 
@@ -67,7 +67,7 @@
                 <img src="<%=entry.getKey().getImgPath()%>" alt="Immagine non disponibile">
             </div>
             <div class="item-details">
-                <h2 class="item-name"><%=entry.getKey().getNome()%></h2>
+                <h3 class="item-name"><%=entry.getKey().getNome()%></h3>
                 <p class="item-description"><%=entry.getKey().getDescrizione()%></p>
                 <p class="item-price"><%=entry.getKey().getPrezzo()%></p>
                 <div class="item-quantity">
@@ -88,14 +88,21 @@
         <button id="checkout-btn"><span>Check out</span></button>
     </a>
     <% } else { %>
-    <h3>Il carrello è vuoto</h3>
+    <div class="emptyCart" style="text-align: center;">
+        <i class="fas fa-shopping-cart fa-5x"></i>
+        <h3>Il carrello è vuoto</h3>
+        <p>Aggiungi qualcosa al carrello!</p>
+        <a href="${pageContext.request.contextPath}/mostraCatalogoServlet">
+            <button>Vai ai prodotti</button>
+        </a>
+    </div>
     <% } %>
 
     <h2>Potrebbe piacerti...</h2>
     <div class="scroll-container">
-        <button class="scroll-button left">&#9664;</button>
+        <button class="scroll-button left"><i class="fas fa-chevron-left"></i></button>
         <%@include file="productAdvices.jsp"%>
-        <button class="scroll-button right">&#9654;</button>
+        <button class="scroll-button right"><i class="fas fa-chevron-right"></i></button>
     </div>
 
 

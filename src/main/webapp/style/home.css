@@ -47,17 +47,17 @@ h2 {
     margin: 10px 0;
 }
 
-.scroll-button {
-    background-color: #ff6600; /* Cambia il colore di sfondo */
-    color: #fff; /* Cambia il colore del testo */
-    border: none; /* Rimuove il bordo */
-    border-radius: 50%; /* Rende i bordi rotondi */
-    padding: 10px; /* Aggiunge spazio intorno al testo */
-    font-size: 18px; /* Aumenta la dimensione del testo */
-    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
-    transition: background-color 0.3s; /* Aggiunge un'animazione al cambio di colore di sfondo */
+h1{
+    animation: fadeInUp 1s ease-out;
 }
 
-.scroll-button:hover {
-    background-color: #ffa034; /* Cambia il colore di sfondo al passaggio del mouse */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
