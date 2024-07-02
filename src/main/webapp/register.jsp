@@ -16,7 +16,7 @@
         <form action="${pageContext.request.contextPath}/registerServlet" method="post" class="auth-form">
 
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
+            <input autofocus type="text" id="username" name="username">
 
             <label for="email">Email:</label>
             <input type="text" id="email" name="email">

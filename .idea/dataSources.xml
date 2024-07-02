@@ -4,7 +4,7 @@
     <data-source source="LOCAL" name="tswproj@localhost" uuid="dcc17747-9d6d-4f83-bfeb-d8bf572309f6">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/tswproj</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>

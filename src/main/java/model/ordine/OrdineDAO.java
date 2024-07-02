@@ -5,6 +5,7 @@ import model.AbstractDAO;
 import model.DAOInterface;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 public class OrdineDAO extends AbstractDAO implements DAOInterface<OrdineBean, Long> {
@@ -103,5 +104,20 @@ public class OrdineDAO extends AbstractDAO implements DAOInterface<OrdineBean, L
             }
         }
         return false;
+    }
+
+    public Collection<OrdineBean> doRetrieveByUser(long userId) throws SQLException {
+        List<OrdineBean> ordini = new ArrayList<>();
+        String query = "SELECT * FROM Ordine WHERE idUtente = ? ORDER BY id DESC";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, userId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    OrdineBean ordine = getOrder(resultSet);
+                    ordini.add(ordine);
+                }
+            }
+        }
+        return ordini;
     }
 }

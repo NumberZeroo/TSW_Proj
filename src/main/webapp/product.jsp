@@ -173,7 +173,7 @@ window.onload = function () {
     <form action="addReviewServlet" method="post">
         <div class="review-form-header">
             <label for="titolo">Titolo:</label>
-            <input type="text" id="titolo" name="titolo" required>
+            <input autofocus type="text" id="titolo" name="titolo" required>
             <label for="valutazione">Valutazione:</label>
             <input type="number" id="valutazione" name="valutazione" min="1" max="5" required>
         </div>

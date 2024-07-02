@@ -9,7 +9,7 @@
     <h2 style="font-style: italic; color: #50b3a2;">Aggiungi un nuovo pet</h2>
 
     <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" required>
+    <input autofocus type="text" id="nome" name="nome" required>
 
     <label for="animalRace">Tipo di animale:</label>
     <select id="animalRace" name="animalRace">
