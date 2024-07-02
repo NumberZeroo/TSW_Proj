@@ -214,41 +214,39 @@ public class Invoice {
             }
             cs.endText();
 
-            int k = 500-(25);
+//            cs.beginText();
+////            cs.newLine();
+////            cs.newLine();
+//            for (int i = 0; i < invoiceBean.getOrderItems().size(); i++) {
+//                cs.newLine();
+//            }
+//            cs.setFont(font, 8);
+//            cs.setLeading(20f);
+//            cs.newLineAtOffset(300, 475);
+//
+//            cs.setFont(font, 10);
+//            cs.showText("Totale fattura: ");
+//            cs.setLeading(20f);
+//            cs.newLine();
+//            cs.setFont(font, 8);
+//            cs.showText("Totale IVA esclusa: ");
+//            cs.endText();
 
             cs.beginText();
-            cs.newLine();
-            cs.newLine();
+            for (int i = 0; i < invoiceBean.getOrderItems().size(); i++) {
+                cs.newLine();
+            }
             cs.setFont(font, 8);
             cs.setLeading(20f);
-            cs.newLineAtOffset(300, k);
-//            cs.showText("Spedizione: ");
-//            cs.setLeading(25f);
-            cs.newLine();
-            cs.setFont(font, 10);
-            cs.showText("Totale fattura: ");
-            cs.setLeading(20f);
-            cs.newLine();
-            cs.setFont(font, 8);
-            cs.showText("Totale IVA esclusa: ");
-            cs.endText();
-
-            cs.beginText();
-            cs.newLine();
-            cs.newLine();
-            cs.newLine();
-            cs.setFont(font, 8);
-            cs.setLeading(20f);
-            cs.newLineAtOffset(560, k);
-//            cs.showText(new DecimalFormat("0.00").format(5) + "€");
+            cs.newLineAtOffset(500, 475);
             cs.setFont(font, 10);
             cs.setLeading(25f);
             cs.newLine();
-            cs.showText(new DecimalFormat("0.00").format(totaleFatturaIvaInclusa) + "€");
+            cs.showText("Totale fattura: " + new DecimalFormat("0.00").format(totaleFatturaIvaInclusa) + "€");
             cs.setFont(font, 8);
             cs.setLeading(20f);
             cs.newLine();
-            cs.showText(new DecimalFormat("0.00").format(totaleFatturaIvaEsclusa) + "€");
+            cs.showText("Totale IVA Esclusa: "+ new DecimalFormat("0.00").format(totaleFatturaIvaEsclusa) + "€");
             cs.endText();
 
             cs.close();
