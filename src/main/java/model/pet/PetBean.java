@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.*;
 
 public class PetBean implements Serializable {
-    private int id;
+    private long id;
     private String nome;
     private long idUtente;
     private String imgPath;
@@ -16,11 +16,11 @@ public class PetBean implements Serializable {
     public PetBean() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

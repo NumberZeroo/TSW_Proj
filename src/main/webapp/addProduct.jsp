@@ -44,11 +44,11 @@
             <option value="GRANDE">Grande</option>
         </select>
 
-        <label for="minEta">Età minima consigliata:</label>
-        <input type="number" id="minEta" name="minEta"  min="0" required>
+<%--        <label for="minEta">Età minima consigliata:</label>--%>
+<%--        <input type="number" id="minEta" name="minEta"  min="0" required>--%>
 
-        <label for="maxEta">Età massima consigliata:</label>
-        <input type="number" id="maxEta" name="maxEta" min="0" required>
+<%--        <label for="maxEta">Età massima consigliata:</label>--%>
+<%--        <input type="number" id="maxEta" name="maxEta" min="0" required>--%>
 
         <label for="disponibilita">Disponibilità:</label>
         <input type="number" id="disponibilita" name="disponibilita" min="1" required>

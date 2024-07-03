@@ -4,6 +4,7 @@ import com.tswproject.tswproj.EmptyPoolException;
 import com.tswproject.tswproj.OutOfStockException;
 import model.AbstractDAO;
 import model.DAOInterface;
+import model.pet.*;
 
 import java.sql.*;
 import java.util.*;
@@ -41,18 +42,78 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
         return prodottoBeans;
     }
 
-    public Collection<ProdottoBean> doRetrieveFiltered(String price, String size, String category, String animalRace, String sterilized, String minAge, String maxAge) throws SQLException {
-    List<ProdottoBean> prodotti = new ArrayList<>();
-        String query = "SELECT * FROM Prodotto WHERE Prezzo <= ? AND Taglia = ? AND Categoria = ? AND TipoAnimale = ? AND Sterilizzati = ? AND MinEta >= ? AND MaxEta <= ?";
+//    public Collection<ProdottoBean> doRetrieveFiltered(String price, String size, String category, String animalRace, String sterilized) throws SQLException {
+//    List<ProdottoBean> prodotti = new ArrayList<>();
+//        String query = "SELECT * FROM Prodotto WHERE Prezzo <= ? AND Taglia = ? AND Categoria = ? AND TipoAnimale = ? AND Sterilizzati = ?";
+//
+//    try (PreparedStatement statement = connection.prepareStatement(query)) {
+//        statement.setInt(1, Integer.parseInt(price));
+//        statement.setString(2, size);
+//        statement.setString(3, category);
+//        statement.setString(4, animalRace);
+//        statement.setString(5, sterilized);
+//
+//        try (ResultSet resultSet = statement.executeQuery()) {
+//            while (resultSet.next()) {
+//                ProdottoBean prodotto = getProdotto(resultSet);
+//                prodotti.add(prodotto);
+//            }
+//        }
+//    }
+//    return prodotti;
+//}
 
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
-        statement.setInt(1, Integer.parseInt(price));
-        statement.setString(2, size);
-        statement.setString(3, category);
-        statement.setInt(4, Integer.parseInt(animalRace));
-        statement.setInt(5, Integer.parseInt(sterilized));
-        statement.setInt(6, Integer.parseInt(minAge));
-        statement.setInt(7, Integer.parseInt(maxAge));
+    public Collection<ProdottoBean> doRetrieveFiltered(String price, String size, String category, String animalRace, String sterilized, String petId) throws SQLException {
+    List<ProdottoBean> prodotti = new ArrayList<>();
+    StringBuilder query = new StringBuilder("SELECT * FROM Prodotto WHERE 1=1");
+
+    List<String> parameters = new ArrayList<>();
+
+    if (petId != null && !petId.equals("all") ) {
+        // Get the pet characteristics
+        try(PetDAO petDAO = new PetDAO()){
+            PetBean pet = petDAO.doRetrieveByKey(Long.parseLong(petId));
+            if (pet != null) {
+                size = pet.getTaglia();
+                animalRace = pet.getTipo();
+                sterilized = pet.getSterilizzato() ? "1" : "0";
+            }else{
+                throw new Exception("mammt annur");
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    if (!"all".equals(price)) {
+        query.append(" AND Prezzo <= ?");
+        parameters.add(price);
+    }
+
+    if (!"all".equals(size)) {
+        query.append(" AND Taglia = ?");
+        parameters.add(size);
+    }
+
+    if (!"all".equals(category)) {
+        query.append(" AND Categoria = ?");
+        parameters.add(category);
+    }
+
+    if (!"all".equals(animalRace)) {
+        query.append(" AND TipoAnimale = ?");
+        parameters.add(animalRace);
+    }
+
+    if (!"all".equals(sterilized)) {
+        query.append(" AND Sterilizzati = ?");
+        parameters.add(sterilized);
+    }
+
+    try (PreparedStatement statement = connection.prepareStatement(query.toString())) {
+        for (int i = 0; i < parameters.size(); i++) {
+            statement.setString(i + 1, parameters.get(i));
+        }
 
         try (ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {

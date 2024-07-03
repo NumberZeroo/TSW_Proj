@@ -88,6 +88,7 @@ public class PetDAO extends AbstractDAO implements DAOInterface<PetBean, String>
 
     private PetBean extractPetFromResultSet(ResultSet resultSet) throws SQLException {
         PetBean pet = new PetBean();
+        pet.setId(resultSet.getLong("id"));
         pet.setNome(resultSet.getString("Nome"));
         pet.setIdUtente(resultSet.getLong("IdUtente"));
         pet.setImgPath(resultSet.getString("imgPath"));
