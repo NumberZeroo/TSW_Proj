@@ -6,6 +6,7 @@
     <%@ include file="navbar.jsp" %>
     <script src="${pageContext.request.contextPath}/scripts/addProduct.js" type="module"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/popupFeedback.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/addForm.css">
 </head>
 <body>
 

@@ -62,3 +62,7 @@ categorySelect.addEventListener('change', function () {
         sterilizedSelect.style.display = 'none';
     }
 });
+
+document.getElementById('open-filter-button').addEventListener('click', function () {
+    document.getElementById('filter-bar').classList.toggle('show');
+});

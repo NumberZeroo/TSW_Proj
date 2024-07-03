@@ -270,6 +270,7 @@ body {
     flex: 1;
     margin-top: 10px;
     margin-left: 15px;
+    margin-right: 15px;
     width: 30vw; /* Imposta la larghezza dell'immagine al 50% della larghezza del viewport */
     height: auto; /* Mantiene le proporzioni originali dell'immagine */
     border-radius: 5px;
@@ -640,5 +641,25 @@ body {
 @media(max-width: 900px) {
     .review{
         max-width: 100%;
+    }
+}
+
+/* Stile responsive per schermi con larghezza inferiore a 900px */
+@media (max-width: 900px) {
+    .form-container {
+        width: 100%;
+    }
+
+    /* Stile per i label e gli input del form a schermo ridotto */
+    .form-container label,
+    .form-container input[type="text"],
+    .form-container input[type="number"],
+    .form-container input[type="date"],
+    .form-container input[type="file"],
+    .form-container select,
+    .form-container textarea {
+        margin-bottom: 10px; /* Aggiungi un po' di spazio in basso per separare i label e gli input */
+        display: block; /* Imposta il display a block per farli apparire uno sopra l'altro */
+        width: 100%; /* Imposta la larghezza al 100% per farli riempire tutto lo spazio disponibile */
     }
 }

@@ -183,3 +183,21 @@ button:hover {
 .return-button:hover {
     background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
 }
+
+@media (max-width: 900px) {
+    .product-grid-new {
+        grid-template-columns: repeat(2 , 1fr); /* Modifica il numero di colonne a 2 su schermi più piccoli */
+    }
+
+    .product-card-new {
+        max-width: 100%; /* Imposta la larghezza massima al 100% */
+    }
+
+    .product-info-new {
+        display: none; /* Nasconde le informazioni del prodotto */
+    }
+
+    .product-card-new:hover .product-info-new {
+        transform: translateY(100%); /* Mantiene le informazioni del prodotto nascoste anche al passaggio del mouse */
+    }
+}
