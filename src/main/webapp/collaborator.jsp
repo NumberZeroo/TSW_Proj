@@ -21,20 +21,20 @@
         <div class="row">
             <div class="col">
                 <div class="collaborator">
-                    <img src="img/placeholder.png" alt="Collaborator 1">
-                    <h4>Nome Collaboratore 1</h4>
+                    <img src="img/collab/enpa.png" alt="ENPA">
+                    <h4>ENPA</h4>
                 </div>
             </div>
             <div class="col">
                 <div class="collaborator">
-                    <img src="img/placeholder.png" alt="Collaborator 2">
-                    <h4>Nome Collaboratore 2</h4>
+                    <img src="img/collab/STD.jpg" alt="STD">
+                    <h4>STD</h4>
                 </div>
             </div>
             <div class="col">
                 <div class="collaborator">
-                    <img src="img/placeholder.png" alt="Collaborator 3">
-                    <h4>Nome Collaboratore 3</h4>
+                    <img src="img/collab/WRS.jpg" alt="WorldRise">
+                    <h4>WorldRise</h4>
                 </div>
             </div>
         </div>
