@@ -78,7 +78,7 @@ public class ProdottoDAO extends AbstractDAO implements DAOInterface<ProdottoBea
                 animalRace = pet.getTipo();
                 sterilized = pet.getSterilizzato() ? "1" : "0";
             }else{
-                throw new Exception("mammt annur");
+                throw new RuntimeException("Errore retrieve pet by key");
             }
         }catch (Exception e) {
             e.printStackTrace();

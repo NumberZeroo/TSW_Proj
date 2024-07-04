@@ -12,7 +12,6 @@
 
 #container {
     display: flex;
-    width: 80%;
     padding: 1%;
     background-color: white;
     height: 100%;
@@ -106,4 +105,10 @@
     transition: all 0.5s;
     cursor: pointer;
     margin: 5px;
+}
+
+@media (min-width: 900px){
+    #container {
+        width: 80%;
+    }
 }

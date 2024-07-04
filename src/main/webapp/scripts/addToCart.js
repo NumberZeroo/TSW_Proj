@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         console.log("mannagg")
                     }
                     if (response.status === 'success') {
-                        feedback = 'Prodotto aggiunto al carrello con successo!';
+                        feedback = 'Prodotto aggiunto al carrello!';
                         statusType = 'success';
                     } else {
                         feedback = 'Errore nell\'aggiunta al carrello. Riprova.';
