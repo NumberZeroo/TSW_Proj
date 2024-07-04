@@ -355,3 +355,54 @@ form{
         margin-right: 0;
     }
 }
+
+.allOrderHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.allOrderHeader h1 {
+    color: #50b3a2;
+}
+
+.allOrderButton {
+    background-color: #50b3a2;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.allOrderButton:hover {
+    background-color: #0056b3;
+}
+
+input[type="date"] {
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+input[type="date"]:focus {
+    outline: none;
+    background-color: #e8e8e8;
+
+}
+
+@media screen and (max-width: 900px) {
+    .allOrderHeader {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

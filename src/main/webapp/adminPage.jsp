@@ -125,7 +125,19 @@
             </div>
 
             <div id="allOrderSection" class="allOrderSection" style="display: none;">
-                <h1>Ordini</h1>
+                <div class="allOrderHeader">
+                    <h1>Ordini</h1>
+                    <!-- form che permette di inserire, tramite due input, la data di inizio e fine per filtrare gli ordini -->
+                    <form action="AAAAAAAAAAAAAAAAAAAAAAA" method="post">
+                        <label for="startDate">Inizio:</label>
+                        <input id="startDate" type="date" name="startDate" required>
+                                                                                            <!-- todo -->
+                        <label for="endDate">Fine:</label>
+                        <input id="endDate" type="date" name="endDate" required>
+
+                        <input type="submit" class="allOrderButton" value="Filtra">
+                    </form>
+                </div>
                 <% try (OrdineDAO ordineDAO = new OrdineDAO(); OrderItemDAO orderItemDAO = new OrderItemDAO()) {
                     List<OrdineBean> ordini = (List<OrdineBean>) ordineDAO.doRetrieveAll("ASC");
                     Collection<OrderItemBean> orderItems = null;
