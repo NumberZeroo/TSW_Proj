@@ -23,8 +23,6 @@ public class AddToCartServlet extends HttpServlet {
             long itemId = Long.parseLong(req.getParameter("id"));
             int quantity = Integer.parseInt(req.getParameter("quantity"));
             session.addCartProduct(itemId, quantity);
-            // req.getRequestDispatcher("/cart.jsp").forward(req, resp); // TODO: aggiungi notifica "prodotto aggiunto al carrello"
-            // resp.sendRedirect(req.getContextPath() + "/cart.jsp");
             out.println("{\"status\":\"success\"}");
         } catch(NumberFormatException e) {
             //TODO: log

@@ -29,14 +29,18 @@ public class ChangeQuantityServlet extends HttpServlet {
             return;
         }
 
-        try(CartItemDAO cartItemDAO = new CartItemDAO()) {
-            CartItemBean cartItemBean = cartItemDAO.doRetrieveByKey(productId);
-            cartItemBean.setQuantita(quantity);
-            cartItemDAO.doUpdate(cartItemBean);
-            userSession.getCartProducts().put(cartItemBean.getIdProdotto(), quantity);
-        } catch (SQLException e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            e.printStackTrace();
+        if (userSession.isLoggedIn()){
+            try(CartItemDAO cartItemDAO = new CartItemDAO()) {
+                CartItemBean cartItemBean = cartItemDAO.doRetrieveByKey(productId);
+                cartItemBean.setQuantita(quantity);
+                cartItemDAO.doUpdate(cartItemBean);
+                userSession.getCartProducts().put(cartItemBean.getIdProdotto(), quantity);
+            } catch (SQLException e) {
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                e.printStackTrace();
+            }
+        } else {
+            userSession.getCartProducts().put(productId, quantity);
         }
     }
 

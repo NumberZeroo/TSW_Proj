@@ -1,6 +1,5 @@
 package control;
 
-import com.tswproject.tswproj.RuntimeSQLException;
 import com.tswproject.tswproj.SessionFacade;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,15 +18,19 @@ public class RemoveFromCart extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST); // TODO: client side error
             return;
         }
+
+        SessionFacade userSession = new SessionFacade(req.getSession());
+        String redirectPath = userSession.isLoggedIn() ? "/cart.jsp" : "/nonLoggedCart.jsp";
+
         long id = Long.parseLong(req.getParameter("id"));
         try {
-            (new SessionFacade(req.getSession())).removeCartProduct(id);
+            userSession.removeCartProduct(id);
         } catch (SQLException e) {
             e.printStackTrace();
-            resp.sendRedirect(req.getContextPath() + "/cart.jsp?error=1");
+            resp.sendRedirect(req.getContextPath() + redirectPath + "?error=1");
             return;
         }
-        resp.sendRedirect(req.getContextPath() + "/cart.jsp");
+        resp.sendRedirect(req.getContextPath() + redirectPath);
     }
 
     @Override
