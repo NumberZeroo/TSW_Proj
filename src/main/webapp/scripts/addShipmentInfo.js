@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 var response = JSON.parse(xhr.responseText);
                 if (response.status === "success"){
-                    showNotification("Operazione effettuata con successo", "success");
+                    showNotification("Operazione effettuata", "success");
                     jsonObject['id'] = response.id;
                     updatePage(new Array(jsonObject));
                 } else {

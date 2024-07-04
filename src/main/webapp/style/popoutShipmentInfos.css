@@ -1,7 +1,7 @@
 .btn-popout-submit {
     padding: 12px 24px;
     font-size: 18px;
-    background-color: #EB9917;
+    background-color: #50b3a2;
     color: white;
     border: none;
     border-radius: 8px;
@@ -10,6 +10,7 @@
 }
 
 .btn-popout-submit:hover {
+    background-color: #0056b3;
     transform: scale(1.05);
 }
 
@@ -23,7 +24,7 @@
 }
 
 .close-popup:hover {
-    color: #EB9917;
+    color: #0056b3;
 }
 
 .overlay-container {

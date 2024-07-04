@@ -20,12 +20,10 @@
     top: 100%;
     left: 0;
     width: 100%;
-    max-height: 200px; /* Imposta un'altezza massima per la finestra di risultati */
-    overflow-y: auto; /* Aggiungi uno scorrimento verticale se i risultati superano l'altezza massima */
     background-color: #fff;
     border: 1px solid #ccc;
     border-top: none; /* Rimuovi il bordo superiore per collegarlo visivamente alla barra di ricerca */
-    border-radius: 0 0 4px 4px;
+    border-radius: 0 0 5px 5px;
     z-index: 1000;
 }
 
@@ -50,13 +48,47 @@
 }
 
 .resultBox li {
-    padding: 8px;
+    margin-right: 0px;
+    padding-right: 0px;
+    margin-left: 0px;
     cursor: pointer;
     list-style: none;
     border-radius: 5px;
-    margin: 5px;
 }
 
 .resultBox li:hover {
     background-color: #f0f0f0;
+}
+
+.search-input {
+    border: 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.search-input .resultBox {
+    border-radius: 5px 5px 0 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.searchInput.active .resultBox {
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.resultBox li {
+    list-style: none;
+    padding: 8px 12px;
+    display: block;
+    width: 100%;
+    cursor: default;
+    border-radius: 3px;
+}
+
+.resultBox li:hover {
+    background: #efefef;
 }
