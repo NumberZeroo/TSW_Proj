@@ -3,6 +3,7 @@
 <head>
     <title>Aggiungi Prodotto</title>
     <%@ include file="navbar.jsp" %>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/addForm.css">
 </head>
 <body>
 <form action="addPetServlet" method="post" class="form-container form-grid">

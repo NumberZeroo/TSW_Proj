@@ -7,25 +7,46 @@
             <h3>DarwinShop!</h3>
             <div class="row">
                 <div class="column">
-                <h6>Contatti</h6>
-                    <ul>
+                    <h6>Contatti</h6>
+                    <ul class="ulFooter">
                         <li>Email: e.amore@gmail.com</li>
                         <li>Telefono: 1234567890</li>
                     </ul>
-                    <ul>
+                    <ul class="ulFooter">
                         <li>Email: e.falanga@gmail.com</li>
                         <li>Telefono: 1234567890</li>
                     </ul>
                 </div>
                 <div class="column">
                     <h6>Collaboratori</h6>
-                    <p>Da aggiungere</p>
+                    <ul class="ulFooter">
+                        <li></li>
+                        <li>ENPA</li>
+                        <li>STD</li>
+                        <li>WorldRise</li>
+                    </ul>
                 </div>
                 <div class="column">
                     <h6>Info utili</h6>
-                    <p>Da aggiungere</p>
+                    <ul class="ulFooter">
+                        <li>Termini e condizioni</li>
+                        <li>Privacy Policy</li>
+                        <li>Cookie Policy</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </footer>
 </div>
+
+<style>
+    .ulFooter {
+        margin-top: 15px;
+        padding-left: 0;
+    }
+
+    ul > li {
+        list-style: none;
+        padding-left: 0;
+    }
+</style>

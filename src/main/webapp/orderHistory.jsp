@@ -60,7 +60,7 @@
                         <img src="<%= prodotto.getImgPath() %>" alt="<%= prodotto.getNome() %>">
                         <% } %>
                         <div class="order-item-details">
-                            <p><%= prodotto.getNome() %>
+                            <p><%= orderItem.getNome() %>
                             </p>
                             <p><%= orderItem.getPrezzo() %>
                             </p>

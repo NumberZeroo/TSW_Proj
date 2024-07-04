@@ -18,6 +18,10 @@
         <button id="infoButton">Elenco utenti</button>
         <%--        <button id="ordersButton">Disponibiltà</button>--%>
         <button id="availabilityButton">Disponibilità</button>
+
+        <form action="logout" method="post">
+            <input type="submit" value="Logout" id="logoutButton">
+        </form>
     </div>
 
     <div class="profile-content">

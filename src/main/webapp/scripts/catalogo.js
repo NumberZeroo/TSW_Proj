@@ -26,28 +26,15 @@ closeButton.addEventListener('click', function () {
 // Seleziona i filtri e gli elementi <span>
 let priceFilter = document.getElementById('price');
 let priceValue = document.getElementById('price-value');
-let minAgeFilter = document.getElementById('min-age');
-let minAgeValue = document.getElementById('min-age-value');
-let maxAgeFilter = document.getElementById('max-age');
-let maxAgeValue = document.getElementById('max-age-value');
 
 // Aggiorna il contenuto degli elementi <span> con il valore corrente del filtro
 priceValue.textContent = priceFilter.value;
-minAgeValue.textContent = minAgeFilter.value;
-maxAgeValue.textContent = maxAgeFilter.value;
 
 // Aggiungi un gestore di eventi a ciascun filtro per aggiornare il valore ogni volta che cambia
 priceFilter.addEventListener('input', function () {
     priceValue.textContent = this.value;
 });
 
-minAgeFilter.addEventListener('input', function () {
-    minAgeValue.textContent = this.value;
-});
-
-maxAgeFilter.addEventListener('input', function () {
-    maxAgeValue.textContent = this.value;
-});
 
 <!-- Barra dei filtri a pagina rimpicciolita -->
 let openFilterButton = document.getElementById('open-filter-button');
@@ -74,4 +61,8 @@ categorySelect.addEventListener('change', function () {
         sterilizedLabel.style.display = 'none';
         sterilizedSelect.style.display = 'none';
     }
+});
+
+document.getElementById('open-filter-button').addEventListener('click', function () {
+    document.getElementById('filter-bar').classList.toggle('show');
 });

@@ -36,7 +36,14 @@
     <% List<ProdottoBean> prodotti = (List<ProdottoBean>) request.getAttribute("prodotti"); %>
 
     <% if (prodotti == null || prodotti.isEmpty()) { %>
-    <p>Nessun prodotto disponibile.</p>
+    <div class="no-products" style="text-align: center;">
+        <i class="fas fa-heart-broken fa-5x"></i>
+        <h3>Nessun prodotto disponibile.</h3>
+        <p>Prova a cambiare i filtri!</p>
+        <a href="${pageContext.request.contextPath}/mostraCatalogoServlet">
+            <button>Torna al catalogo</button>
+        </a>
+    </div>
     <% } else if (sessionFacade.isLoggedIn() && sessionFacade.getIsAdmin()) { %>
     <div class="product-grid-new">
         <%for (ProdottoBean prodotto : prodotti) { %>

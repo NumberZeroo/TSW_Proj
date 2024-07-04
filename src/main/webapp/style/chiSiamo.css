@@ -59,3 +59,15 @@ body {
     line-height: 1.4;
     margin: 0;
 }
+
+@media (max-width: 900px) {
+    .EandE {
+        margin: 0;
+        flex-direction: column;
+        width: 100%;
+    }
+    .Ema {
+        width: 100%;
+        margin: 20px 20px 20px 0;
+    }
+}

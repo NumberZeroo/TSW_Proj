@@ -24,13 +24,12 @@ public class MostraCatalogoServlet extends jakarta.servlet.http.HttpServlet {
             String category = request.getParameter("category");
             String animalRace = request.getParameter("animalRace");
             String sterilized = request.getParameter("sterilized");
-            String minAge = request.getParameter("min-age");
-            String maxAge = request.getParameter("max-age");
+            String petId = request.getParameter("myPet");
 
             List<ProdottoBean> prodotti;
             try {
-                if (price != null || size != null || category != null || animalRace != null || sterilized != null || minAge != null || maxAge != null){
-                    prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveFiltered(price, size, category, animalRace, sterilized, minAge, maxAge);
+                if (price != null || size != null || category != null || animalRace != null || sterilized != null || petId != null) {
+                    prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveFiltered(price, size, category, animalRace, sterilized, petId);
                 } else {
                     prodotti = (List<ProdottoBean>) prodottoDAO.doRetrieveAll("ASC");
                 }

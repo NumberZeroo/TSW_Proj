@@ -22,6 +22,10 @@
     <div class="menu-row">
         <button id="infoButton">Informazioni</button>
         <button id="ordersButton">Storico Ordini</button>
+
+        <form action="logout" method="post">
+            <input type="submit" value="Logout" id="logoutButton">
+        </form>
     </div>
 
     <div class="profile-content">
@@ -69,13 +73,13 @@
                         <tr>
                             <td><img class="pet-image" src="<%= pet.getImgPath() %>" alt="<%= pet.getNome() %>">
                             </td> <!-- Immagine del pet -->
-                            <td><%= pet.getNome() %>
+                            <td data-column="Nome"><%= pet.getNome() %>
                             </td>
-                            <td><%= pet.getTaglia() %>
+                            <td data-column="Taglia"><%= pet.getTaglia() %>
                             </td>
-                            <td><%= pet.getSterilizzato() ? "Sì" : "No" %>
+                            <td data-column="Sterilizzato"><%= pet.getSterilizzato() ? "Sì" : "No" %>
                             </td>
-                            <td><%= pet.getDataNascita() %>
+                            <td data-column="Data di Nascita"><%= pet.getDataNascita() %>
                             </td>
                         </tr>
                         <% } %>
@@ -93,23 +97,26 @@
                 <h1>Storico Ordini</h1>
                 <%
                     try (OrdineDAO ordineDAO = new OrdineDAO(); OrderItemDAO orderItemDAO = new OrderItemDAO()) {
-                        Collection<OrdineBean> ordini = ordineDAO.doRetrieveAll("id");
+                        Collection<OrdineBean> ordini = ordineDAO.doRetrieveByUser(sessionFacade.getUserId());
+                        Collection<OrderItemBean> orderItems = null;
                         for (OrdineBean ordine : ordini) {
-                            if (ordine.getIdUtente() == sessionFacade.getUserId()) {
+                            orderItems = orderItemDAO.doRetrieveByOrder(ordine.getId());
                 %>
                 <div class="order-box">
                     <div class="order-header">
                         <p>Data Ordine: <%= ordine.getData() %>
                         </p>
-                        <p>Totale Ordine: <%= ordine.getIdUtente() %> <!-- todo Totale Ordine:   -->
+                        <p>Totale
+                            Ordine: <%= orderItems.stream()
+                                    .map(orderItem -> orderItem.getPrezzo() * orderItem.getQuantita())
+                                    .reduce(Double::sum)
+                                    .orElse(0.0) %>
                         </p>
                         <p>ID Ordine: <%= ordine.getId() %>
                         </p>
                     </div>
                     <%
-                        Collection<OrderItemBean> orderItems = orderItemDAO.doRetrieveAll("id");
                         for (OrderItemBean orderItem : orderItems) {
-                            if (orderItem.getIdOrdine() == ordine.getId()) {
                     %>
                     <%
                         try (ProdottoDAO prodottoDAO = new ProdottoDAO()) {
@@ -139,7 +146,7 @@
                         }
                     %>
                     <%
-                            }
+
                         }
                     %>
                     <div class="order-footer">
@@ -151,7 +158,6 @@
                 </div>
 
                 <%
-                            }
                         }
                     } catch (SQLException s) {
                         s.printStackTrace();

@@ -1,0 +1,52 @@
+/* Stile per il contenitore del form */
+.form-container {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.4);
+    border-radius: 10px;
+    margin: 0;
+}
+
+/* Stile per il titolo del form */
+.form-container h2 {
+    text-align: center;
+    color: #50b3a2;
+}
+
+/* Stile per i label del form */
+.form-container label {
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Stile per gli input del form */
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container input[type="date"],
+.form-container input[type="file"],
+.form-container select,
+.form-container textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: block; /* Imposta il display a block per farli apparire uno sopra l'altro */
+    width: 100%; /* Imposta la larghezza al 100% per farli riempire tutto lo spazio disponibile */
+}
+
+/* Stile per il pulsante di submit del form */
+.form-container input[type="submit"] {
+    padding: 10px;
+    background-color: #50b3a2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Cambia il colore di sfondo al passaggio del mouse sul pulsante di submit */
+.form-container input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+

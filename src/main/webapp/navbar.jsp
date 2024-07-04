@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/searchBar.css">
 <script src="${pageContext.request.contextPath}/scripts/search.js"></script>
 
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <% boolean loggedIn = (new SessionFacade(request.getSession()).isLoggedIn()); %>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #EB9917">

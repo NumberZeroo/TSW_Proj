@@ -6,6 +6,7 @@
     <%@ include file="navbar.jsp" %>
     <script src="${pageContext.request.contextPath}/scripts/addProduct.js" type="module"></script>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/popupFeedback.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/addForm.css">
 </head>
 <body>
 
@@ -44,11 +45,11 @@
             <option value="GRANDE">Grande</option>
         </select>
 
-        <label for="minEta">Età minima consigliata:</label>
-        <input type="number" id="minEta" name="minEta"  min="0" required>
+<%--        <label for="minEta">Età minima consigliata:</label>--%>
+<%--        <input type="number" id="minEta" name="minEta"  min="0" required>--%>
 
-        <label for="maxEta">Età massima consigliata:</label>
-        <input type="number" id="maxEta" name="maxEta" min="0" required>
+<%--        <label for="maxEta">Età massima consigliata:</label>--%>
+<%--        <input type="number" id="maxEta" name="maxEta" min="0" required>--%>
 
         <label for="disponibilita">Disponibilità:</label>
         <input type="number" id="disponibilita" name="disponibilita" min="1" required>
