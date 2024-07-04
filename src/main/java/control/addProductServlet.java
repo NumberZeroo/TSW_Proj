@@ -23,8 +23,6 @@ public class addProductServlet extends HttpServlet {
         int animalRace = Integer.parseInt(request.getParameter("animalRace"));
         String category = request.getParameter("category");
         String size = request.getParameter("size");
-        int minEta = Integer.parseInt(request.getParameter("minEta"));
-        int maxEta = Integer.parseInt(request.getParameter("maxEta"));
         int disponibilita = Integer.parseInt(request.getParameter("disponibilita"));
         boolean sterilized = request.getParameter("sterilized").equals("1");
 
@@ -36,7 +34,7 @@ public class addProductServlet extends HttpServlet {
             uploadDirFile.mkdir();
         }
 
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString() + System.currentTimeMillis();
         File file = new File(uploadDir + File.separator + fileName);
 
         try (var fileContent = filePart.getInputStream()) {
@@ -55,8 +53,6 @@ public class addProductServlet extends HttpServlet {
         prodotto.setTipoAnimale(animalRace); // Setta il tipo di animale del prodotto
         prodotto.setCategoria(category);
         prodotto.setTaglia(size);
-        prodotto.setMinEta(minEta);
-        prodotto.setMaxEta(maxEta);
         prodotto.setDisponibilita(disponibilita);
         prodotto.setSterilizzati(sterilized);
         prodotto.setVisibile(true);

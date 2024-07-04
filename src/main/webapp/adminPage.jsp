@@ -4,6 +4,11 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="com.tswproject.tswproj.RuntimeSQLException" %>
 <%@ page import="model.prodotto.*" %>
+<%@ page import="model.ordine.OrdineDAO" %>
+<%@ page import="model.ordine.OrdineBean" %>
+<%@ page import="model.orderItem.OrderItemDAO" %>
+<%@ page import="model.orderItem.OrderItemBean" %>
+<%@ page import="java.util.Collection" %>
 <html>
 <head>
     <title>Profilo Utente</title>
@@ -13,10 +18,11 @@
 <%@ include file="navbar.jsp" %>
 
 <div class="content profile-container">
-    <% SessionFacade sessionFacade = new SessionFacade(request.getSession()); %>
+        <% SessionFacade sessionFacade = new SessionFacade(request.getSession()); %>
     <div class="menu-row">
         <button id="infoButton">Elenco utenti</button>
         <%--        <button id="ordersButton">Disponibiltà</button>--%>
+        <button id="allOrderButton">Ordini</button>
         <button id="availabilityButton">Disponibilità</button>
 
         <form action="logout" method="post">
@@ -103,7 +109,8 @@
                     <button class="refillButton <%= prodotto.getDisponibilita() < 5 ? "lowStock" : "" %>"
                             data-id="<%= prodotto.getId() %>" onclick="showForm('<%= prodotto.getId() %>')">Refill
                     </button>
-                    <form id="refillForm<%= prodotto.getId() %>" class="refillForm" action="refillProductServlet" method="post"
+                    <form id="refillForm<%= prodotto.getId() %>" class="refillForm" action="refillProductServlet"
+                          method="post"
                           style="display: none;">
                         <input type="hidden" name="productId" value="<%= prodotto.getId() %>">
                         <input type="number" name="quantity" min="1" placeholder="Quantità">
@@ -116,87 +123,155 @@
                     throw new RuntimeSQLException("Errore durante il recupero delle informazioni dei prodotti", e);
                 } %>
             </div>
+
+            <div id="allOrderSection" class="allOrderSection" style="display: none;">
+                <h1>Ordini</h1>
+                <% try (OrdineDAO ordineDAO = new OrdineDAO(); OrderItemDAO orderItemDAO = new OrderItemDAO()) {
+                    List<OrdineBean> ordini = (List<OrdineBean>) ordineDAO.doRetrieveAll("ASC");
+                    Collection<OrderItemBean> orderItems = null;
+                    for (OrdineBean ordine : ordini) {
+                        orderItems = orderItemDAO.doRetrieveByOrder(ordine.getId());
+                %>
+                <div class="order-box">
+                    <div class="order-header">
+                        <p>Data Ordine: <%= ordine.getData() %>
+                        </p>
+                        <p>Totale
+                            Ordine: <%= orderItems.stream().map(OrderItemBean::getPrezzo).reduce(Double::sum).orElse(0.0) %>
+                        </p>
+                        <p>ID Ordine: <%= ordine.getId() %>
+                        </p>
+                    </div>
+                    <%
+                        for (OrderItemBean orderItem : orderItems) {
+                            try (ProdottoDAO prodottoDAO = new ProdottoDAO()) {
+                                ProdottoBean prodotto = prodottoDAO.doRetrieveByKey(orderItem.getIdProdotto());
+                    %>
+                    <div class="order-item">
+                        <% if (prodotto.isVisibile()) { %>
+                        <a href="product?id=<%= prodotto.getId() %>">
+                            <img src="<%= prodotto.getImgPath() %>" alt="<%= prodotto.getNome() %>">
+                        </a>
+                        <% } else { %>
+                        <img src="<%= prodotto.getImgPath() %>" alt="<%= prodotto.getNome() %>">
+                        <% } %>
+                        <div class="order-item-details">
+                            <p><%= orderItem.getNome() %>
+                            </p>
+                            <p><%= orderItem.getPrezzo() %>
+                            </p>
+                            <p>Quantità: <%= orderItem.getQuantita() %>
+                            </p>
+                        </div>
+                    </div>
+                    <%
+                            } catch (SQLException s) {
+                                throw new RuntimeSQLException("Errore durante il recupero delle informazioni del prodotto", s);
+                            }
+                        }
+                    %>
+                    <div class="order-footer">
+                        <form method="get" action="getInvoice">
+                            <input type="hidden" name="orderId" value="<%=ordine.getId()%>">
+                            <button type="submit" class="download-invoice">Scarica Fattura</button>
+                        </form>
+                    </div>
+                </div>
+                <%
+                        }
+                    } catch (SQLException s) {
+                        throw new RuntimeSQLException("Errore durante il recupero degli ordini", s);
+                    }
+                %>
+            </div>
         </div>
     </div>
-</div>
 
-<%@ include file="footer.jsp" %>
+    <%@ include file="footer.jsp" %>
 
-<script>
-    function showForm(productId) {
-        var form = document.getElementById('refillForm' + productId);
-        var button = document.querySelector('.refillButton[data-id="' + productId + '"]');
-        if (form.style.display === 'none') {
-            form.style.display = 'block';
-            button.style.display = 'none';
-        } else {
-            form.style.display = 'none';
-            button.style.display = 'block';
+    <script>
+        function showForm(productId) {
+            var form = document.getElementById('refillForm' + productId);
+            var button = document.querySelector('.refillButton[data-id="' + productId + '"]');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                button.style.display = 'none';
+            } else {
+                form.style.display = 'none';
+                button.style.display = 'block';
+            }
         }
-    }
-</script>
+    </script>
 
-<script>
-    // Seleziona i pulsanti e le sezioni
-    let infoButton = document.getElementById('infoButton');
-    // let ordersButton = document.getElementById('ordersButton');
+    <script>
+        // Seleziona i pulsanti e le sezioni
+        let infoButton = document.getElementById('infoButton');
+        // let ordersButton = document.getElementById('ordersButton');
 
-    let infoSection = document.getElementById('infoSection');
-    // let ordersSection = document.getElementById('ordersSection');
+        let infoSection = document.getElementById('infoSection');
+        // let ordersSection = document.getElementById('ordersSection');
 
-    let availabilityButton = document.getElementById('availabilityButton');
-    let availabilitySection = document.getElementById('availabilitySection');
+        let availabilityButton = document.getElementById('availabilityButton');
+        let availabilitySection = document.getElementById('availabilitySection');
 
-    availabilityButton.addEventListener('click', function () {
-        showSection('availabilitySection');
-    });
+        let allOrderButton = document.getElementById('allOrderButton');
+        let allOrderSection = document.getElementById('allOrderSection');
 
-    // Funzione per nascondere tutte le sezioni
-    function hideAllSections() {
-        infoSection.style.display = 'none';
-        availabilitySection.style.display = 'none';
-        // ordersSection.style.display = 'none';
-    }
+        availabilityButton.addEventListener('click', function () {
+            showSection('availabilitySection');
+        });
 
-    // Funzione per mostrare una sezione specifica
-    function showSection(sectionId) {
-        hideAllSections();
-        let section = document.getElementById(sectionId);
-        section.style.display = 'block';
-    }
+        allOrderButton.addEventListener('click', function () {
+            showSection('allOrderSection');
+        });
 
-    // Aggiungi gestori di eventi di click ai pulsanti
-    infoButton.addEventListener('click', function () {
+        // Funzione per nascondere tutte le sezioni
+        function hideAllSections() {
+            infoSection.style.display = 'none';
+            availabilitySection.style.display = 'none';
+            allOrderSection.style.display = 'none';
+            // ordersSection.style.display = 'none';
+        }
+
+        // Funzione per mostrare una sezione specifica
+        function showSection(sectionId) {
+            hideAllSections();
+            let section = document.getElementById(sectionId);
+            section.style.display = 'block';
+        }
+
+        // Aggiungi gestori di eventi di click ai pulsanti
+        infoButton.addEventListener('click', function () {
+            showSection('infoSection');
+        });
+
+        // ordersButton.addEventListener('click', function () {
+        //     showSection('ordersSection');
+        // });
+
         showSection('infoSection');
-    });
+    </script>
 
-    // ordersButton.addEventListener('click', function () {
-    //     showSection('ordersSection');
-    // });
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function confirmChangeAdmin(event, userId, makeAdmin) {
+            event.preventDefault();  // Previene l'invio del form
+            var form = event.target.form;  // Ottiene il form
 
-    showSection('infoSection');
-</script>
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    function confirmChangeAdmin(event, userId, makeAdmin) {
-        event.preventDefault();  // Previene l'invio del form
-        var form = event.target.form;  // Ottiene il form
-
-        swal({
-            title: "Sei sicuro?",
-            text: "Vuoi davvero cambiare il ruolo di questo utente?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willChange) => {
-                if (willChange) {
-                    form.submit();  // Invia il form
-                }
-            });
-    }
-</script>
+            swal({
+                title: "Sei sicuro?",
+                text: "Vuoi davvero cambiare il ruolo di questo utente?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willChange) => {
+                    if (willChange) {
+                        form.submit();  // Invia il form
+                    }
+                });
+        }
+    </script>
 
 </body>
 </html>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/addForm.css">
 </head>
 <body>
-<form action="addPetServlet" method="post" class="form-container form-grid">
+<form action="addPetServlet" method="post" enctype="multipart/form-data" class="form-container form-grid">
     <h2 style="font-style: italic; color: #50b3a2;">Aggiungi un nuovo pet</h2>
 
     <label for="nome">Nome:</label>
