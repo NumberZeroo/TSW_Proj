@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/popupFeedback.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/product.css">
-    <!-- todo css separato -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/starRating.css">
 </head>
 
 <body>
@@ -174,8 +174,19 @@ window.onload = function () {
         <div class="review-form-header">
             <label for="titolo">Titolo:</label>
             <input autofocus type="text" id="titolo" name="titolo" required>
+           <!--
             <label for="valutazione">Valutazione:</label>
             <input type="number" id="valutazione" name="valutazione" min="1" max="5" required>
+            -->
+            <label class="rating-label">
+                <input
+                    class="rating"
+                    max="5"
+                    oninput="this.style.setProperty('--value', this.value)"
+                    step="0.5"
+                    type="range"
+                    value="1" name="valutazione">
+            </label>
         </div>
         <label for="commento">Commento:</label>
         <textarea id="commento" name="commento" required></textarea>
@@ -223,8 +234,15 @@ window.onload = function () {
         <% } %>
         <h4>Utente n.<%=recensione.getIdUtente()%>
         </h4>
-        <h3><%=recensione.getTitolo()%> - Valutazione: <%=recensione.getValutazione()%>
-        </h3>
+        <h3 style="display: inline-block"><%=recensione.getTitolo()%></h3> <input class="rating inline" max="5" step="0.5" type="range" name="valutazione" disabled style="--starsize: 1.5rem; --value: <%=recensione.getValutazione()%>" >
+
+        <style>
+            .inline {
+                display: inline-block;
+                vertical-align: text-bottom;
+            }
+        </style>
+
         <p><%=recensione.getCommento()%>
         </p>
         <p>Data: <%=recensione.getData()%>
@@ -238,7 +256,7 @@ window.onload = function () {
 </div>
 
 <%-- Visualizza i prodotti consigliati --%>
-<h2 style="font-style: italic">Potrebbe piacerti...</h2>
+<h2 style="font-style: italic">Potrebbe piacerti...</h2> <!-- TODO: cambia con gallery -->
 <div class="recommended-products">
     <% try (ProdottoDAO prodottoDAO = new ProdottoDAO()) {
         List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory(prodotto.getCategoria());

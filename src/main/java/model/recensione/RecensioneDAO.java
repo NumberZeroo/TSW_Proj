@@ -108,7 +108,7 @@ public class RecensioneDAO extends AbstractDAO implements DAOInterface<Recension
         recensione.setIdUtente(resultSet.getLong("idUtente"));
         recensione.setTitolo(resultSet.getString("Titolo"));
         recensione.setCommento(resultSet.getString("Commento"));
-        recensione.setValutazione(resultSet.getLong("Valutazione"));
+        recensione.setValutazione(resultSet.getDouble("Valutazione"));
         recensione.setData(resultSet.getDate("Data"));
         recensione.setIdProdotto(resultSet.getLong("idProdotto"));
         return recensione;
