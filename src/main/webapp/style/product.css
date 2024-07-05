@@ -220,3 +220,19 @@ h2 {
         max-width: 100%;
     }
 }
+
+.emptyReviews {
+    text-align: center;
+    padding: 20px;
+}
+
+.emptyReviews i {
+    margin-bottom: 10px;
+    font-size: 50px;
+    color: #ccc;
+}
+
+.emptyReviews h3 {
+    font-size: 20px;
+    color: #666;
+}

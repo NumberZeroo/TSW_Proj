@@ -15,12 +15,12 @@
 
 <div class="EandE">
     <div class="Ema">
-        <img src="${pageContext.request.contextPath}/img/placeholder.png" alt="Il tuo nome">
+        <img src="${pageContext.request.contextPath}/img/EmaEma/Ema.jpg" alt="Amore Emanuele Luigi">
         <p>"La grandezza di una nazione e il suo progresso morale si possono giudicare dal modo in cui tratta i suoi animali."</p>
     </div>
 
     <div class="Ema">
-        <img src="${pageContext.request.contextPath}/img/placeholder.png" alt="Nome del tuo collega">
+        <img src="${pageContext.request.contextPath}/img/EmaEma/EmaAltro.jpg" alt="Emanuele Falanga">
         <p>"Gli animali non sono tutta la nostra vita, ma la rendono completa."</p>
     </div>
 </div>

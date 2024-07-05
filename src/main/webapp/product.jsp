@@ -120,23 +120,7 @@ window.onload = function () {
             <p>Categoria: <%=prodotto.getCategoria()%>
             </p>
             <p>Taglia: <%=prodotto.getTaglia()%>
-                <%--            </p>--%>
-                <%--            <p>Range età consigliata: <%=prodotto.getMinEta()%>/<%=prodotto.getMaxEta()%>--%>
-                <%--            </p>--%>
         </div>
-
-        <%--        <form id="editProductFormDetails" class="product-info-mod"--%>
-        <%--              action="${pageContext.request.contextPath}/editProductServlet"--%>
-        <%--              method="post">--%>
-
-        <%--            <input type="hidden" name="id" value="<%=prodotto.getId()%>">--%>
-
-        <%--            <label for="category">Categoria:</label><input type="text" id="category" name="category"--%>
-        <%--                                                           value="<%=prodotto.getCategoria()%>">--%>
-
-        <%--            <label for="taglia">Taglia:</label>--%>
-        <%--            <input type="text" id="taglia" name="taglia" value="<%=prodotto.getTaglia()%>">--%>
-        <%--        </form>--%>
     </div>
 
     <div class="addToCart">
@@ -210,7 +194,10 @@ window.onload = function () {
         List<RecensioneBean> recensioni = (List<RecensioneBean>) recensioneDAO.doRetrieveByProduct(prodotto.getId());
 
         if (recensioni.isEmpty()) { %>
-    <h3 style="font-style: italic">Nessuna recensione disponibile!</h3><br>
+    <div class="emptyReviews">
+        <i class="fas fa-ghost"></i> <!-- Icona di recensioni vuote -->
+        <h3 style="font-style: italic">Non ci sono recensioni per questo prodotto. Sii il primo a recensire!</h3><br>
+    </div>
     <% } else {
         for (RecensioneBean recensione : recensioni) { %>
     <div class="review">

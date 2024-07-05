@@ -30,15 +30,23 @@
                 <%
                     try (OrderItemDAO orderItemDAO = new OrderItemDAO()) {
                         Collection<OrdineBean> ordini = (Collection<OrdineBean>) request.getAttribute("ordini");
-                        Collection<OrderItemBean> orderItems = null;
-                        for (OrdineBean ordine : ordini) {
-                            orderItems= orderItemDAO.doRetrieveByOrder(ordine.getId());
+                        if (ordini.isEmpty()) { %>
+                            <div class="empty-order">
+                                <i class="fas fa-box-open"></i>
+                                <p>Il cliente non ha effettuato nessun ordine</p>
+                            </div>
+                        <% } %>
+                <%
+                    Collection<OrderItemBean> orderItems = null;
+                    for (OrdineBean ordine : ordini) {
+                        orderItems = orderItemDAO.doRetrieveByOrder(ordine.getId());
                 %>
                 <div class="order-box">
                     <div class="order-header">
                         <p>Data Ordine: <%= ordine.getData() %>
                         </p>
-                        <p>Totale Ordine: <%= orderItems.stream().map(OrderItemBean::getPrezzo).reduce(Double::sum).orElse(0.0) %> <!-- todo Totale Ordine:   -->
+                        <p>Totale
+                            Ordine: <%= orderItems.stream().map(OrderItemBean::getPrezzo).reduce(Double::sum).orElse(0.0) %>
                         </p>
                         <p>ID Ordine: <%= ordine.getId() %>
                         </p>

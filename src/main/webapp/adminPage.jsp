@@ -127,15 +127,16 @@
             <div id="allOrderSection" class="allOrderSection" style="display: none;">
                 <div class="allOrderHeader">
                     <h1>Ordini</h1>
-                    <!-- form che permette di inserire, tramite due input, la data di inizio e fine per filtrare gli ordini -->
                     <form id="orderByDate" method="post" enctype="multipart/form-data"
-                              action="${pageContext.request.contextPath}/orderByDate">
-                        <label for="startDate">Inizio:</label>
-                        <input id="startDate" type="date" name="startDate">
-
-                        <label for="endDate">Fine:</label>
-                        <input id="endDate" type="date" name="endDate">
-
+                          action="${pageContext.request.contextPath}/orderByDate">
+                        <div class="dateDiv">
+                            <label for="startDate">Inizia:</label>
+                            <input id="startDate" type="date" name="startDate">
+                        </div>
+                        <div class="dateDiv">
+                            <label for="endDate"> Fino a:</label>
+                            <input id="endDate" type="date" name="endDate">
+                        </div>
                         <input type="submit" class="allOrderButton" value="Filtra">
                     </form>
                 </div>
@@ -143,12 +144,20 @@
                     String startDate = request.getParameter("startDate");
                     String endDate = request.getParameter("endDate");
 
-                    if(startDate == null || endDate == null) {
+                    if (startDate == null || endDate == null) {
                         startDate = "";
                         endDate = "";
                     }
 
                     List<OrdineBean> ordini = (List<OrdineBean>) ordineDAO.doRetrieveByDate(startDate, endDate);
+                    if (ordini.isEmpty()) { %>
+                        <div class="empty-order">
+                            <i class="fas fa-box-open"></i>
+                            <p>I clienti non hanno effettuato ordini...</p>
+                        </div>
+                 <% } %>
+                <%
+
                     Collection<OrderItemBean> orderItems = null;
                     for (OrdineBean ordine : ordini) {
                         orderItems = orderItemDAO.doRetrieveByOrder(ordine.getId());
@@ -271,7 +280,7 @@
     //     showSection('ordersSection');
     // });
 
-    showSection('infoSection');
+    showSection('allOrderSection');
 </script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

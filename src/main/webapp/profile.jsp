@@ -38,6 +38,7 @@
                 </p>
                 <p>Email: <%= user.getEmail() %>
                 </p>
+
                 <% } catch (SQLException s) {
                     s.printStackTrace();
                     throw new RuntimeSQLException("Errore durante il recupero delle informazioni utente", s);
