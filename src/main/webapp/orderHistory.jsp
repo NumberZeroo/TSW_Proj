@@ -28,9 +28,8 @@
             <div id="ordersSection">
                 <h1>Storico Ordini</h1>
                 <%
-                    long userId = Long.parseLong(request.getParameter("userId"));
-                    try (OrdineDAO ordineDAO = new OrdineDAO(); OrderItemDAO orderItemDAO = new OrderItemDAO()) {
-                        Collection<OrdineBean> ordini = ordineDAO.doRetrieveByUser(userId);
+                    try (OrderItemDAO orderItemDAO = new OrderItemDAO()) {
+                        Collection<OrdineBean> ordini = (Collection<OrdineBean>) request.getAttribute("ordini");
                         Collection<OrderItemBean> orderItems = null;
                         for (OrdineBean ordine : ordini) {
                             orderItems= orderItemDAO.doRetrieveByOrder(ordine.getId());
