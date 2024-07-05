@@ -15,22 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    let minAgeInput = document.getElementById('minEta');
-    let maxAgeInput = document.getElementById('maxEta');
-
-    function validateAge() {
-        let minAge = parseInt(minAgeInput.value);
-        let maxAge = parseInt(maxAgeInput.value);
-
-        if (maxAge < minAge) {
-            alert("L'età massima deve essere maggiore o uguale all'età minima."); //todo cambiare alert con un messaggio più elegante
-            maxAgeInput.value = minAge;
-        }
-    }
-
-    minAgeInput.addEventListener('change', validateAge);
-    maxAgeInput.addEventListener('change', validateAge);
-
     const form = document.getElementsByClassName("form-container")[0];
     form.addEventListener("submit", function(event) {
         event.preventDefault(); // Impedisce l'invio classico del form
