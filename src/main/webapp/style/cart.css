@@ -22,10 +22,10 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.item-box:hover {
-    transform: scale(1.01);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-}
+/*.item-box:hover {*/
+/*    transform: scale(1.01);*/
+/*    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
+/*}*/
 
 .cart-item:last-child {
     border-bottom: none;
@@ -36,6 +36,7 @@ body {
     max-height: 150px;
     object-fit: cover;
     border: 1px solid #ddd;
+    border-radius: 5px;
     padding: 5px;
     background-color: #fff;
 }
@@ -136,4 +137,7 @@ h2 {
     transition-duration: 0.4s;
 }
 
+.fa-trash:hover{
+    color: #ff0000;
+}
 

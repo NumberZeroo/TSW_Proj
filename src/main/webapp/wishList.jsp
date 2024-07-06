@@ -33,6 +33,11 @@
     List<WishlistItemBean> wishlistItems = null;
     List<ProdottoBean> products = new ArrayList<>();
 
+    if (userSession.getUserId() == -1) {
+        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        return;
+    }
+
     try (WishlistDAO wishlistDAO = new WishlistDAO();
          WishlistItemDAO wishlistItemDAO = new WishlistItemDAO();
          ProdottoDAO prodottoDAO = new ProdottoDAO()) {
@@ -65,8 +70,12 @@
             </p>
         </div>
 
-        <a href="<%=request.getContextPath() + "/removeFromWishlist?id=" + product.getId()%>"><i
-                class="fas fa-trash"></i></a>
+        <a href="<%=request.getContextPath() + "/removeFromWishlist?id=" + product.getId()%>">
+            <i class="fas fa-trash"></i>
+        </a>
+        <!-- bottore per aggiungere al carrello -->
+        <input type="number" id="quantity" name="quantity" value="1" style="display: none">
+        <button class="addToCartButton" data-product-id="<%=product.getId()%>"><i class="fa-solid fa-cart-plus"></i></button>
     </div>
     <% } %>
 </div>
@@ -91,6 +100,7 @@
     </div>
 </div>
 
+<script src="${pageContext.request.contextPath}/scripts/addToCart.js" type="module"></script>
 <%@include file="footer.jsp" %>
 </body>
 </html>
