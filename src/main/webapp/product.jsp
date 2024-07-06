@@ -18,7 +18,6 @@
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/popupFeedback.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/product.css">
-    <!-- todo css separato -->
 </head>
 
 <body>

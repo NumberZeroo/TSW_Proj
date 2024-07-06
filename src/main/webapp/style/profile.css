@@ -25,7 +25,7 @@
 }
 
 .pets{
-    margin-top: 5%;
+    margin-top: 1%;
     border-top: 1px solid #ccc;
     padding-top: 20px;
 }
@@ -34,6 +34,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 #infoSection img {
@@ -265,3 +266,97 @@ h1{
     }
 }
 
+.empty-order {
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+}
+
+.empty-order i {
+    font-size: 50px;
+    color: #ccc;
+}
+
+.empty-order p {
+    font-size: 20px;
+    color: #666;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5em; /* Aumenta la dimensione del font */
+    color: #333; /* Cambia il colore del testo */
+}
+
+.edit-button {
+    padding: 5px 10px;
+    background-color: #50b3a2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
+.infoUser {
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.infoUser h1 {
+    color: #50b3a2;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.edit-input {
+    padding: 5px; /* Aggiunge spazio intorno al testo */
+    margin-right: 10px; /* Aggiunge spazio a destra dell'input */
+    border: 1px solid #ccc; /* Aggiunge un bordo */
+    border-radius: 5px; /* Aggiunge bordi arrotondati */
+}
+
+.edit-submit {
+    padding: 5px 10px; /* Aggiunge spazio intorno al testo */
+    background-color: #50b3a2; /* Imposta un colore di sfondo */
+    color: #fff; /* Imposta un colore del testo */
+    border: none; /* Rimuove il bordo */
+    border-radius: 5px; /* Aggiunge bordi arrotondati */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    transition: background-color 0.3s ease; /* Aggiunge un effetto di transizione al cambio di colore */
+}
+
+.edit-submit:hover {
+    background-color: #0056b3; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em; /* Riduci la dimensione del font */
+    color: #333;
+}
+
+@media (max-width: 900px) {
+    .user-info {
+        flex-direction: column;
+    }
+
+    .edit-button {
+        margin-bottom: 10px;
+    }
+
+    .edit-input {
+        margin-bottom: 10px;
+    }
+}

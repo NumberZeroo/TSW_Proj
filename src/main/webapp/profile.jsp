@@ -31,19 +31,41 @@
     <div class="profile-content">
         <div class="profile-column">
             <div id="infoSection" style="display: none;">
-                <h1>Informazioni Utente</h1>
-                <% try (UtenteDAO userDAO = new UtenteDAO()) { %>
-                <% UtenteBean user = userDAO.doRetrieveByKey(sessionFacade.getUserId()); %>
-                <p>Username: <%= user.getUsername() %>
-                </p>
-                <p>Email: <%= user.getEmail() %>
-                </p>
-
-                <% } catch (SQLException s) {
-                    s.printStackTrace();
-                    throw new RuntimeSQLException("Errore durante il recupero delle informazioni utente", s);
-                }%>
-
+                <div id="infoUser" class="infoUser">
+                    <h1>Informazioni Utente</h1>
+                    <% try (UtenteDAO userDAO = new UtenteDAO()) { %>
+                    <% UtenteBean user = userDAO.doRetrieveByKey(sessionFacade.getUserId()); %>
+                    <div class="user-info">
+                        <p>Username: <%= user.getUsername() %>
+                        </p>
+                        <button id="editButton1" class="edit-button"
+                                onclick="document.getElementById('editUsernameForm').style.display='block'
+                                         document.getElementById('editButton1').style.display='none'">Modifica
+                        </button>
+                        <form id="editUsernameForm" action="editUserServlet" method="post" style="display: none;">
+                            <input type="hidden" name="action" value="editUsername">
+                            <input type="text" name="newUsername" placeholder="Nuovo username" class="edit-input">
+                            <input type="submit" value="Conferma" class="edit-submit">
+                        </form>
+                    </div>
+                    <div class="user-info">
+                        <p>Email: <%= user.getEmail() %>
+                        </p>
+                        <button id="editButton2" class="edit-button"
+                                onclick="document.getElementById('editEmailForm').style.display='block'
+                                         document.getElementById('editButton2').style.display='none'">Modifica
+                        </button>
+                        <form id="editEmailForm" action="editUserServlet" method="post" style="display: none;">
+                            <input type="hidden" name="action" value="editEmail">
+                            <input type="email" name="newEmail" placeholder="Nuova email" class="edit-input">
+                            <input type="submit" value="Conferma" class="edit-submit">
+                        </form>
+                    </div>
+                    <% } catch (SQLException s) {
+                        s.printStackTrace();
+                        throw new RuntimeSQLException("Errore durante il recupero delle informazioni utente", s);
+                    }%>
+                </div>
                 <div class="pets">
                     <div class="pet-header">
                         <h1>I Miei Pet</h1>
@@ -99,9 +121,16 @@
                 <%
                     try (OrdineDAO ordineDAO = new OrdineDAO(); OrderItemDAO orderItemDAO = new OrderItemDAO()) {
                         Collection<OrdineBean> ordini = ordineDAO.doRetrieveByUser(sessionFacade.getUserId());
-                        Collection<OrderItemBean> orderItems = null;
-                        for (OrdineBean ordine : ordini) {
-                            orderItems = orderItemDAO.doRetrieveByOrder(ordine.getId());
+                        if (ordini.isEmpty()) { %>
+                <div class="empty-order">
+                    <i class="fas fa-box-open"></i>
+                    <p>Non hai effettuato nessun ordine...</p>
+                </div>
+                <% } %>
+                <%
+                    Collection<OrderItemBean> orderItems = null;
+                    for (OrdineBean ordine : ordini) {
+                        orderItems = orderItemDAO.doRetrieveByOrder(ordine.getId());
                 %>
                 <div class="order-box">
                     <div class="order-header">
