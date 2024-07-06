@@ -503,11 +503,12 @@ body {
 }
 
 body {
-    cursor: url('cursor/rabbit1.cur'), auto;
+    cursor: url('cursor/Normal Select tsuki 2.cur'), auto;
 }
 
-.catalogoProd a {
-    cursor: url('cursor/Jake.cur'), auto;
+body a{
+    cursor: url('cursor/Help Select.cur'), auto;
+
 }
 
 .catalogoProd img {

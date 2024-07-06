@@ -122,6 +122,14 @@ window.onload = function () {
         </div>
     </div>
 
+    <div class="addToWishlist">
+        <form action="${pageContext.request.contextPath}/addToWishlistServlet" method="post">
+            <input type="hidden" name="productId" value="<%=prodotto.getId()%>">
+            <input type="hidden" name="userId" value="<%=sessionFacade.getUserId()%>">
+            <button class="addToWishlistButton" data-product-id="<%=prodotto.getId()%>">Aggiungi alla Wishlist</button>
+        </form>
+    </div>
+
     <div class="addToCart">
         <h3>Disponibilità: <%=prodotto.getDisponibilita()%>
         </h3>
