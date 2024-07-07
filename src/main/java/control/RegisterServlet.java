@@ -65,13 +65,8 @@ public class RegisterServlet extends HttpServlet {
         utente.setPassword(hashedPassword.get());
 
         try (UtenteDAO ut = new UtenteDAO()) {
-            ut.doSave(utente);
+            long userId = ut.doSave(utente);
 
-            // Recupera l'ID dell'utente appena registrato
-            UtenteBean registeredUser = ut.doRetrieveByUsername(username);
-            long userId = registeredUser.getId();
-
-            // Crea una nuova wishlist per l'utente
             WishlistBean wishlist = new WishlistBean();
             wishlist.setUserId(userId);
 
