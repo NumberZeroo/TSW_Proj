@@ -22,6 +22,7 @@
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/checkoutBtn.css">
     <script src="${pageContext.request.contextPath}/scripts/checkout.js" type="module"></script>
     <script src="${pageContext.request.contextPath}/scripts/addShipmentInfo.js" type="module"></script>
+    <script src="https://www.paypal.com/sdk/js?components=buttons&disable-funding=mybank&currency=EUR&client-id=AWUHjqNECnmgNFbH28CdbyYwryJsLlK33GzPPrNsk0Qo2-bW8bnCvK8DRPGmlSlMILLQi_gc2V25Vt0z"></script>
 
     <div id="notification"></div>
 
@@ -71,8 +72,10 @@
         <div id="container">
             <div id="shipment-options">
                 <h3>Riepilogo</h3>
+                <input type="hidden" id="can-buy" value="0"> <!-- Flag gestione metodi di pagamento -->
                 <div id = "added-form-container"></div> <!-- Serve per la creazione dinamica da js -->
                 <% if (defaultInfoConsegna != null){ %>
+                <script>document.getElementById("can-buy").value = "1"</script>
                 <form id = "shipment-info-form" name="shipment-selection">
                     <div class="shipment-selection">
                         <input name="g1" type="radio" class="radio_<%=defaultInfoConsegna.getId()%>" value="<%=defaultInfoConsegna.getId()%>" checked="checked">
@@ -90,13 +93,14 @@
                 <button id="add-shipment-infos-btn" onclick="togglePopup()"><span>Aggiungi un metodo di spedizione</span></button>
                 <% } %>
 
-                <form id="submit-form" method="post" action="${pageContext.request.contextPath}/checkout">
-                    <input name ="selected-option" id="selected-option" type="hidden" value="-1">
-                    <button id="checkout-btn" type="submit"><span>Acquista</span></button>
-                    <span>
-                        Prezzo totale: <%=products.entrySet().stream().mapToDouble(e -> e.getKey().getPrezzo() * e.getValue()).sum()%>
-                    </span>
-                </form>
+                <p>Prezzo totale:</p>
+                <div id="total-price"><%=products.entrySet().stream().mapToDouble(e -> e.getKey().getPrezzo() * e.getValue()).sum()%></div>
+
+                <!-- Inizio form pagamento -->
+                <div id="paypal-button-container" class="paypal-button-container"></div>
+                <script src="${pageContext.request.contextPath}/scripts/payPalAPI.js" type="module"></script>
+                <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/paymentForm.css">
+                <!-- Fine form pagamento -->
             </div>
 
             <div id="product-details">
@@ -118,8 +122,33 @@
             const overlay = document.getElementById('popupOverlay');
             overlay.classList.toggle('show');
         }
+
+        function checkCanBuy() {
+            const canBuyInput = document.getElementById('can-buy');
+            const paymentForm = document.getElementById('paypal-button-container');
+
+            if (canBuyInput.value === '1') {
+                paymentForm.style.display = 'block';
+            } else {
+                paymentForm.style.display = 'none';
+            }
+        }
+        checkCanBuy();
+
+        // MutationObserver notifica quando l'oggetto cambia
+        const canBuyInput = document.getElementById('can-buy');
+        const observer = new MutationObserver((mutationsList, observer) => {
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
+                    checkCanBuy();
+                }
+            }
+        });
+        const config = { attributes: true };
+        observer.observe(canBuyInput, config);
+
     </script>
 
-    <%@include file="footer.jsp"%>
+    <%@include file="footer.jsp" %>
 </body>
 </html>
