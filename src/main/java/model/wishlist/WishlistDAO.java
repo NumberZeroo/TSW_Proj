@@ -3,6 +3,7 @@ package model.wishlist;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.List;
 
@@ -56,9 +57,25 @@ public class WishlistDAO extends AbstractDAO implements DAOInterface<WishlistBea
     }
 
     @Override
-    public long doSave(WishlistBean product) throws SQLException {
-        return 0;
+public long doSave(WishlistBean wishlist) throws SQLException {
+    String query = "INSERT INTO Wishlist (idUtente) VALUES (?)";
+    try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+        statement.setLong(1, wishlist.getUserId());
+        int affectedRows = statement.executeUpdate();
+
+        if (affectedRows == 0) {
+            throw new SQLException("Creazione fallita.");
+        }
+
+        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                return generatedKeys.getLong(1);
+            } else {
+                throw new SQLException("Creating fallita, nessun idUtente.");
+            }
+        }
     }
+}
 
     @Override
     public void doUpdate(WishlistBean product) throws SQLException {
