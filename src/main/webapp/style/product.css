@@ -236,3 +236,40 @@ h2 {
     font-size: 20px;
     color: #666;
 }
+
+/*.addToWishlistButton {*/
+/*    margin-top: 20px;*/
+/*    padding: 10px 20px;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    background-color: #50b3a2;*/
+/*    color: white;*/
+/*    font-size: 1em;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s ease;*/
+/*}*/
+
+/*.addToWishlistButton:hover {*/
+/*    background-color: #0056b3;*/
+/*}*/
+
+.product-image {
+    position: relative; /* Aggiunto */
+}
+
+.addToWishlistButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #ff0000; /* Colore rosso per il cuore */
+    font-size: 1.5em; /* Dimensione dell'icona */
+    cursor: pointer;
+    transition: color 0.3s ease; /* Aggiunge un'animazione al cambio di colore */
+}
+
+.addToWishlistButton:hover i {
+    color: #ff6600; /* Cambia il colore dell'icona al passaggio del mouse */
+    content: "\f004"; /* Cambia l'icona del cuore da vuoto a pieno */
+}

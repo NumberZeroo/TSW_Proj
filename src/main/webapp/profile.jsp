@@ -22,6 +22,7 @@
     <div class="menu-row">
         <button id="infoButton">Informazioni</button>
         <button id="ordersButton">Storico Ordini</button>
+        <button id="wishlistButton" onclick="window.location.href='wishList.jsp'">Wishlist</button>
 
         <form action="logout" method="post">
             <input type="submit" value="Logout" id="logoutButton">
@@ -61,6 +62,13 @@
                             <input type="submit" value="Conferma" class="edit-submit">
                         </form>
                     </div>
+
+<%--                    <div class="user-info">--%>
+<%--                        <!-- bottone che reindirizza alla wishlist -->--%>
+<%--                        <button id="wishlistButton" class="edit-button"--%>
+<%--                                onclick="window.location.href='wishList.jsp'">Wishlist--%>
+<%--                        </button>--%>
+<%--                    </div>--%>
                     <% } catch (SQLException s) {
                         s.printStackTrace();
                         throw new RuntimeSQLException("Errore durante il recupero delle informazioni utente", s);
