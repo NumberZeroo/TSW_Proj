@@ -70,12 +70,18 @@
             </p>
         </div>
 
-        <a href="<%=request.getContextPath() + "/removeFromWishlist?id=" + product.getId()%>">
-            <i class="fas fa-trash"></i>
-        </a>
-        <!-- bottore per aggiungere al carrello -->
-        <input type="number" id="quantity" name="quantity" value="1" style="display: none">
-        <button class="addToCartButton" data-product-id="<%=product.getId()%>"><i class="fa-solid fa-cart-plus"></i></button>
+        <div class="button-group">
+            <!-- form per rimuovere il prodotto dalla wishlist -->
+            <form action="${pageContext.request.contextPath}/removeFromWishlistServlet" method="post">
+                <input type="hidden" name="productId" value="<%=product.getId()%>">
+                <button class="removeWishlistItem"><i class="fas fa-trash"></i></button>
+            </form>
+
+            <!-- form per aggiungere il prodotto al carrello -->
+            <input type="number" id="quantity_<%=product.getId()%>" name="quantity" value="1" style="display: none">
+            <button class="addToCartBtn" data-product-id="<%=product.getId()%>"
+                    data-quantity-id="quantity_<%=product.getId()%>"><i class="fas fa-cart-arrow-down"></i></button>
+        </div>
     </div>
     <% } %>
 </div>
@@ -100,7 +106,7 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/scripts/addToCart.js" type="module"></script>
+<script src="${pageContext.request.contextPath}/scripts/addToCartWishList.js" type="module"></script>
 <%@include file="footer.jsp" %>
 </body>
 </html>

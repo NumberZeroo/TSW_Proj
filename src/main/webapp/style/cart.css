@@ -138,6 +138,34 @@ h2 {
 }
 
 .fa-trash:hover{
-    color: #ff0000;
+    color: #ff6600;
 }
 
+.addToCartBtn {
+    background: none; /* Rimuove lo sfondo */
+    border: none; /* Rimuove il bordo */
+    color: #50b3a2; /* Imposta il colore dell'icona */
+    font-size: 1.5em; /* Imposta la dimensione dell'icona */
+    vertical-align: middle; /* Allinea verticalmente l'icona */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    transition: color 0.3s ease; /* Aggiunge un'animazione al cambio di colore */
+}
+
+.addToCartBtn:hover {
+    color: #ff6600; /* Cambia il colore dell'icona al passaggio del mouse */
+}
+
+.addToCartBtn:disabled {
+    color: #ccc; /* Cambia il colore dell'icona quando il pulsante è disabilitato */
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Aggiunge spazio tra i pulsanti */
+}
+
+.removeWishlistItem {
+    border: none;
+    background-color: transparent;
+}

@@ -66,7 +66,11 @@ window.onload = function () {
 
 <div class="product-details">
     <div class="product-image">
-        <img src="<%=prodotto.getImgPath()%>" alt="<%=prodotto.getNome()%>">
+        <img src="<%=prodotto.getImgPath()%>" alt="Immagine non disponibile">
+        <form action="${pageContext.request.contextPath}/addToWishlistServlet" method="post">
+            <input type="hidden" name="productId" value="<%=prodotto.getId()%>">
+            <button class="addToWishlistButton"><i class="far fa-heart"></i></button>
+        </form>
     </div>
     <div class="product-info-specs">
         <!-- Nuovo div che raggruppa le informazioni del prodotto e le specifiche del prodotto -->
@@ -122,13 +126,13 @@ window.onload = function () {
         </div>
     </div>
 
-    <div class="addToWishlist">
-        <form action="${pageContext.request.contextPath}/addToWishlistServlet" method="post">
-            <input type="hidden" name="productId" value="<%=prodotto.getId()%>">
-            <input type="hidden" name="userId" value="<%=sessionFacade.getUserId()%>">
-            <button class="addToWishlistButton" data-product-id="<%=prodotto.getId()%>">Aggiungi alla Wishlist</button>
-        </form>
-    </div>
+<%--    <div class="addToWishlist">--%>
+<%--        <form action="${pageContext.request.contextPath}/addToWishlistServlet" method="post">--%>
+<%--            <input type="hidden" name="productId" value="<%=prodotto.getId()%>">--%>
+<%--            <input type="hidden" name="userId" value="<%=sessionFacade.getUserId()%>">--%>
+<%--            <button class="addToWishlistButton" data-product-id="<%=prodotto.getId()%>">Aggiungi alla Wishlist</button>--%>
+<%--        </form>--%>
+<%--    </div>--%>
 
     <div class="addToCart">
         <h3>Disponibilità: <%=prodotto.getDisponibilita()%>

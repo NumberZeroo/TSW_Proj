@@ -74,4 +74,13 @@ public long doSave(WishlistItemBean wishlistItem) throws SQLException {
     public boolean doDelete(Long code) throws SQLException {
         return false;
     }
+
+    public boolean doDelete(long wishlistId, long productId) throws SQLException {
+        try (PreparedStatement ps = connection.prepareStatement(
+                "DELETE FROM WishlistItem WHERE IdWishlist = ? AND idProdotto = ?")) {
+            ps.setLong(1, wishlistId);
+            ps.setLong(2, productId);
+            return ps.executeUpdate() > 0;
+        }
+    }
 }
