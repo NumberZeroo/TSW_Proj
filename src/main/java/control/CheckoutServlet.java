@@ -26,7 +26,6 @@ public class CheckoutServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO 3:  Implementa creazione di fattura
         SessionFacade session = new SessionFacade(req.getSession());
         if (!session.isLoggedIn()) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -49,13 +48,15 @@ public class CheckoutServlet extends HttpServlet {
         OrdineBean ordine = new OrdineBean();
         ordine.setIdInfoConsegna(idInfoConsegna);
         ordine.setIdUtente(session.getUserId());
-        ordine.setPathFattura("/not/yet/implemented");
 
         long idOrdine;
         try(OrdineDAO ordineDAO = new OrdineDAO()) {
             idOrdine = ordineDAO.doSave(ordine);
         } catch (SQLException e) {
-            throw new RuntimeSQLException("Errore durante la creazione dell'ordine", e);
+            System.out.println("Errore durante la creazione dell'ordine");
+            e.printStackTrace();
+            req.setAttribute("status", "error");
+            return;
         }
 
         // 3. Crea gli orderItem
@@ -66,9 +67,15 @@ public class CheckoutServlet extends HttpServlet {
             try(OrdineDAO ordineDAO = new OrdineDAO()) {
                 ordineDAO.doDelete(idOrdine);
             }catch (SQLException s){
-                throw new RuntimeSQLException("Errore durante la procedura di free", s);
+                System.out.println("Errore durante la procedura di free");
+                s.printStackTrace();
+                req.setAttribute("status", "error");
+                return;
             }
-            throw new RuntimeSQLException("Errore durante la determinazione degli articoli", e);
+            System.out.println("Errore durante la determinazione degli articoli");
+            e.printStackTrace();
+            req.setAttribute("status", "error");
+            return;
         }
 
         List<OrderItemBean> itemsToBuy = new LinkedList<>();
@@ -90,9 +97,15 @@ public class CheckoutServlet extends HttpServlet {
             try(OrdineDAO ordineDAO = new OrdineDAO()) {
                 ordineDAO.doDelete(idOrdine);
             } catch (SQLException ex) {
-                throw new RuntimeSQLException("Errore durante la procedura di free", e);
+                System.out.println("Errore durante la procedura di free");
+                ex.printStackTrace();
+                req.setAttribute("status", "error");
+                return;
             }
-            throw new RuntimeSQLException("Errore nel salvataggio dei prodotti dell'ordine", e);
+            System.out.println("Errore nel salvataggio dei prodotti dell'ordine");
+            e.printStackTrace();
+            req.setAttribute("status", "error");
+            return;
         }
 
         // 4. Decrementa disponibilità
@@ -103,15 +116,22 @@ public class CheckoutServlet extends HttpServlet {
             try(OrdineDAO ordineDAO = new OrdineDAO()) {
                 ordineDAO.doDelete(idOrdine); // OrderItems eliminati per CASCADE
             } catch (SQLException ex) {
-                throw new RuntimeSQLException("Errore durante la procedura di free", e);
+                System.out.println("Errore durante la procedura di free");
+                ex.printStackTrace();
+                req.setAttribute("status", "error");
+                return;
             }
-            throw new RuntimeSQLException("Errore nel salvataggio dei prodotti dell'ordine", e);
+            System.out.println("Errore nel salvataggio dei prodotti dell'ordine");
+            e.printStackTrace();
+            req.setAttribute("status", "error");
+            return;
         }
 
         // 5. Svuota carrello
         session.removeAllCartProducts();
 
-        resp.sendRedirect(req.getContextPath() + "/greetings.jsp");
+        // resp.sendRedirect(req.getContextPath() + "/greetings.jsp");
+        req.setAttribute("status", "success");
     }
 
     @Override

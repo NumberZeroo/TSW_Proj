@@ -47,7 +47,7 @@ export function updatePage(infos) {
             }
         });
     }
-    document.getElementById("checkout-btn").disabled = false;
+    // document.getElementById("checkout-btn").disabled = false;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -89,16 +89,4 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-
-    let submitForm = document.getElementById('submit-form');
-    submitForm.addEventListener("submit", function (){
-        let shipmentInfoForm = document.getElementById("shipment-info-form");
-        let radioSelections = shipmentInfoForm.querySelectorAll("input");
-        let option = document.getElementById("selected-option");
-        radioSelections.forEach(function(radio) {
-            if (radio.checked) {
-                option.value = radio.value;
-            }
-        })
-    })
 });

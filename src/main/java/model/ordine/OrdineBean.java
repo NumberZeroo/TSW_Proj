@@ -7,7 +7,6 @@ public class OrdineBean implements Serializable {
     private long id;
     private long idUtente;
     private long idInfoConsegna;
-    private String pathFattura;
     private Date data;
 
     public Date getData() {
@@ -36,14 +35,6 @@ public class OrdineBean implements Serializable {
         this.idUtente = idUtente;
     }
 
-    public String getPathFattura() {
-        return pathFattura;
-    }
-
-    public void setPathFattura(String pathFattura) {
-        this.pathFattura = pathFattura;
-    }
-
     public long getIdInfoConsegna() {
 
         return idInfoConsegna;
@@ -59,7 +50,6 @@ public class OrdineBean implements Serializable {
                 "id=" + id +
                 ", idUtente=" + idUtente +
                 ", idInfoConsegna=" + idInfoConsegna +
-                ", pathFattura='" + pathFattura + '\'' +
                 '}';
     }
 }
