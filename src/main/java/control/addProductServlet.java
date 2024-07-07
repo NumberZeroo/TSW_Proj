@@ -28,7 +28,7 @@ public class addProductServlet extends HttpServlet {
 
         Part filePart = request.getPart("imgPath");
         // Percorso dove salvare il file
-        String uploadDir = getServletContext().getRealPath("") + File.separator + "img";
+        String uploadDir = getServletContext().getRealPath("") + File.separator + "img" + File.separator + "products";
         File uploadDirFile = new File(uploadDir);
         if (!uploadDirFile.exists()) {
             uploadDirFile.mkdir();
@@ -41,7 +41,7 @@ public class addProductServlet extends HttpServlet {
             Files.copy(fileContent, file.toPath());
         }
 
-        String imgPath = "img/" + fileName;
+        String imgPath = "img/products/" + fileName;
 
         // Crea un nuovo oggetto ProdottoBean
         ProdottoBean prodotto = new ProdottoBean();

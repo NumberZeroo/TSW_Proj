@@ -18,7 +18,7 @@
 <%@ include file="navbar.jsp" %>
 
 <div class="content profile-container">
-        <% SessionFacade sessionFacade = new SessionFacade(request.getSession()); %>
+    <% SessionFacade sessionFacade = new SessionFacade(request.getSession()); %>
     <div class="menu-row">
         <button id="infoButton">Elenco utenti</button>
         <%--        <button id="ordersButton">Disponibiltà</button>--%>
@@ -125,9 +125,39 @@
             </div>
 
             <div id="allOrderSection" class="allOrderSection" style="display: none;">
-                <h1>Ordini</h1>
+                <div class="allOrderHeader">
+                    <h1>Ordini</h1>
+                    <form id="orderByDate" method="post" enctype="multipart/form-data"
+                          action="${pageContext.request.contextPath}/orderByDate">
+                        <div class="dateDiv">
+                            <label for="startDate">Inizia:</label>
+                            <input id="startDate" type="date" name="startDate">
+                        </div>
+                        <div class="dateDiv">
+                            <label for="endDate"> Fino a:</label>
+                            <input id="endDate" type="date" name="endDate">
+                        </div>
+                        <input type="submit" class="allOrderButton" value="Filtra">
+                    </form>
+                </div>
                 <% try (OrdineDAO ordineDAO = new OrdineDAO(); OrderItemDAO orderItemDAO = new OrderItemDAO()) {
-                    List<OrdineBean> ordini = (List<OrdineBean>) ordineDAO.doRetrieveAll("ASC");
+                    String startDate = request.getParameter("startDate");
+                    String endDate = request.getParameter("endDate");
+
+                    if (startDate == null || endDate == null) {
+                        startDate = "";
+                        endDate = "";
+                    }
+
+                    List<OrdineBean> ordini = (List<OrdineBean>) ordineDAO.doRetrieveByDate(startDate, endDate);
+                    if (ordini.isEmpty()) { %>
+                        <div class="empty-order">
+                            <i class="fas fa-box-open"></i>
+                            <p>I clienti non hanno effettuato ordini...</p>
+                        </div>
+                 <% } %>
+                <%
+
                     Collection<OrderItemBean> orderItems = null;
                     for (OrdineBean ordine : ordini) {
                         orderItems = orderItemDAO.doRetrieveByOrder(ordine.getId());
@@ -186,92 +216,93 @@
             </div>
         </div>
     </div>
+</div>
 
-    <%@ include file="footer.jsp" %>
+<%@ include file="footer.jsp" %>
 
-    <script>
-        function showForm(productId) {
-            var form = document.getElementById('refillForm' + productId);
-            var button = document.querySelector('.refillButton[data-id="' + productId + '"]');
-            if (form.style.display === 'none') {
-                form.style.display = 'block';
-                button.style.display = 'none';
-            } else {
-                form.style.display = 'none';
-                button.style.display = 'block';
-            }
+<script>
+    function showForm(productId) {
+        var form = document.getElementById('refillForm' + productId);
+        var button = document.querySelector('.refillButton[data-id="' + productId + '"]');
+        if (form.style.display === 'none') {
+            form.style.display = 'block';
+            button.style.display = 'none';
+        } else {
+            form.style.display = 'none';
+            button.style.display = 'block';
         }
-    </script>
+    }
+</script>
 
-    <script>
-        // Seleziona i pulsanti e le sezioni
-        let infoButton = document.getElementById('infoButton');
-        // let ordersButton = document.getElementById('ordersButton');
+<script>
+    // Seleziona i pulsanti e le sezioni
+    let infoButton = document.getElementById('infoButton');
+    // let ordersButton = document.getElementById('ordersButton');
 
-        let infoSection = document.getElementById('infoSection');
-        // let ordersSection = document.getElementById('ordersSection');
+    let infoSection = document.getElementById('infoSection');
+    // let ordersSection = document.getElementById('ordersSection');
 
-        let availabilityButton = document.getElementById('availabilityButton');
-        let availabilitySection = document.getElementById('availabilitySection');
+    let availabilityButton = document.getElementById('availabilityButton');
+    let availabilitySection = document.getElementById('availabilitySection');
 
-        let allOrderButton = document.getElementById('allOrderButton');
-        let allOrderSection = document.getElementById('allOrderSection');
+    let allOrderButton = document.getElementById('allOrderButton');
+    let allOrderSection = document.getElementById('allOrderSection');
 
-        availabilityButton.addEventListener('click', function () {
-            showSection('availabilitySection');
-        });
+    availabilityButton.addEventListener('click', function () {
+        showSection('availabilitySection');
+    });
 
-        allOrderButton.addEventListener('click', function () {
-            showSection('allOrderSection');
-        });
+    allOrderButton.addEventListener('click', function () {
+        showSection('allOrderSection');
+    });
 
-        // Funzione per nascondere tutte le sezioni
-        function hideAllSections() {
-            infoSection.style.display = 'none';
-            availabilitySection.style.display = 'none';
-            allOrderSection.style.display = 'none';
-            // ordersSection.style.display = 'none';
-        }
+    // Funzione per nascondere tutte le sezioni
+    function hideAllSections() {
+        infoSection.style.display = 'none';
+        availabilitySection.style.display = 'none';
+        allOrderSection.style.display = 'none';
+        // ordersSection.style.display = 'none';
+    }
 
-        // Funzione per mostrare una sezione specifica
-        function showSection(sectionId) {
-            hideAllSections();
-            let section = document.getElementById(sectionId);
-            section.style.display = 'block';
-        }
+    // Funzione per mostrare una sezione specifica
+    function showSection(sectionId) {
+        hideAllSections();
+        let section = document.getElementById(sectionId);
+        section.style.display = 'block';
+    }
 
-        // Aggiungi gestori di eventi di click ai pulsanti
-        infoButton.addEventListener('click', function () {
-            showSection('infoSection');
-        });
-
-        // ordersButton.addEventListener('click', function () {
-        //     showSection('ordersSection');
-        // });
-
+    // Aggiungi gestori di eventi di click ai pulsanti
+    infoButton.addEventListener('click', function () {
         showSection('infoSection');
-    </script>
+    });
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        function confirmChangeAdmin(event, userId, makeAdmin) {
-            event.preventDefault();  // Previene l'invio del form
-            var form = event.target.form;  // Ottiene il form
+    // ordersButton.addEventListener('click', function () {
+    //     showSection('ordersSection');
+    // });
 
-            swal({
-                title: "Sei sicuro?",
-                text: "Vuoi davvero cambiare il ruolo di questo utente?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willChange) => {
-                    if (willChange) {
-                        form.submit();  // Invia il form
-                    }
-                });
-        }
-    </script>
+    showSection('allOrderSection');
+</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    function confirmChangeAdmin(event, userId, makeAdmin) {
+        event.preventDefault();  // Previene l'invio del form
+        var form = event.target.form;  // Ottiene il form
+
+        swal({
+            title: "Sei sicuro?",
+            text: "Vuoi davvero cambiare il ruolo di questo utente?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willChange) => {
+                if (willChange) {
+                    form.submit();  // Invia il form
+                }
+            });
+    }
+</script>
 
 </body>
 </html>

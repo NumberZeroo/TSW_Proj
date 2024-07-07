@@ -249,6 +249,7 @@ body {
 }
 
 .adminButton {
+    margin-left: 9px;
     margin-top: 10px;
     margin-bottom: 0;
     background-color: #50b3a2; /* Sfondo blu */

@@ -83,7 +83,8 @@
             </div>
         </div>
 
-        <a href="<%=request.getContextPath() + "/removeFromCart?id=" + entry.getKey().getIdProdotto()%>">Rimuovi</a>
+
+        <a href="<%=request.getContextPath() + "/removeFromCart?id=" + entry.getKey().getIdProdotto()%>"><i class="fas fa-trash"></i></a>
     </div>
     <%}%>
 </div>
