@@ -59,12 +59,12 @@ VALUES ('Collare per cani', 1, 1, 15.99, 1, '22'),
        ('Gioco per gatti', 2, 3, 12.99, 2, '22'),
        ('Mangiatoia per uccelli', 3, 3, 9.99, 3, '22');
 
-INSERT INTO CartItem (idProdotto, IdCarrello, Quantita)
-VALUES (1, 1, 2),
-       (2, 1, 1),
-       (3, 2, 4),
-       (4, 3, 1),
-       (5, 3, 1);
+INSERT INTO CartItem (idProdotto, IdCarrello, Quantita, Nome)
+VALUES (1, 1, 2, "Collare per Cani"),
+       (2, 1, 1, "Gioco per cani"),
+       (3, 2, 4, "Mangiatoia per uccelli"),
+       (4, 3, 1, "Cuccia per cani"),
+       (5, 3, 1, "Tiragraffi per gatti");
 
 INSERT INTO Recensione (idUtente, titolo, commento, valutazione, data, idProdotto)
 VALUES (1, 'Great Dog Collar', 'My dog loves this collar!', 4.5, '2023-06-01', 1),
