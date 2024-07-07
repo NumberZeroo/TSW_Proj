@@ -28,18 +28,25 @@
             <div id="ordersSection">
                 <h1>Storico Ordini</h1>
                 <%
-                    long userId = Long.parseLong(request.getParameter("userId"));
-                    try (OrdineDAO ordineDAO = new OrdineDAO(); OrderItemDAO orderItemDAO = new OrderItemDAO()) {
-                        Collection<OrdineBean> ordini = ordineDAO.doRetrieveByUser(userId);
-                        Collection<OrderItemBean> orderItems = null;
-                        for (OrdineBean ordine : ordini) {
-                            orderItems= orderItemDAO.doRetrieveByOrder(ordine.getId());
+                    try (OrderItemDAO orderItemDAO = new OrderItemDAO()) {
+                        Collection<OrdineBean> ordini = (Collection<OrdineBean>) request.getAttribute("ordini");
+                        if (ordini.isEmpty()) { %>
+                            <div class="empty-order">
+                                <i class="fas fa-box-open"></i>
+                                <p>Il cliente non ha effettuato nessun ordine</p>
+                            </div>
+                        <% } %>
+                <%
+                    Collection<OrderItemBean> orderItems = null;
+                    for (OrdineBean ordine : ordini) {
+                        orderItems = orderItemDAO.doRetrieveByOrder(ordine.getId());
                 %>
                 <div class="order-box">
                     <div class="order-header">
                         <p>Data Ordine: <%= ordine.getData() %>
                         </p>
-                        <p>Totale Ordine: <%= orderItems.stream().map(OrderItemBean::getPrezzo).reduce(Double::sum).orElse(0.0) %> <!-- todo Totale Ordine:   -->
+                        <p>Totale
+                            Ordine: <%= orderItems.stream().map(OrderItemBean::getPrezzo).reduce(Double::sum).orElse(0.0) %>
                         </p>
                         <p>ID Ordine: <%= ordine.getId() %>
                         </p>

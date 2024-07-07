@@ -42,7 +42,7 @@ public class addPetServlet extends HttpServlet {
 
         Part filePart = request.getPart("imgPath");
         // Percorso dove salvare il file
-        String uploadDir = getServletContext().getRealPath("") + File.separator + "img";
+        String uploadDir = getServletContext().getRealPath("") + File.separator + "img" + File.separator + "pets";
         File uploadDirFile = new File(uploadDir);
         if (!uploadDirFile.exists()) {
             uploadDirFile.mkdir();
@@ -55,7 +55,7 @@ public class addPetServlet extends HttpServlet {
             Files.copy(fileContent, file.toPath());
         }
 
-        String imgPath = "img/" + fileName;
+        String imgPath = "img/pets/" + fileName;
 
         // Prendi l'id dell'utente loggato
         pet.setIdUtente(sessionFacade.getUserId());

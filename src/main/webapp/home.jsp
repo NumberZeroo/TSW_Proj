@@ -35,7 +35,7 @@
             <button class="scroll-button left"><i class="fas fa-chevron-left"></i></button>
             <div class="product-container gallery">
                 <% try (ProdottoDAO prodottoDAO = new ProdottoDAO()) {
-                    List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory("Alimentazione");
+                    List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory("Alimentari");
 
                     for (ProdottoBean prod : prodottiConsigliati) {
                         if (prod.isVisibile()) {%>

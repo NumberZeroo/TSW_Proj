@@ -48,7 +48,7 @@
     <div class="product-grid-new">
         <%for (ProdottoBean prodotto : prodotti) { %>
         <div class="product-card-new">
-            <div class="product-image-new">
+            <div class="product-image-new" style="border-radius: 20px">
                 <a href="product?id=<%=prodotto.getId()%>">
                     <img src="<%= prodotto.getImgPath() %>" alt="Immagine">
                 </a>

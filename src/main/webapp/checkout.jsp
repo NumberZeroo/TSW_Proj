@@ -32,7 +32,7 @@
         <div class="popup-box">
             <span class="close-popup" onclick="togglePopup()">&times;</span>
             <form id="popout-form-container">
-                <label class="form-label" for="destinatario">Destinatario</label>
+                <label class="form-label" for="destinatario">Destinatario:</label>
                 <input class="form-input" type="text" id="destinatario" name="destinatario" placeholder="Destinatario" required>
                 <label class="form-label" for="citta">Città: </label>
                 <input class="form-input" type="text" id="citta" name="citta" placeholder="Città" required>
