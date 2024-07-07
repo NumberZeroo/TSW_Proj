@@ -41,6 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 var response = JSON.parse(xhr.responseText);
                 if (response.status === "success"){
                     showNotification("Operazione effettuata", "success");
+                    document.getElementById("can-buy").value = "1";
+                    console.log("Ora puoi comprare (appena aggiunto metodo di pagamento)!");
                     jsonObject['id'] = response.id;
                     updatePage(new Array(jsonObject));
                 } else {

@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         var response = JSON.parse(xhr.responseText);
                     } catch(e){
                         console.log(e)
-                        console.log("mannagg")
                     }
                     if (response.status === 'success') {
                         feedback = 'Prodotto aggiunto al carrello!';
