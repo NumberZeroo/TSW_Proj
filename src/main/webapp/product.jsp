@@ -19,6 +19,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/popupFeedback.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/product.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/starRating.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/scrollableContainer.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/defaultProductAdvices.css">
 </head>
 
 <body>
@@ -127,13 +129,13 @@ window.onload = function () {
         </div>
     </div>
 
-<%--    <div class="addToWishlist">--%>
-<%--        <form action="${pageContext.request.contextPath}/addToWishlistServlet" method="post">--%>
-<%--            <input type="hidden" name="productId" value="<%=prodotto.getId()%>">--%>
-<%--            <input type="hidden" name="userId" value="<%=sessionFacade.getUserId()%>">--%>
-<%--            <button class="addToWishlistButton" data-product-id="<%=prodotto.getId()%>">Aggiungi alla Wishlist</button>--%>
-<%--        </form>--%>
-<%--    </div>--%>
+    <%--    <div class="addToWishlist">--%>
+    <%--        <form action="${pageContext.request.contextPath}/addToWishlistServlet" method="post">--%>
+    <%--            <input type="hidden" name="productId" value="<%=prodotto.getId()%>">--%>
+    <%--            <input type="hidden" name="userId" value="<%=sessionFacade.getUserId()%>">--%>
+    <%--            <button class="addToWishlistButton" data-product-id="<%=prodotto.getId()%>">Aggiungi alla Wishlist</button>--%>
+    <%--        </form>--%>
+    <%--    </div>--%>
 
     <div class="addToCart">
         <h3>Disponibilità: <%=prodotto.getDisponibilita()%>
@@ -170,18 +172,18 @@ window.onload = function () {
         <div class="review-form-header">
             <label for="titolo">Titolo:</label>
             <input autofocus type="text" id="titolo" name="titolo" required>
-           <!--
-            <label for="valutazione">Valutazione:</label>
-            <input type="number" id="valutazione" name="valutazione" min="1" max="5" required>
-            -->
+            <!--
+             <label for="valutazione">Valutazione:</label>
+             <input type="number" id="valutazione" name="valutazione" min="1" max="5" required>
+             -->
             <label class="rating-label">
                 <input
-                    class="rating"
-                    max="5"
-                    oninput="this.style.setProperty('--value', this.value)"
-                    step="0.5"
-                    type="range"
-                    value="1" name="valutazione">
+                        class="rating"
+                        max="5"
+                        oninput="this.style.setProperty('--value', this.value)"
+                        step="0.5"
+                        type="range"
+                        value="1" name="valutazione">
             </label>
         </div>
         <label for="commento">Commento:</label>
@@ -233,7 +235,9 @@ window.onload = function () {
         <% } %>
         <h4>Utente n.<%=recensione.getIdUtente()%>
         </h4>
-        <h3 style="display: inline-block"><%=recensione.getTitolo()%></h3> <input class="rating inline" max="5" step="0.5" type="range" name="valutazione" disabled style="--starsize: 1.5rem; --value: <%=recensione.getValutazione()%>" >
+        <h3 style="display: inline-block"><%=recensione.getTitolo()%>
+        </h3> <input class="rating inline" max="5" step="0.5" type="range" name="valutazione" disabled
+                     style="--starsize: 1.5rem; --value: <%=recensione.getValutazione()%>">
 
         <style>
             .inline {
@@ -255,26 +259,12 @@ window.onload = function () {
 </div>
 
 <%-- Visualizza i prodotti consigliati --%>
-<h2 style="font-style: italic">Potrebbe piacerti...</h2> <!-- TODO: cambia con gallery -->
-<div class="recommended-products">
-    <% try (ProdottoDAO prodottoDAO = new ProdottoDAO()) {
-        List<ProdottoBean> prodottiConsigliati = (List<ProdottoBean>) prodottoDAO.doRetrieveAllByCategory(prodotto.getCategoria());
-
-        for (ProdottoBean prod : prodottiConsigliati) {
-            if (prod.getId() != prodotto.getId() && prod.isVisibile()) { %>
-    <div class="product">
-        <a href="product?id=<%=prod.getId()%>">
-            <img src="<%=prod.getImgPath()%>" alt="<%=prod.getNome()%>">
-            <h4><%=prod.getNome()%>
-            </h4>
-        </a>
-        <p>Prezzo: <%=prod.getPrezzo()%> €</p>
-    </div>
-    <% }
-    }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }%>
+<h2 style="font-style: italic">Potrebbe piacerti...</h2>
+<script src="${pageContext.request.contextPath}/scripts/scrollController.js"></script>
+<div class="scroll-container">
+    <button class="scroll-button left"><i class="fas fa-chevron-left"></i></button>
+    <%@include file="productAdvices.jsp" %>
+    <button class="scroll-button right"><i class="fas fa-chevron-right"></i></button>
 </div>
 
 <script src="${pageContext.request.contextPath}/scripts/addToCart.js" type="module"></script>

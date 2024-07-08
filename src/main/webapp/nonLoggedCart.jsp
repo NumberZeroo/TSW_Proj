@@ -65,7 +65,7 @@
             <img src="<%=entry.getKey().getImgPath()%>" alt="Immagine non disponibile">
         </div>
         <div class="item-details">
-            <h2 class="item-name"><%=entry.getKey().getNome()%></h2>
+            <h3 class="item-name"><%=entry.getKey().getNome()%></h3>
             <p class="item-description"><%=entry.getKey().getDescrizione()%></p>
             <p class="item-price"><%=entry.getKey().getPrezzo()%></p>
             <div class="item-quantity">

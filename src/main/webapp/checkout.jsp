@@ -94,7 +94,7 @@
                 <% } %>
 
                 <p>Prezzo totale:</p>
-                <div id="total-price"><%=products.entrySet().stream().mapToDouble(e -> e.getKey().getPrezzo() * e.getValue()).sum()%></div>
+                <div id="total-price"><%=products.entrySet().stream().mapToDouble(e -> e.getKey().getPrezzoConIva() * e.getValue()).sum()%></div>
 
                 <!-- Inizio form pagamento -->
                 <div id="paypal-button-container" class="paypal-button-container"></div>

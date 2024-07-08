@@ -140,6 +140,10 @@ public class ProdottoBean implements Serializable {
         this.tipoAnimale = tipoAnimale;
     }
 
+    public double getPrezzoConIva() {
+        return getPrezzo() + (getPrezzo() * (Double.parseDouble(getIva()) / 100));
+    }
+
     @Override
     public String toString() {
         return "Prodotto{" +

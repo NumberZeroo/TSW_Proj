@@ -32,9 +32,9 @@
 
             <div class="d-flex">
                 <div class="search-container">
-                    <form class="search-form">
+                    <form class="search-form" onsubmit="return false;">
                         <input class="search-input" type="search" placeholder="Cerca..." aria-label="Search">
-                        <button class="search-button" type="submit">
+                        <button class="search-button">
                             <i class="fas fa-search"></i>
                         </button>
                         <div class="resultBox">
