@@ -29,8 +29,8 @@ import java.util.List;
 @WebServlet("/api/orders")
 public class CreateOrderServlet extends HttpServlet {
     private static final String BASE_URL = "https://api-m.sandbox.paypal.com";
-    private static final String CLIENT_ID = "AWUHjqNECnmgNFbH28CdbyYwryJsLlK33GzPPrNsk0Qo2-bW8bnCvK8DRPGmlSlMILLQi_gc2V25Vt0z";
-    private static final String CLIENT_SECRET = "EJgymao5kio_S2QN6hc5xamny24zSeiKuDoHXR2IWD-CKqNU_dhPXs_Az-aOgfJx0YRdJheHtIRtxmZU";
+    private static final String CLIENT_ID = "CLIENT-ID";
+    private static final String CLIENT_SECRET = "CLIENT-SECRET";
 
     private String generateAccessToken() throws IOException {
 
